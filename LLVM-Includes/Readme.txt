@@ -1,0 +1,2 @@
+These are just direct copies of the Headerfiles from the LLVM-Repository. 
+In future versions it'll be simpler to detect the changes i'll have to make to the Pas-Files by updating the headers here aswell.
