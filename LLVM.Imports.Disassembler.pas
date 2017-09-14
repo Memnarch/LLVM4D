@@ -8,7 +8,6 @@ uses
   LLVM.Imports,
   LLVM.Imports.Types;
 
-{$Hints off}
 type
   TLLVMDisasmContextRef = type TLLVMRef;
 

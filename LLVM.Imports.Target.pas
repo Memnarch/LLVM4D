@@ -9,7 +9,7 @@ uses
   LLVM.Imports.Types;
 
 {$MINENUMSIZE 4}
-{$Hints off}
+
 type
   TLLVMByteOrdering = (LLVMBigEndian, LLVMLittleEndian);
 
