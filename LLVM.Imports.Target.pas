@@ -1,12 +1,12 @@
-unit LLVM4D.Imports.Target;
+unit LLVM.Imports.Target;
 
 interface
 
 //based on Target.h
 
 uses
-  LLVM4D.Imports,
-  LLVM4D.Imports.Types;
+  LLVM.Imports,
+  LLVM.Imports.Types;
 
 {$MINENUMSIZE 4}
 {$Hints off}

@@ -1,4 +1,4 @@
-unit LLVM4D.Imports;
+unit LLVM.Imports;
 
 interface
 

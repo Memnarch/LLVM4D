@@ -1,19 +1,16 @@
-unit LLVM4D.Imports.Disassembler;
+unit LLVM.Imports.Disassembler;
 
 interface
 
 //based on Disassembler.h
 
 uses
-  LLVM4D.Imports,
-  LLVM4D.Imports.Types;
+  LLVM.Imports,
+  LLVM.Imports.Types;
 
 {$Hints off}
 type
-  TLLVMDisasmContextRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMDisasmContextRef = type TLLVMRef;
 
   TLLVMOpInfoCallback = function(DisInfo: Pointer; PC: UInt64; Offset: UInt64; Size: UInt64; TagType: Integer; TagBuf: Pointer): LongBool; cdecl;
 

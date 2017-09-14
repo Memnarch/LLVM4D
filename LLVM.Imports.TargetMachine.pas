@@ -1,13 +1,13 @@
-unit LLVM4D.Imports.TargetMachine;
+unit LLVM.Imports.TargetMachine;
 
 interface
 
 //based on TargetMachine.h
 
 uses
-  LLVM4D.Imports,
-  LLVM4D.Imports.Target,
-  LLVM4D.Imports.Types;
+  LLVM.Imports,
+  LLVM.Imports.Target,
+  LLVM.Imports.Types;
 
 type
   TLLVMTargetMachineRef = type TLLVMRef;

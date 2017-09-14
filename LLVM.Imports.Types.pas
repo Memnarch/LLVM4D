@@ -1,11 +1,11 @@
-unit LLVM4D.Imports.Types;
+unit LLVM.Imports.Types;
 
 interface
 
 //based on Types.h
 
 uses
-  LLVM4D.Imports;
+  LLVM.Imports;
 
 type
   TLLVMBool = packed record

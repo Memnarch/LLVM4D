@@ -1,12 +1,12 @@
-unit LLVM4D.Imports.InitFunctions;
+unit LLVM.Imports.InitFunctions;
 
 interface
 
 //based on Initialization.h
 
 uses
-  LLVM4D.Imports,
-  LLVM4D.Imports.Types;
+  LLVM.Imports,
+  LLVM.Imports.Types;
 
 procedure LLVMInitializeCore(R: TLLVMPassRegistryRef); cdecl; external CLLVMLibrary;
 procedure LLVMInitializeTransformUtils(R: TLLVMPassRegistryRef); cdecl; external CLLVMLibrary;

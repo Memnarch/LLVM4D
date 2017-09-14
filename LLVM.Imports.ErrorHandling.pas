@@ -1,11 +1,11 @@
-unit LLVM4D.Imports.ErrorHandling;
+unit LLVM.Imports.ErrorHandling;
 
 interface
 
 //based on ErrorHandling.h
 
 uses
-  LLVM4D.Imports;
+  LLVM.Imports;
 
 type
   TLLVMFatalErrorHandler = procedure(const Reason: PLLVMChar); cdecl;

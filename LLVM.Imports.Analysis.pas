@@ -1,12 +1,12 @@
-unit LLVM4D.Imports.Analysis;
+unit LLVM.Imports.Analysis;
 
 interface
 
 //based on Analysis.h
 
 uses
-  LLVM4D.Imports,
-  LLVM4D.Imports.Types;
+  LLVM.Imports,
+  LLVM.Imports.Types;
 
 {$MINENUMSIZE 4}
 

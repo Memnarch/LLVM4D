@@ -1,12 +1,12 @@
-unit LLVM4D.Imports.BitReader;
+unit LLVM.Imports.BitReader;
 
 interface
 
 //based on BitReader.h
 
 uses
-  LLVM4D.Imports,
-  LLVM4D.Imports.Types;
+  LLVM.Imports,
+  LLVM.Imports.Types;
 
 //LLVMParseBitcode is deprecated, therefore we implement only LLVMParseBitcode2, but as LLVMParseBitcode
 function LLVMParseBitcode(MemBuf: TLLVMMemoryBufferRef; out OutModule: TLLVMModuleRef): TLLVMBool; cdecl; external CLLVMLibrary name 'LLVMParseBitcode2';

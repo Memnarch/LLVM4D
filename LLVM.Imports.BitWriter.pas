@@ -1,4 +1,4 @@
-unit LLVM4D.Imports.BitWriter;
+unit LLVM.Imports.BitWriter;
 
 interface
 
@@ -6,8 +6,8 @@ interface
 
 uses
   Types,
-  LLVM4D.Imports,
-  LLVM4D.Imports.Types;
+  LLVM.Imports,
+  LLVM.Imports.Types;
 
 function LLVMWriteBitcodeToFile(M: TLLVMModuleRef; const Path: PLLVMChar): TLLVMBool; cdecl; external CLLVMLibrary;
 
