@@ -13,15 +13,9 @@ uses
 type
   TLLVMByteOrdering = (LLVMBigEndian, LLVMLittleEndian);
 
-  TLLVMTargetDataRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMTargetDataRef = type TLLVMRef;
 
-  TLLVMTargetLibraryInfoRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMTargetLibraryInfoRef = type TLLVMRef;
 
 
 //LLVM supports macros to generate the functions to import

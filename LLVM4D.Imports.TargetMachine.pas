@@ -9,17 +9,10 @@ uses
   LLVM4D.Imports.Target,
   LLVM4D.Imports.Types;
 
-{$Hints off}
 type
-  TLLVMTargetMachineRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMTargetMachineRef = type TLLVMRef;
 
-  TLLVMTargetRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMTargetRef = type TLLVMRef;
 
 {$MINENUMSIZE 4}
   TLLVMCodeGenOptLevel = (

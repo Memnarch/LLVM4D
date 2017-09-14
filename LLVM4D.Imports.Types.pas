@@ -4,8 +4,8 @@ interface
 
 //based on Types.h
 
-//our Data Pointer is private right now and not used. We just wrap the references in records to allow helpers
-{$Hints off}
+uses
+  LLVM4D.Imports;
 
 type
   TLLVMBool = packed record
@@ -13,80 +13,35 @@ type
     class operator Implicit(const AValue: TLLVMBool): Boolean;
   end;
 
-  TLLVMMemoryBufferRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMMemoryBufferRef = type TLLVMRef;
 
-  TLLVMContextRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMContextRef = type TLLVMRef;
 
-  TLLVMModuleRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMModuleRef = type TLLVMRef;
 
-  TLLVMTypeRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMTypeRef = type TLLVMRef;
 
-  TLLVMValueRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMValueRef = type TLLVMRef;
 
-  TLLVMBasicBlockRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMBasicBlockRef = type TLLVMRef;
 
-  TLLVMMetadataRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMMetadataRef = type TLLVMRef;
 
-  TLLVMBuilderRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMBuilderRef = type TLLVMRef;
 
-  TLLVMDIBuilderRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMDIBuilderRef = type TLLVMRef;
 
-  TLLVMModuleProviderRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMModuleProviderRef = type TLLVMRef;
 
-  TLLVMPassManagerRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMPassManagerRef = type TLLVMRef;
 
-  TLLVMPassRegistryRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMPassRegistryRef = type TLLVMRef;
 
-  TLLVMUseRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMUseRef = type TLLVMRef;
 
-  TLLVMAttributeRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMAttributeRef = type TLLVMRef;
 
-  TLLVMDiagnosticInfoRef = packed record
-  private
-    Data: Pointer;
-  end;
+  TLLVMDiagnosticInfoRef = type TLLVMRef;
 
 implementation
 
