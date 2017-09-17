@@ -20,8 +20,10 @@ type
   TLLVMModuleRef = type TLLVMRef;
 
   TLLVMTypeRef = type TLLVMRef;
+  PLLVMTypeRef = ^TLLVMTypeRef;
 
   TLLVMValueRef = type TLLVMRef;
+  PLLVMValueRef = ^TLLVMValueRef;
 
   TLLVMBasicBlockRef = type TLLVMRef;
 
