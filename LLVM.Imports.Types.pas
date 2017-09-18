@@ -42,6 +42,7 @@ type
   TLLVMUseRef = type TLLVMRef;
 
   TLLVMAttributeRef = type TLLVMRef;
+  PLLVMAttributeRef = ^TLLVMAttributeRef;
 
   TLLVMDiagnosticInfoRef = type TLLVMRef;
 
