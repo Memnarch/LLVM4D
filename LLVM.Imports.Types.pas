@@ -26,6 +26,7 @@ type
   PLLVMValueRef = ^TLLVMValueRef;
 
   TLLVMBasicBlockRef = type TLLVMRef;
+  PLLVMBasicBlockRef = ^TLLVMBasicBlockRef;
 
   TLLVMMetadataRef = type TLLVMRef;
 
