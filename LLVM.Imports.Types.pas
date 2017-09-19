@@ -11,6 +11,8 @@ type
   TLLVMBool = packed record
     ResultCode: Integer;
     class operator Implicit(const AValue: TLLVMBool): Boolean;
+    class operator Implicit(const AValue: Boolean): TLLVMBool;
+    class operator LogicalNot(const AValue: TLLVMBool): TLLVMBool;
   end;
 
   TLLVMMemoryBufferRef = type TLLVMRef;
@@ -52,6 +54,22 @@ implementation
 class operator TLLVMBool.Implicit(const AValue: TLLVMBool): Boolean;
 begin
   Result := AValue.ResultCode = 0;
+end;
+
+class operator TLLVMBool.Implicit(const AValue: Boolean): TLLVMBool;
+begin
+  if AValue then
+    Result.ResultCode := 0
+  else
+    Result.ResultCode := 1;
+end;
+
+class operator TLLVMBool.LogicalNot(const AValue: TLLVMBool): TLLVMBool;
+begin
+  if AValue.ResultCode <> 0 then
+    Result.ResultCode := 0
+  else
+    Result.ResultCode := 1;
 end;
 
 end.
