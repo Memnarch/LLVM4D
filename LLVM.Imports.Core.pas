@@ -324,8 +324,8 @@ function LLVMGetStringAttributeKind(A: TLLVMAttributeRef; out Length: Cardinal):
 
 function LLVMGetStringAttributeValue(A: TLLVMAttributeRef; out Length: Cardinal): PLLVMChar; cdecl; external CLLVMLibrary;
 
-function LLVMIsEnumAttribute(A: TLLVMAttributeRef): TLLVMBool; cdecl; external CLLVMLibrary;
-function LLVMIsStringAttribute(A: TLLVMAttributeRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMIsEnumAttribute(A: TLLVMAttributeRef): LongBool; cdecl; external CLLVMLibrary;
+function LLVMIsStringAttribute(A: TLLVMAttributeRef): LongBool; cdecl; external CLLVMLibrary;
 
 function LLVMModuleCreateWithName(const ModuleID: PLLVMChar): TLLVMModuleRef; cdecl; external CLLVMLibrary;
 
@@ -365,7 +365,7 @@ procedure LLVMGetNamedMetadataOperands(M: TLLVMModuleRef; const Name: PLLVMChar;
 
 procedure LLVMAddNamedMetadataOperand(M: TLLVMModuleRef; const Name: PLLVMChar; Val: TLLVMValueRef); cdecl; external CLLVMLibrary;
 
-function LLVMAddFunction(M: TLLVMModuleRef; const Name: PLLVMChar;FunctionTy: TLLVMTypeRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function LLVMAddFunction(M: TLLVMModuleRef; const Name: PLLVMChar; FunctionTy: TLLVMTypeRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
 function LLVMGetNamedFunction(M: TLLVMModuleRef; const Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
@@ -379,7 +379,7 @@ function LLVMGetPreviousFunction(Fn: TLLVMValueRef): TLLVMValueRef; cdecl; exter
 
 function LLVMGetTypeKind(Ty: TLLVMTypeRef): TLLVMTypeKind; cdecl; external CLLVMLibrary;
 
-function LLVMTypeIsSized(Ty: TLLVMTypeRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMTypeIsSized(Ty: TLLVMTypeRef): LongBool; cdecl; external CLLVMLibrary;
 
 function LLVMGetTypeContext(Ty: TLLVMTypeRef): TLLVMContextRef; cdecl; external CLLVMLibrary;
 
@@ -423,9 +423,9 @@ function LLVMX86FP80Type: TLLVMTypeRef; cdecl; external CLLVMLibrary;
 function LLVMFP128Type: TLLVMTypeRef; cdecl; external CLLVMLibrary;
 function LLVMPPCFP128Type: TLLVMTypeRef; cdecl; external CLLVMLibrary;
 
-function LLVMFunctionType(ReturnType: TLLVMTypeRef; ParamTypes: PLLVMTypeRef; ParamCount: Cardinal; IsVarArg: TLLVMBool): TLLVMTypeRef; cdecl; external CLLVMLibrary;
+function LLVMFunctionType(ReturnType: TLLVMTypeRef; ParamTypes: PLLVMTypeRef; ParamCount: Cardinal; IsVarArg: LongBool): TLLVMTypeRef; cdecl; external CLLVMLibrary;
 
-function LLVMIsFunctionVarArg(FunctionTy: TLLVMTypeRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMIsFunctionVarArg(FunctionTy: TLLVMTypeRef): LongBool; cdecl; external CLLVMLibrary;
 
 function LLVMGetReturnType(FunctionTy: TLLVMTypeRef): TLLVMTypeRef; cdecl; external CLLVMLibrary;
 
@@ -433,15 +433,15 @@ function LLVMCountParamTypes(FunctionTy: TLLVMTypeRef): Cardinal; cdecl; externa
 
 procedure LLVMGetParamTypes(FunctionTy: TLLVMTypeRef; out Dest: PLLVMTypeRef); cdecl; external CLLVMLibrary;
 
-function LLVMStructTypeInContext(C: TLLVMContextRef; ElementTypes: PLLVMTypeRef; ElementCount: Cardinal; IsPacked: TLLVMBool): TLLVMTypeRef; cdecl; external CLLVMLibrary;
+function LLVMStructTypeInContext(C: TLLVMContextRef; ElementTypes: PLLVMTypeRef; ElementCount: Cardinal; IsPacked: LongBool): TLLVMTypeRef; cdecl; external CLLVMLibrary;
 
-function LLVMStructType(ElementTypes: PLLVMTypeRef; ElementCount: Cardinal; IsPacked: TLLVMBool): TLLVMTypeRef; cdecl; external CLLVMLibrary;
+function LLVMStructType(ElementTypes: PLLVMTypeRef; ElementCount: Cardinal; IsPacked: LongBool): TLLVMTypeRef; cdecl; external CLLVMLibrary;
 
 function LLVMStructCreateNamed(C: TLLVMContextRef; const Name: PLLVMChar): TLLVMTypeRef; cdecl; external CLLVMLibrary;
 
 function LLVMGetStructName(Ty: TLLVMTypeRef): PLLVMChar; cdecl; external CLLVMLibrary;
 
-procedure LLVMStructSetBody(StructTy: TLLVMTypeRef; ElementTypes: PLLVMTypeRef; ElementCount: Cardinal; IsPacked: TLLVMBool); cdecl; external CLLVMLibrary;
+procedure LLVMStructSetBody(StructTy: TLLVMTypeRef; ElementTypes: PLLVMTypeRef; ElementCount: Cardinal; IsPacked: LongBool); cdecl; external CLLVMLibrary;
 
 function LLVMCountStructElementTypes(StructTy: TLLVMTypeRef): Cardinal; cdecl; external CLLVMLibrary;
 
@@ -449,9 +449,9 @@ procedure LLVMGetStructElementTypes(StructTy: TLLVMTypeRef; Dest: PLLVMTypeRef);
 
 function LLVMStructGetTypeAtIndex(StructTy: TLLVMTypeRef; i: Cardinal): TLLVMTypeRef; cdecl; external CLLVMLibrary;
 
-function LLVMIsPackedStruct(StructTy: TLLVMTypeRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMIsPackedStruct(StructTy: TLLVMTypeRef): LongBool; cdecl; external CLLVMLibrary;
 
-function LLVMIsOpaqueStruct(StructTy: TLLVMTypeRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMIsOpaqueStruct(StructTy: TLLVMTypeRef): LongBool; cdecl; external CLLVMLibrary;
 
 function LLVMGetElementType(Ty: TLLVMTypeRef): TLLVMTypeRef; cdecl; external CLLVMLibrary;
 
@@ -497,9 +497,9 @@ function LLVMPrintValueToString(Val: TLLVMValueRef): PLLVMChar; cdecl; external 
 
 procedure LLVMReplaceAllUsesWith(OldVal: TLLVMValueRef; NewVal: TLLVMValueRef); cdecl; external CLLVMLibrary;
 
-function LLVMIsConstant(Val: TLLVMValueRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMIsConstant(Val: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
 
-function LLVMIsUndef(Val: TLLVMValueRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMIsUndef(Val: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
 
 function LLVMIsAMDNode(Val: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMIsAMDString(Val: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
@@ -530,11 +530,11 @@ function LLVMConstAllOnes(Ty: TLLVMTypeRef): TLLVMValueRef; cdecl; external CLLV
 
 function LLVMGetUndef(Ty: TLLVMTypeRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
-function LLVMIsNull(Val: TLLVMValueRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMIsNull(Val: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
 
 function LLVMConstPointerNull(Ty: TLLVMTypeRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
-function LLVMConstInt(IntTy: TLLVMTypeRef; N: UInt64; SignExtend: TLLVMBool): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function LLVMConstInt(IntTy: TLLVMTypeRef; N: UInt64; SignExtend: LongBool): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
 function LLVMConstIntOfArbitraryPrecision(IntTy: TLLVMTypeRef; NumWords: Cardinal; Words: PUInt64): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
@@ -552,19 +552,19 @@ function LLVMConstIntGetZExtValue(ConstantVal: TLLVMValueRef): UInt64; cdecl; ex
 
 function LLVMConstIntGetSExtValue(ConstantVal: TLLVMValueRef): Int64; cdecl; external CLLVMLibrary;
 
-function LLVMConstRealGetDouble(ConstantVal: TLLVMValueRef; out losesInfo: TLLVMBool): Double; cdecl; external CLLVMLibrary;
+function LLVMConstRealGetDouble(ConstantVal: TLLVMValueRef; out losesInfo: LongBool): Double; cdecl; external CLLVMLibrary;
 
-function LLVMConstStringInContext(C: TLLVMContextRef; const Str: PLLVMChar; Length: Cardinal; DontNullTerminate: TLLVMBool): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function LLVMConstStringInContext(C: TLLVMContextRef; const Str: PLLVMChar; Length: Cardinal; DontNullTerminate: LongBool): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
-function LLVMConstString(const Str: PLLVMChar; Length: Cardinal; DontNullTerminate: TLLVMBool): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function LLVMConstString(const Str: PLLVMChar; Length: Cardinal; DontNullTerminate: LongBool): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
-function LLVMIsConstantString(c: TLLVMValueRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMIsConstantString(c: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
 
 function LLVMGetAsString(c: TLLVMValueRef; out Length: TLLVMSizeT): PLLVMChar; cdecl; external CLLVMLibrary;
 
-function LLVMConstStructInContext(C: TLLVMContextRef; ConstantVals: PLLVMValueRef; Count: Cardinal; IsPacked: TLLVMBool): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function LLVMConstStructInContext(C: TLLVMContextRef; ConstantVals: PLLVMValueRef; Count: Cardinal; IsPacked: LongBool): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
-function LLVMConstStruct(ConstantVals: PLLVMValueRef; Count: Cardinal; IsPacked: TLLVMBool): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function LLVMConstStruct(ConstantVals: PLLVMValueRef; Count: Cardinal; IsPacked: LongBool): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
 function LLVMConstArray(ElementTy: TLLVMTypeRef; ConstantVals: PLLVMValueRef; Length: Cardinal): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
@@ -630,7 +630,7 @@ function LLVMConstZExtOrBitCast(ConstantVal: TLLVMValueRef; ToType: TLLVMTypeRef
 function LLVMConstSExtOrBitCast(ConstantVal: TLLVMValueRef; ToType: TLLVMTypeRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMConstTruncOrBitCast(ConstantVal: TLLVMValueRef; ToType: TLLVMTypeRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMConstPointerCast(ConstantVal: TLLVMValueRef; ToType: TLLVMTypeRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
-function LLVMConstIntCast(ConstantVal: TLLVMValueRef; ToType: TLLVMTypeRef; isSigned: TLLVMBool): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function LLVMConstIntCast(ConstantVal: TLLVMValueRef; ToType: TLLVMTypeRef; isSigned: LongBool): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMConstFPCast(ConstantVal: TLLVMValueRef; ToType: TLLVMTypeRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMConstSelect(ConstantCondition: TLLVMValueRef; ConstantIfTrue: TLLVMValueRef; ConstantIfFalse: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMConstExtractElement(VectorConstant: TLLVMValueRef; IndexConstant: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
@@ -638,11 +638,11 @@ function LLVMConstInsertElement(VectorConstant: TLLVMValueRef; ElementValueConst
 function LLVMConstShuffleVector(VectorAConstant: TLLVMValueRef; VectorBConstant: TLLVMValueRef; MaskConstant: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMConstExtractValue(AggConstant: TLLVMValueRef; IdxList: PCardinal; NumIdx: Cardinal): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMConstInsertValue(AggConstant: TLLVMValueRef; ElementValueConstant: TLLVMValueRef; IdxList: PCardinal; NumIdx: Cardinal): TLLVMValueRef; cdecl; external CLLVMLibrary;
-function LLVMConstInlineAsm(Ty: TLLVMTypeRef; const AsmString: PLLVMChar; const Constraints: PLLVMChar; HasSideEffects: TLLVMBool; IsAlignStack: TLLVMBool): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function LLVMConstInlineAsm(Ty: TLLVMTypeRef; const AsmString: PLLVMChar; const Constraints: PLLVMChar; HasSideEffects: LongBool; IsAlignStack: LongBool): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBlockAddress(F: TLLVMValueRef; BB: TLLVMBasicBlockRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
 function LLVMGetGlobalParent(Global: TLLVMValueRef): TLLVMModuleRef; cdecl; external CLLVMLibrary;
-function LLVMIsDeclaration(Global: TLLVMValueRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMIsDeclaration(Global: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
 function LLVMGetLinkage(Global: TLLVMValueRef): TLLVMLinkage; cdecl; external CLLVMLibrary;
 procedure LLVMSetLinkage(Global: TLLVMValueRef; Linkage: TLLVMLinkage); cdecl; external CLLVMLibrary;
 function LLVMGetSection(Global: TLLVMValueRef): PLLVMChar; cdecl; external CLLVMLibrary;
@@ -651,8 +651,8 @@ function LLVMGetVisibility(Global: TLLVMValueRef): TLLVMVisibility; cdecl; exter
 procedure LLVMSetVisibility(Global: TLLVMValueRef; Viz: TLLVMVisibility); cdecl; external CLLVMLibrary;
 function LLVMGetDLLStorageClass(Global: TLLVMValueRef): TLLVMDLLStorageClass; cdecl; external CLLVMLibrary;
 procedure LLVMSetDLLStorageClass(Global: TLLVMValueRef; StorageClass: TLLVMDLLStorageClass); cdecl; external CLLVMLibrary;
-function LLVMHasUnnamedAddr(Global: TLLVMValueRef): TLLVMBool; cdecl; external CLLVMLibrary;
-procedure LLVMSetUnnamedAddr(Global: TLLVMValueRef; HasUnnamedAddr: TLLVMBool); cdecl; external CLLVMLibrary;
+function LLVMHasUnnamedAddr(Global: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
+procedure LLVMSetUnnamedAddr(Global: TLLVMValueRef; HasUnnamedAddr: LongBool); cdecl; external CLLVMLibrary;
 
 function LLVMGetAlignment(V: TLLVMValueRef): Cardinal; cdecl; external CLLVMLibrary;
 
@@ -668,20 +668,20 @@ function LLVMGetPreviousGlobal(GlobalVar: TLLVMValueRef): TLLVMValueRef; cdecl; 
 procedure LLVMDeleteGlobal(GlobalVar: TLLVMValueRef); cdecl; external CLLVMLibrary;
 function LLVMGetInitializer(GlobalVar: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 procedure LLVMSetInitializer(GlobalVar: TLLVMValueRef; ConstantVal: TLLVMValueRef); cdecl; external CLLVMLibrary;
-function LLVMIsThreadLocal(GlobalVar: TLLVMValueRef): TLLVMBool; cdecl; external CLLVMLibrary;
-procedure LLVMSetThreadLocal(GlobalVar: TLLVMValueRef; IsThreadLocal: TLLVMBool); cdecl; external CLLVMLibrary;
-function LLVMIsGlobalConstant(GlobalVar: TLLVMValueRef): TLLVMBool; cdecl external CLLVMLibrary;
-procedure LLVMSetGlobalConstant(GlobalVar: TLLVMValueRef; IsConstant: TLLVMBool); cdecl; external CLLVMLibrary;
+function LLVMIsThreadLocal(GlobalVar: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
+procedure LLVMSetThreadLocal(GlobalVar: TLLVMValueRef; IsThreadLocal: LongBool); cdecl; external CLLVMLibrary;
+function LLVMIsGlobalConstant(GlobalVar: TLLVMValueRef): LongBool; cdecl external CLLVMLibrary;
+procedure LLVMSetGlobalConstant(GlobalVar: TLLVMValueRef; IsConstant: LongBool); cdecl; external CLLVMLibrary;
 function LLVMGetThreadLocalMode(GlobalVar: TLLVMValueRef): TLLVMThreadLocalMode; cdecl; external CLLVMLibrary;
 procedure LLVMSetThreadLocalMode(GlobalVar: TLLVMValueRef; Mode: TLLVMThreadLocalMode); cdecl; external CLLVMLibrary;
-function LLVMIsExternallyInitialized(GlobalVar: TLLVMValueRef): TLLVMBool; cdecl; external CLLVMLibrary;
-procedure LLVMSetExternallyInitialized(GlobalVar: TLLVMValueRef; IsExtInit: TLLVMBool); cdecl; external CLLVMLibrary;
+function LLVMIsExternallyInitialized(GlobalVar: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
+procedure LLVMSetExternallyInitialized(GlobalVar: TLLVMValueRef; IsExtInit: LongBool); cdecl; external CLLVMLibrary;
 
 function LLVMAddAlias(M: TLLVMModuleRef; Ty: TLLVMTypeRef; Aliasee: TLLVMValueRef; const Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
 procedure LLVMDeleteFunction(Fn: TLLVMValueRef); cdecl; external CLLVMLibrary;
 
-function LLVMHasPersonalityFn(Fn: TLLVMValueRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMHasPersonalityFn(Fn: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
 
 function LLVMGetPersonalityFn(Fn: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
@@ -745,7 +745,7 @@ procedure LLVMGetMDNodeOperands(V: TLLVMValueRef; Dest: PLLVMValueRef); cdecl; e
 
 function LLVMBasicBlockAsValue(BB: TLLVMBasicBlockRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
-function LLVMValueIsBasicBlock(Val: TLLVMValueRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMValueIsBasicBlock(Val: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
 
 function LLVMValueAsBasicBlock(Val: TLLVMValueRef): TLLVMBasicBlockRef; cdecl; external CLLVMLibrary;
 
@@ -831,9 +831,9 @@ procedure LLVMRemoveCallSiteStringAttribute(C: TLLVMValueRef; Idx: TLLVMAttribut
 
 function LLVMGetCalledValue(Instr: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
-function LLVMIsTailCall(CallInst: TLLVMValueRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMIsTailCall(CallInst: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
 
-procedure LLVMSetTailCall(CallInst: TLLVMValueRef; IsTailCall: TLLVMBool); cdecl; external CLLVMLibrary;
+procedure LLVMSetTailCall(CallInst: TLLVMValueRef; IsTailCall: LongBool); cdecl; external CLLVMLibrary;
 
 function LLVMGetNormalDest(InvokeInst: TLLVMValueRef): TLLVMBasicBlockRef; cdecl; external CLLVMLibrary;
 
@@ -849,7 +849,7 @@ function LLVMGetSuccessor(Term: TLLVMValueRef; i: Cardinal): TLLVMBasicBlockRef;
 
 procedure LLVMSetSuccessor(Term: TLLVMValueRef; i: Cardinal; block: TLLVMBasicBlockRef); cdecl; external CLLVMLibrary;
 
-function LLVMIsConditional(Branch: TLLVMValueRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMIsConditional(Branch: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
 
 function LLVMGetCondition(Branch: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
@@ -859,9 +859,9 @@ function LLVMGetSwitchDefaultDest(SwitchInstr: TLLVMValueRef): TLLVMBasicBlockRe
 
 function LLVMGetAllocatedType(Alloca: TLLVMValueRef): TLLVMTypeRef; cdecl; external CLLVMLibrary;
 
-function LLVMIsInBounds(GEP: TLLVMValueRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMIsInBounds(GEP: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
 
-procedure LLVMSetIsInBounds(GEP: TLLVMValueRef; InBounds: TLLVMBool); cdecl; external CLLVMLibrary;
+procedure LLVMSetIsInBounds(GEP: TLLVMValueRef; InBounds: LongBool); cdecl; external CLLVMLibrary;
 
 procedure LLVMAddIncoming(PhiNode: TLLVMValueRef; IncomingValues: PLLVMValueRef; IncomingBlocks: PLLVMBasicBlockRef; Count: Cardinal); cdecl; external CLLVMLibrary;
 
@@ -905,8 +905,8 @@ procedure LLVMAddDestination(IndirectBr: TLLVMValueRef; Dest: TLLVMBasicBlockRef
 function LLVMGetNumClauses(LandingPad: TLLVMValueRef): Cardinal; cdecl; external CLLVMLibrary;
 function LLVMGetClause(LandingPad: TLLVMValueRef; Idx: Cardinal): TLLVMValueRef; cdecl; external CLLVMLibrary;
 procedure LLVMAddClause(LandingPad: TLLVMValueRef; ClauseVal: TLLVMValueRef); cdecl; external CLLVMLibrary;
-function LLVMIsCleanup(LandingPad: TLLVMValueRef): TLLVMBool; cdecl; external CLLVMLibrary;
-procedure LLVMSetCleanup(LandingPad: TLLVMValueRef; Val: TLLVMBool); cdecl; external CLLVMLibrary;
+function LLVMIsCleanup(LandingPad: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
+procedure LLVMSetCleanup(LandingPad: TLLVMValueRef; Val: LongBool); cdecl; external CLLVMLibrary;
 function LLVMBuildAdd(Arg0: TLLVMBuilderRef; LHS: TLLVMValueRef; RHS: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildNSWAdd(Arg0: TLLVMBuilderRef; LHS: TLLVMValueRef; RHS: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildNUWAdd(Arg0: TLLVMBuilderRef; LHS: TLLVMValueRef; RHS: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
@@ -951,8 +951,8 @@ function LLVMBuildInBoundsGEP(B: TLLVMBuilderRef; Pointer: TLLVMValueRef; Indice
 function LLVMBuildStructGEP(B: TLLVMBuilderRef; Pointer: TLLVMValueRef; Idx: Cardinal; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildGlobalString(B: TLLVMBuilderRef; Str: PLLVMChar; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildGlobalStringPtr(B: TLLVMBuilderRef; Str: PLLVMChar; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
-function LLVMGetVolatile(MemoryAccessInst: TLLVMValueRef): TLLVMBool; cdecl; external CLLVMLibrary;
-procedure LLVMSetVolatile(MemoryAccessInst: TLLVMValueRef; IsVolatile: TLLVMBool); cdecl; external CLLVMLibrary;
+function LLVMGetVolatile(MemoryAccessInst: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
+procedure LLVMSetVolatile(MemoryAccessInst: TLLVMValueRef; IsVolatile: LongBool); cdecl; external CLLVMLibrary;
 function LLVMGetOrdering(MemoryAccessInst: TLLVMValueRef): TLLVMAtomicOrdering; cdecl; external CLLVMLibrary;
 procedure LLVMSetOrdering(MemoryAccessInst: TLLVMValueRef; Ordering: TLLVMAtomicOrdering); cdecl; external CLLVMLibrary;
 function LLVMBuildTrunc(Arg0: TLLVMBuilderRef; Val: TLLVMValueRef; DestTy: TLLVMTypeRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
@@ -989,11 +989,11 @@ function LLVMBuildInsertValue(Arg0: TLLVMBuilderRef; AggVal: TLLVMValueRef; EltV
 function LLVMBuildIsNull(Arg0: TLLVMBuilderRef; Val: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildIsNotNull(Arg0: TLLVMBuilderRef; Val: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildPtrDiff(Arg0: TLLVMBuilderRef; LHS: TLLVMValueRef; RHS: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
-function LLVMBuildFence(B: TLLVMBuilderRef; ordering: TLLVMAtomicOrdering; singleThread: TLLVMBool; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
-function LLVMBuildAtomicRMW(B: TLLVMBuilderRef; op: TLLVMAtomicRMWBinOp; PTR: TLLVMValueRef; Val: TLLVMValueRef; ordering: TLLVMAtomicOrdering; singleThread: TLLVMBool): TLLVMValueRef; cdecl; external CLLVMLibrary;
-function LLVMBuildAtomicCmpXchg(B: TLLVMBuilderRef; Ptr: TLLVMValueRef; Cmp: TLLVMValueRef; New: TLLVMValueRef; SuccessOrdering: TLLVMAtomicOrdering; FailureOrdering: TLLVMAtomicOrdering; SingleThread: TLLVMBool): TLLVMValueRef; cdecl; external CLLVMLibrary;
-function LLVMIsAtomicSingleThread(AtomicInst: TLLVMValueRef): TLLVMBool; cdecl; external CLLVMLibrary;
-procedure LLVMSetAtomicSingleThread(AtomicInst: TLLVMValueRef; SingleThread: TLLVMBool); cdecl; external CLLVMLibrary;
+function LLVMBuildFence(B: TLLVMBuilderRef; ordering: TLLVMAtomicOrdering; singleThread: LongBool; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function LLVMBuildAtomicRMW(B: TLLVMBuilderRef; op: TLLVMAtomicRMWBinOp; PTR: TLLVMValueRef; Val: TLLVMValueRef; ordering: TLLVMAtomicOrdering; singleThread: LongBool): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function LLVMBuildAtomicCmpXchg(B: TLLVMBuilderRef; Ptr: TLLVMValueRef; Cmp: TLLVMValueRef; New: TLLVMValueRef; SuccessOrdering: TLLVMAtomicOrdering; FailureOrdering: TLLVMAtomicOrdering; SingleThread: LongBool): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function LLVMIsAtomicSingleThread(AtomicInst: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
+procedure LLVMSetAtomicSingleThread(AtomicInst: TLLVMValueRef; SingleThread: LongBool); cdecl; external CLLVMLibrary;
 function LLVMGetCmpXchgSuccessOrdering(CmpXchgInst: TLLVMValueRef): TLLVMAtomicOrdering; cdecl; external CLLVMLibrary;
 procedure LLVMSetCmpXchgSuccessOrdering(CmpXchgInst: TLLVMValueRef; Ordering: TLLVMAtomicOrdering); cdecl; external CLLVMLibrary;
 function LLVMGetCmpXchgFailureOrdering(CmpXchgInst: TLLVMValueRef): TLLVMAtomicOrdering; cdecl; external CLLVMLibrary;
@@ -1003,7 +1003,7 @@ function LLVMCreateModuleProviderForExistingModule(M: TLLVMModuleRef): TLLVMModu
 procedure LLVMDisposeModuleProvider(M: TLLVMModuleProviderRef); cdecl; external CLLVMLibrary;
 function LLVMCreateMemoryBufferWithContentsOfFile(Path: PLLVMChar; out OutMemBuf: TLLVMMemoryBufferRef; out OutMessage: PLLVMChar): TLLVMBool; cdecl; external CLLVMLibrary;
 function LLVMCreateMemoryBufferWithSTDIN(out OutMemBuf: TLLVMMemoryBufferRef; out OutMessage: PLLVMChar): TLLVMBool; cdecl; external CLLVMLibrary;
-function LLVMCreateMemoryBufferWithMemoryRange(InputData: PLLVMChar; InputDataLength: TLLVMSizeT; BufferName: PLLVMChar; RequiresNullTerminator: TLLVMBool): TLLVMMemoryBufferRef; cdecl; external CLLVMLibrary;
+function LLVMCreateMemoryBufferWithMemoryRange(InputData: PLLVMChar; InputDataLength: TLLVMSizeT; BufferName: PLLVMChar; RequiresNullTerminator: LongBool): TLLVMMemoryBufferRef; cdecl; external CLLVMLibrary;
 function LLVMCreateMemoryBufferWithMemoryRangeCopy(InputData: PLLVMChar; InputDataLength: TLLVMSizeT; BufferName: PLLVMChar): TLLVMMemoryBufferRef; cdecl; external CLLVMLibrary;
 function LLVMGetBufferStart(MemBuf: TLLVMMemoryBufferRef): PLLVMChar; cdecl; external CLLVMLibrary;
 function LLVMGetBufferSize(MemBuf: TLLVMMemoryBufferRef): TLLVMSizeT; cdecl; external CLLVMLibrary;
@@ -1017,7 +1017,7 @@ function LLVMInitializeFunctionPassManager(FPM: TLLVMPassManagerRef): TLLVMBool;
 function LLVMRunFunctionPassManager(FPM: TLLVMPassManagerRef; F: TLLVMValueRef): TLLVMBool; cdecl; external CLLVMLibrary;
 function LLVMFinalizeFunctionPassManager(FPM: TLLVMPassManagerRef): TLLVMBool; cdecl; external CLLVMLibrary;
 procedure LLVMDisposePassManager(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
-function LLVMIsMultithreaded: TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMIsMultithreaded: LongBool; cdecl; external CLLVMLibrary;
 
 implementation
 

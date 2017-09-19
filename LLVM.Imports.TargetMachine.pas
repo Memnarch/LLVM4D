@@ -48,17 +48,17 @@ function LLVMGetNextTarget(T: TLLVMTargetRef): TLLVMTargetRef; cdecl; external C
 
 function LLVMGetTargetFromName(const Name: PLLVMChar): TLLVMTargetRef; cdecl; external CLLVMLibrary;
 
-function LLVMGetTargetFromTriple(const Triple: PLLVMChar; out T: TLLVMTargetRef; out ErrorMessage: PLLVMChar): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMGetTargetFromTriple(const Triple: PLLVMChar; out T: TLLVMTargetRef; out ErrorMessage: PLLVMChar): LongBool; cdecl; external CLLVMLibrary;
 
 function LLVMGetTargetName(T: TLLVMTargetRef): PLLVMChar; cdecl; external CLLVMLibrary;
 
 function LLVMGetTargetDescription(T: TLLVMTargetRef): PLLVMChar; cdecl; external CLLVMLibrary;
 
-function LLVMTargetHasJIT(T: TLLVMTargetRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMTargetHasJIT(T: TLLVMTargetRef): LongBool; cdecl; external CLLVMLibrary;
 
-function LLVMTargetHasTargetMachine(T: TLLVMTargetRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMTargetHasTargetMachine(T: TLLVMTargetRef): LongBool; cdecl; external CLLVMLibrary;
 
-function LLVMTargetHasAsmBackend(T: TLLVMTargetRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMTargetHasAsmBackend(T: TLLVMTargetRef): LongBool; cdecl; external CLLVMLibrary;
 
 function LLVMCreateTargetMachine(T: TLLVMTargetRef; const Triple: PLLVMChar; const CPU: PLLVMChar; const Features: PLLVMChar; Level: TLLVMCodeGenOptLevel; Reloc: TLLVMRelocMode; CodeModel: TLLVMCodeModel): TLLVMTargetMachineRef; cdecl; external CLLVMLibrary;
 
@@ -74,7 +74,7 @@ function LLVMGetTargetMachineFeatureString(T: TLLVMTargetMachineRef): PLLVMChar;
 
 function LLVMCreateTargetDataLayout(T: TLLVMTargetMachineRef): TLLVMTargetDataRef; cdecl; external CLLVMLibrary;
 
-procedure LLVMSetTargetMachineAsmVerbosity(T: TLLVMTargetMachineRef; VerboseAsm: TLLVMBool); cdecl; external CLLVMLibrary;
+procedure LLVMSetTargetMachineAsmVerbosity(T: TLLVMTargetMachineRef; VerboseAsm: LongBool); cdecl; external CLLVMLibrary;
 
 function LLVMTargetMachineEmitToFile(T: TLLVMTargetMachineRef; M: TLLVMModuleRef; Filename: PLLVMChar; codegen: TLLVMCodeGenFileType; out ErrorMessage: PLLVMChar): TLLVMBool; cdecl; external CLLVMLibrary;
 
