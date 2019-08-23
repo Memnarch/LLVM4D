@@ -114,6 +114,13 @@ function LLVMCreateSimpleMCJITMemoryManager(
 
 procedure LLVMDisposeMCJITMemoryManager(MM: TLLVMMCJITMemoryManagerRef); cdecl; external CLLVMLibrary;
 
+(*===-- JIT Event Listener functions -------------------------------------===*)
+
+function LLVMCreateGDBRegistrationListener:  TLLVMJITEventListenerRef; cdecl; external CLLVMLibrary;
+function LLVMCreateIntelJITEventListener:    TLLVMJITEventListenerRef; cdecl; external CLLVMLibrary;
+function LLVMCreateOProfileJITEventListener: TLLVMJITEventListenerRef; cdecl; external CLLVMLibrary;
+function LLVMCreatePerfJITEventListener:     TLLVMJITEventListenerRef; cdecl; external CLLVMLibrary;
+
 implementation
 
 end.

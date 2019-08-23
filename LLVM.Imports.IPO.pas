@@ -8,11 +8,17 @@ uses
   LLVM.Imports,
   LLVM.Imports.Types;
 
+type
+  TcallbackPass = function (par: TLLVMValueRef): TLLVMBool; cdecl;
+
 {* See llvm::createArgumentPromotionPass function. }
 procedure LLVMAddArgumentPromotionPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
 
 {* See llvm::createConstantMergePass function. }
 procedure LLVMAddConstantMergePass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
+
+{ See llvm::createCalledValuePropagationPass function. }
+procedure LLVMAddCalledValuePropagationPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
 
 {* See llvm::createDeadArgEliminationPass function. }
 procedure LLVMAddDeadArgEliminationPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
@@ -43,6 +49,20 @@ procedure LLVMAddIPSCCPPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibra
 
 {* See llvm::createInternalizePass function. }
 procedure LLVMAddInternalizePass(PM: TLLVMPassManagerRef; AllButMain: Cardinal); cdecl; external CLLVMLibrary;
+
+(**
+ * Create and add the internalize pass to the given pass manager with the
+ * provided preservation callback.
+ *
+ * The context parameter is forwarded to the callback on each invocation.
+ * As such, it is the responsibility of the caller to extend its lifetime
+ * until execution of this pass has finished.
+ *
+ * @see llvm::createInternalizePass function.
+ *)
+procedure LLVMAddInternalizePassWithMustPreservePredicate(PM          : TLLVMPassManagerRef;
+                                                          Context     : TLLVMContextRef;
+                                                          MustPreserve: TcallbackPass = nil); cdecl; external CLLVMLibrary;
 
 {* See llvm::createStripDeadPrototypesPass function. }
 procedure LLVMAddStripDeadPrototypesPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;

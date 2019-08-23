@@ -1,4 +1,4 @@
-/*===-- llvm-c/IRReader.h - IR Reader C Interface -----------------*- C -*-===*\
+/*===-- Scalar.h - Scalar Transformation Library C Interface ----*- C++ -*-===*\
 |*                                                                            *|
 |* Part of the LLVM Project, under the Apache License v2.0 with LLVM          *|
 |* Exceptions.                                                                *|
@@ -7,12 +7,13 @@
 |*                                                                            *|
 |*===----------------------------------------------------------------------===*|
 |*                                                                            *|
-|* This file defines the C interface to the IR Reader.                        *|
+|* This header declares the C interface to libLLVMInstCombine.a, which        *|
+|* combines instructions to form fewer, simple IR instructions.               *|
 |*                                                                            *|
 \*===----------------------------------------------------------------------===*/
 
-#ifndef LLVM_C_IRREADER_H
-#define LLVM_C_IRREADER_H
+#ifndef LLVM_C_TRANSFORMS_INSTCOMBINE_H
+#define LLVM_C_TRANSFORMS_INSTCOMBINE_H
 
 #include "llvm-c/Types.h"
 
@@ -21,20 +22,22 @@ extern "C" {
 #endif
 
 /**
- * Read LLVM IR from a memory buffer and convert it into an in-memory Module
- * object. Returns 0 on success.
- * Optionally returns a human-readable description of any errors that
- * occurred during parsing IR. OutMessage must be disposed with
- * LLVMDisposeMessage.
+ * @defgroup LLVMCTransformsInstCombine Instruction Combining transformations
+ * @ingroup LLVMCTransforms
  *
- * @see llvm::ParseIR()
+ * @{
  */
-LLVMBool LLVMParseIRInContext(LLVMContextRef ContextRef,
-                              LLVMMemoryBufferRef MemBuf, LLVMModuleRef *OutM,
-                              char **OutMessage);
+
+/** See llvm::createInstructionCombiningPass function. */
+void LLVMAddInstructionCombiningPass(LLVMPassManagerRef PM);
+
+/**
+ * @}
+ */
 
 #ifdef __cplusplus
 }
-#endif
+#endif /* defined(__cplusplus) */
 
 #endif
+

@@ -10,7 +10,77 @@ uses
 
 {$MinEnumSize 4}
 
+const
+  // versione
+  LTO_API_VERSION = 24;
+
 type
+
+  TLLVMAttrKind = (
+    // IR-Level Attributes
+    LLVMNone, ///< No attributes have been set
+    LLVMAlignment,
+    LLVMAllocSize,
+    LLVMAlwaysInline,
+    LLVMArgMemOnly,
+    LLVMBuiltin,
+    LLVMByVal,
+    LLVMCold,
+    LLVMConvergent,
+    LLVMDereferenceable,
+    LLVMDereferenceableOrNull,
+    LLVMInAlloca,
+    LLVMInReg,
+    LLVMInaccessibleMemOnly,
+    LLVMInaccessibleMemOrArgMemOnly,
+    LLVMInlineHint,
+    LLVMJumpTable,
+    LLVMMinSize,
+    LLVMNaked,
+    LLVMNest,
+    LLVMNoAlias,
+    LLVMNoBuiltin,
+    LLVMNoCapture,
+    LLVMNoCfCheck,
+    LLVMNoDuplicate,
+    LLVMNoImplicitFloat,
+    LLVMNoInline,
+    LLVMNoRecurse,
+    LLVMNoRedZone,
+    LLVMNoReturn,
+    LLVMNoUnwind,
+    LLVMNonLazyBind,
+    LLVMNonNull,
+    LLVMOptForFuzzing,
+    LLVMOptimizeForSize,
+    LLVMOptimizeNone,
+    LLVMReadNone,
+    LLVMReadOnly,
+    LLVMReturned,
+    LLVMReturnsTwice,
+    LLVMAttrSExt,
+    LLVMSafeStack,
+    LLVMSanitizeAddress,
+    LLVMSanitizeHWAddress,
+    LLVMSanitizeMemory,
+    LLVMSanitizeThread,
+    LLVMShadowCallStack,
+    LLVMSpeculatable,
+    LLVMSpeculativeLoadHardening,
+    LLVMStackAlignment,
+    LLVMStackProtect,
+    LLVMStackProtectReq,
+    LLVMStackProtectStrong,
+    LLVMStrictFP,
+    LLVMStructRet,
+    LLVMSwiftError,
+    LLVMSwiftSelf,
+    LLVMUWTable,
+    LLVMWriteOnly,
+    LLVMAttrZExt,
+    LLVMEndAttrKinds); ///< Sentinal value useful for loops
+
+
   TLLVMOpcode = (
     //* Terminator Instructions */
     LLVMRet            = 1,
@@ -91,7 +161,11 @@ type
     LLVMCatchRet       = 62,
     LLVMCatchPad       = 63,
     LLVMCleanupPad     = 64,
-    LLVMCatchSwitch    = 65
+    LLVMCatchSwitch    = 65,
+
+    {/* Standard Unary Operators */}
+    LLVMFNeg           = 66,
+    LLVMCallBr         = 67
   );
 
   TLLVMTypeKind = (
@@ -140,6 +214,13 @@ type
     LLVMProtectedVisibility //**< The GV is protected */
   );
 
+  TLLVMUnnamedAddr = (
+    LLVMNoUnnamedAddr,    {/**< Address of the GV is significant. */}
+    LLVMLocalUnnamedAddr, {/**< Address of the GV is locally insignificant. */}
+    LLVMGlobalUnnamedAddr {/**< Address of the GV is globally insignificant. */}
+  );
+
+
   TLLVMDLLStorageClass = (
     LLVMDefaultStorageClass   = 0,
     LLVMDLLImportStorageClass = 1, //**< Function to be imported from DLL. */
@@ -147,13 +228,48 @@ type
   );
 
   TLLVMCallConv = (
-    LLVMCCallConv           = 0,
-    LLVMFastCallConv        = 8,
-    LLVMColdCallConv        = 9,
-    LLVMWebKitJSCallConv    = 12,
-    LLVMAnyRegCallConv      = 13,
-    LLVMX86StdcallCallConv  = 64,
-    LLVMX86FastcallCallConv = 65
+    LLVMCCallConv             = 0,
+    LLVMFastCallConv          = 8,
+    LLVMColdCallConv          = 9,
+    LLVMGHCCallConv           = 10,
+    LLVMHiPECallConv          = 11,
+    LLVMWebKitJSCallConv      = 12,
+    LLVMAnyRegCallConv        = 13,
+    LLVMPreserveMostCallConv  = 14,
+    LLVMPreserveAllCallConv   = 15,
+    LLVMSwiftCallConv         = 16,
+    LLVMCXXFASTTLSCallConv    = 17,
+    LLVMX86StdcallCallConv    = 64,
+    LLVMX86FastcallCallConv   = 65,
+    LLVMARMAPCSCallConv       = 66,
+    LLVMARMAAPCSCallConv      = 67,
+    LLVMARMAAPCSVFPCallConv   = 68,
+    LLVMMSP430INTRCallConv    = 69,
+    LLVMX86ThisCallCallConv   = 70,
+    LLVMPTXKernelCallConv     = 71,
+    LLVMPTXDeviceCallConv     = 72,
+    LLVMSPIRFUNCCallConv      = 75,
+    LLVMSPIRKERNELCallConv    = 76,
+    LLVMIntelOCLBICallConv    = 77,
+    LLVMX8664SysVCallConv     = 78,
+    LLVMWin64CallConv         = 79,
+    LLVMX86VectorCallCallConv = 80,
+    LLVMHHVMCallConv          = 81,
+    LLVMHHVMCCallConv         = 82,
+    LLVMX86INTRCallConv       = 83,
+    LLVMAVRINTRCallConv       = 84,
+    LLVMAVRSIGNALCallConv     = 85,
+    LLVMAVRBUILTINCallConv    = 86,
+    LLVMAMDGPUVSCallConv      = 87,
+    LLVMAMDGPUGSCallConv      = 88,
+    LLVMAMDGPUPSCallConv      = 89,
+    LLVMAMDGPUCSCallConv      = 90,
+    LLVMAMDGPUKERNELCallConv  = 91,
+    LLVMX86RegCallCallConv    = 92,
+    LLVMAMDGPUHSCallConv      = 93,
+    LLVMMSP430BUILTINCallConv = 94,
+    LLVMAMDGPULSCallConv      = 95,
+    LLVMAMDGPUESCallConv      = 96
   );
 
   TLLVMValueKind = (
@@ -264,6 +380,62 @@ type
     LLVMDSNote
   );
 
+  TLLVMInlineAsmDialect = (
+    LLVMInlineAsmDialectATT,
+    LLVMInlineAsmDialectIntel
+  );
+
+  TLLVMModuleFlagBehavior = (
+    (**
+     * Emits an error if two values disagree, otherwise the resulting value is
+     * that of the operands.
+     *
+     * @see Module::ModFlagBehavior::Error
+     *)
+    LLVMModuleFlagBehaviorError,
+    (**
+     * Emits a warning if two values disagree. The result value will be the
+     * operand for the flag from the first module being linked.
+     *
+     * @see Module::ModFlagBehavior::Warning
+     *)
+    LLVMModuleFlagBehaviorWarning,
+    (**
+     * Adds a requirement that another module flag be present and have a
+     * specified value after linking is performed. The value must be a metadata
+     * pair, where the first element of the pair is the ID of the module flag
+     * to be restricted, and the second element of the pair is the value the
+     * module flag should be restricted to. This behavior can be used to
+     * restrict the allowable results (via triggering of an error) of linking
+     * IDs with the **Override** behavior.
+     *
+     * @see Module::ModFlagBehavior::Require
+     *)
+    LLVMModuleFlagBehaviorRequire,
+    (**
+     * Uses the specified value, regardless of the behavior or value of the
+     * other module. If both modules specify **Override**, but the values
+     * differ, an error will be emitted.
+     *
+     * @see Module::ModFlagBehavior::Override
+     *)
+    LLVMModuleFlagBehaviorOverride,
+    (**
+     * Appends the two values, which are required to be metadata nodes.
+     *
+     * @see Module::ModFlagBehavior::Append
+     *)
+    LLVMModuleFlagBehaviorAppend,
+    (**
+     * Appends the two values, which are required to be metadata
+     * nodes. However, duplicate entries in the second list are dropped
+     * during the append operation.
+     *
+     * @see Module::ModFlagBehavior::AppendUnique
+     *)
+    LLVMModuleFlagBehaviorAppendUnique
+  );
+
 {//**
  * Attribute index are either LLVMAttributeReturnIndex,
  * LLVMAttributeFunctionIndex or a parameter number from 1 to N.
@@ -299,6 +471,24 @@ function LLVMContextGetDiagnosticHandler(C: TLLVMContextRef): TLLVMDiagnosticHan
 function LLVMContextGetDiagnosticContext(C: TLLVMContextRef): Pointer; cdecl; external CLLVMLibrary;
 
 procedure LLVMContextSetYieldCallback(C: TLLVMContextRef; Callback: TLLVMYieldCallback; OpaqueHandle: Pointer); cdecl; external CLLVMLibrary;
+
+(**
+ * Retrieve whether the given context is set to discard all value names.
+ *
+ * @see LLVMContext::shouldDiscardValueNames()
+ *)
+function LLVMContextShouldDiscardValueNames(C: TLLVMContextRef): TLLVMBool; cdecl; external CLLVMLibrary;
+
+(**
+ * Set whether the given context discards all value names.
+ *
+ * If true, only the names of GlobalValue objects will be available in the IR.
+ * This can be used to save memory and runtime, especially in release mode.
+ *
+ * @see LLVMContext::setDiscardValueNames()
+ *)
+procedure LLVMContextSetDiscardValueNames(C: TLLVMContextRef; Discard: TLLVMBool); cdecl; external CLLVMLibrary;
+
 
 procedure LLVMContextDispose(C: TLLVMContextRef); cdecl; external CLLVMLibrary;
 
@@ -339,6 +529,28 @@ function LLVMGetModuleIdentifier(M: TLLVMModuleRef; out Len: TLLVMSizeT): PLLVMC
 
 procedure LLVMSetModuleIdentifier(M: TLLVMModuleRef; const Ident: PLLVMChar; Len: TLLVMSizeT); cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the module's original source file name.
+ *
+ * @param M Module to obtain the name of
+ * @param Len Out parameter which holds the length of the returned string
+ * @return The original source file name of M
+ * @see Module::getSourceFileName()
+ *)
+function LLVMGetSourceFileName(M: TLLVMModuleRef; var  Len: TLLVMSizeT):PLLVMChar;cdecl; external CLLVMLibrary;
+
+(**
+ * Set the original source file name of a module to a string Name with length
+ * Len.
+ *
+ * @param M The module to set the source file name of
+ * @param Name The string to set M's source file name to
+ * @param Len Length of Name
+ * @see Module::setSourceFileName()
+ *)
+procedure LLVMSetSourceFileName(M: TLLVMModuleRef; Name: PLLVMChar; Len: TLLVMSizeT); cdecl; external CLLVMLibrary;
+
+
 function LLVMGetDataLayoutStr(M: TLLVMModuleRef): PLLVMChar; cdecl; external CLLVMLibrary;
 
 procedure LLVMSetDataLayout(M: TLLVMModuleRef; const DataLayoutStr: PLLVMChar); cdecl; external CLLVMLibrary;
@@ -347,23 +559,205 @@ function LLVMGetTarget(M: TLLVMModuleRef): PLLVMChar; cdecl; external CLLVMLibra
 
 procedure LLVMSetTarget(M: TLLVMModuleRef; const Triple: PLLVMChar); cdecl; external CLLVMLibrary;
 
+(**
+ * Returns the module flags as an array of flag-key-value triples.  The caller
+ * is responsible for freeing this array by calling
+ * \c LLVMDisposeModuleFlagsMetadata.
+ *
+ * @see Module::getModuleFlagsMetadata()
+ *)
+function LLVMCopyModuleFlagsMetadata(M: TLLVMModuleRef; var Len: TLLVMSizeT): PLLVMModuleFlagEntry;cdecl; external CLLVMLibrary;
+
+(**
+ * Destroys module flags metadata entries.
+ *)
+procedure LLVMDisposeModuleFlagsMetadata(Entries: PLLVMModuleFlagEntry); cdecl; external CLLVMLibrary;
+
+(**
+ * Returns the flag behavior for a module flag entry at a specific index.
+ *
+ * @see Module::ModuleFlagEntry::Behavior
+ *)
+
+function LLVMModuleFlagEntriesGetFlagBehavior(Entries  : PLLVMModuleFlagEntry;Index: Cardinal): TLLVMModuleFlagBehavior; cdecl; external CLLVMLibrary;
+
+(**
+ * Returns the key for a module flag entry at a specific index.
+ *
+ * @see Module::ModuleFlagEntry::Key
+ *)
+function LLVMModuleFlagEntriesGetKey(Entries: PLLVMModuleFlagEntry;Index: Cardinal; var Len:TLLVMSizeT):PLLVMChar;cdecl; external CLLVMLibrary;
+
+(**
+ * Returns the metadata for a module flag entry at a specific index.
+ *
+ * @see Module::ModuleFlagEntry::Val
+ *)
+function LLVMModuleFlagEntriesGetMetadata(Entries: PLLVMModuleFlagEntry; Index: Cardinal):TLLVMMetadataRef;cdecl; external CLLVMLibrary;
+
+(**
+ * Add a module-level flag to the module-level flags metadata if it doesn't
+ * already exist.
+ *
+ * @see Module::getModuleFlag()
+ *)
+function LLVMGetModuleFlag(M: TLLVMModuleRef; Key: PLLVMChar; KeyLen: TLLVMSizeT): TLLVMMetadataRef; cdecl; external CLLVMLibrary;
+
+(**
+ * Add a module-level flag to the module-level flags metadata if it doesn't
+ * already exist.
+ *
+ * @see Module::addModuleFlag()
+ *)
+procedure LLVMAddModuleFlag(M: TLLVMModuleRef; Behavior : TLLVMModuleFlagBehavior; Key: PLLVMChar;KeyLen:TLLVMSizeT; Val : TLLVMMetadataRef ); cdecl; external CLLVMLibrary;
+
 procedure LLVMDumpModule(M: TLLVMModuleRef); cdecl; external CLLVMLibrary;
 
 function LLVMPrintModuleToFile(M: TLLVMModuleRef; const Filename: PLLVMChar; out ErrorMessage: PLLVMChar): TLLVMBool; cdecl; external CLLVMLibrary;
 
 function LLVMPrintModuleToString(M: TLLVMModuleRef): PLLVMChar; cdecl; external CLLVMLibrary;
 
-procedure LLVMSetModuleInlineAsm(M: TLLVMModuleRef; const InlineAsm: PLLVMChar); cdecl; external CLLVMLibrary;
+(**
+ * Get inline assembly for a module.
+ *
+ * @see Module::getModuleInlineAsm()
+ *)
+function LLVMGetModuleInlineAsm(M: TLLVMModuleRef; var Len: TLLVMSizeT): PLLVMChar;cdecl; external CLLVMLibrary;
+
+(**
+ * Set inline assembly for a module.
+ *
+ * @see Module::setModuleInlineAsm()
+ *)
+procedure LLVMSetModuleInlineAsm2(M: TLLVMModuleRef; const InlineAsm: PLLVMChar; Len: TLLVMSizeT); cdecl; external CLLVMLibrary;
+
+(**
+ * Append inline assembly to a module.
+ *
+ * @see Module::appendModuleInlineAsm()
+ *)
+procedure LLVMAppendModuleInlineAsm(M: TLLVMModuleRef; const InlineAsm: PLLVMChar; Len: TLLVMSizeT); cdecl; external CLLVMLibrary;
+
+(**
+ * Create the specified uniqued inline asm string.
+ *
+ * @see InlineAsm::get()
+ *)
+function  LLVMGetInlineAsm(Ty              : TLLVMTypeRef;
+                           AsmString       : PLLVMChar;
+                           AsmStringSize   : TLLVMSizeT;
+                           Constraints     : PLLVMChar;
+                           ConstraintsSize : TLLVMSizeT;
+                           HasSideEffects  : TLLVMBool;
+                           IsAlignStack    : TLLVMBool;
+                           Dialect         : TLLVMInlineAsmDialect): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
 function LLVMGetModuleContext(M: TLLVMModuleRef): TLLVMContextRef; cdecl; external CLLVMLibrary;
 
 function LLVMGetTypeByName(M: TLLVMModuleRef; const Name: PLLVMChar): TLLVMTypeRef; cdecl; external CLLVMLibrary;
 
+(*
+ * Obtain an iterator to the first NamedMDNode in a Module.
+ *
+ * @see llvm::Module::named_metadata_begin()
+ *)
+function LLVMGetFirstNamedMetadata(M: TLLVMModuleRef):TLLVMNamedMDNodeRef; cdecl; external CLLVMLibrary;
+
+(**
+ * Obtain an iterator to the last NamedMDNode in a Module.
+ *
+ * @see llvm::Module::named_metadata_end()
+ *)
+function LLVMGetLastNamedMetadata(M: TLLVMModuleRef):TLLVMNamedMDNodeRef ; cdecl; external CLLVMLibrary;
+
+(**
+ * Advance a NamedMDNode iterator to the next NamedMDNode.
+ *
+ * Returns NULL if the iterator was already at the end and there are no more
+ * named metadata nodes.
+ *)
+function LLVMGetNextNamedMetadata(NamedMDNode: TLLVMNamedMDNodeRef): TLLVMNamedMDNodeRef;cdecl; external CLLVMLibrary;
+
+(**
+ * Decrement a NamedMDNode iterator to the previous NamedMDNode.
+ *
+ * Returns NULL if the iterator was already at the beginning and there are
+ * no previous named metadata nodes.
+ *)
+function LLVMGetPreviousNamedMetadata(NamedMDNode: TLLVMNamedMDNodeRef): TLLVMNamedMDNodeRef;cdecl; external CLLVMLibrary;
+
+(**
+ * Retrieve a NamedMDNode with the given name, returning NULL if no such
+ * node exists.
+ *
+ * @see llvm::Module::getNamedMetadata()
+ *)
+function LLVMGetNamedMetadata(M: TLLVMModuleRef; const Name: PLLVMChar; NameLen: TLLVMSizeT ): TLLVMNamedMDNodeRef; cdecl; external CLLVMLibrary;
+
+(**
+ * Retrieve a NamedMDNode with the given name, creating a new node if no such
+ * node exists.
+ *
+ * @see llvm::Module::getOrInsertNamedMetadata()
+ *)
+function LLVMGetOrInsertNamedMetadata(M: TLLVMModuleRef;const Name: PLLVMChar; NameLen: TLLVMSizeT):TLLVMNamedMDNodeRef; cdecl; external CLLVMLibrary;
+
+(**
+ * Retrieve the name of a NamedMDNode.
+ *
+ * @see llvm::NamedMDNode::getName()
+ *)
+function LLVMGetNamedMetadataName(NamedMD: TLLVMNamedMDNodeRef; var NameLen:TLLVMSizeT): TLLVMNamedMDNodeRef; cdecl; external CLLVMLibrary;
+
 function LLVMGetNamedMetadataNumOperands(M: TLLVMModuleRef; const Name: PLLVMChar): Cardinal; cdecl; external CLLVMLibrary;
 
 procedure LLVMGetNamedMetadataOperands(M: TLLVMModuleRef; const Name: PLLVMChar; out Dest: PLLVMValueRef); cdecl; external CLLVMLibrary;
 
-procedure LLVMAddNamedMetadataOperand(M: TLLVMModuleRef; const Name: PLLVMChar; Val: TLLVMValueRef); cdecl; external CLLVMLibrary;
+(*
+ * Add an operand to named metadata.
+ *
+ * @see llvm::Module::getNamedMetadata()
+ * @see llvm::MDNode::addOperand()
+ *)
+procedure LLVMAddNamedMetadataOperand(M: TLLVMModuleRef;  const Name: PLLVMChar; Val: TLLVMValueRef);cdecl; external CLLVMLibrary;
+
+(**
+ * Return the directory of the debug location for this value, which must be
+ * an llvm::Instruction, llvm::GlobalVariable, or llvm::Function.
+ *
+ * @see llvm::Instruction::getDebugLoc()
+ * @see llvm::GlobalVariable::getDebugInfo()
+ * @see llvm::Function::getSubprogram()
+ *)
+function LLVMGetDebugLocDirectory(Val: TLLVMValueRef; var Len: Cardinal):PLLVMChar; cdecl; external CLLVMLibrary;
+
+(**
+ * Return the filename of the debug location for this value, which must be
+ * an llvm::Instruction, llvm::GlobalVariable, or llvm::Function.
+ *
+ * @see llvm::Instruction::getDebugLoc()
+ * @see llvm::GlobalVariable::getDebugInfo()
+ * @see llvm::Function::getSubprogram()
+ *)
+function LLVMGetDebugLocFilename(Val: TLLVMValueRef; var Len: Cardinal):PLLVMChar; cdecl; external CLLVMLibrary;
+
+(**
+ * Return the line number of the debug location for this value, which must be
+ * an llvm::Instruction, llvm::GlobalVariable, or llvm::Function.
+ *
+ * @see llvm::Instruction::getDebugLoc()
+ * @see llvm::GlobalVariable::getDebugInfo()
+ * @see llvm::Function::getSubprogram()
+ *)
+function LLVMGetDebugLocLine(Val: TLLVMValueRef): Cardinal; cdecl; external CLLVMLibrary;
+
+(**
+ * Return the column number of the debug location for this value, which must be
+ * an llvm::Instruction.
+ *
+ * @see llvm::Instruction::getDebugLoc()
+ *)
+function LLVMGetDebugLocColumn(Val: TLLVMValueRef):Cardinal; cdecl; external CLLVMLibrary;
 
 function LLVMAddFunction(M: TLLVMModuleRef; const Name: PLLVMChar; FunctionTy: TLLVMTypeRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
@@ -376,6 +770,9 @@ function LLVMGetLastFunction(M: TLLVMModuleRef): TLLVMValueRef; cdecl; external 
 function LLVMGetNextFunction(Fn: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
 function LLVMGetPreviousFunction(Fn: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
+
+{* Deprecated: Use LLVMSetModuleInlineAsm2 instead. *}
+procedure LLVMSetModuleInlineAsm(M: TLLVMModuleRef; const InlineAsm: PLLVMChar); cdecl; external CLLVMLibrary;
 
 function LLVMGetTypeKind(Ty: TLLVMTypeRef): TLLVMTypeKind; cdecl; external CLLVMLibrary;
 
@@ -453,6 +850,13 @@ function LLVMIsPackedStruct(StructTy: TLLVMTypeRef): LongBool; cdecl; external C
 
 function LLVMIsOpaqueStruct(StructTy: TLLVMTypeRef): LongBool; cdecl; external CLLVMLibrary;
 
+(**
+ * Determine whether a structure is literal.
+ *
+ * @see llvm::StructType::isLiteral()
+ *)
+function LLVMIsLiteralStruct(StructTy: TLLVMTypeRef): TLLVMBool; cdecl; external CLLVMLibrary;
+
 function LLVMGetElementType(Ty: TLLVMTypeRef): TLLVMTypeRef; cdecl; external CLLVMLibrary;
 
 procedure LLVMGetSubtypes(Tp: TLLVMTypeRef; out Arr: PLLVMTypeRef); cdecl; external CLLVMLibrary;
@@ -476,6 +880,16 @@ function LLVMVoidTypeInContext(C: TLLVMContextRef): TLLVMTypeRef; cdecl; externa
 function LLVMLabelTypeInContext(C: TLLVMContextRef): TLLVMTypeRef; cdecl; external CLLVMLibrary;
 
 function LLVMX86MMXTypeInContext(C: TLLVMContextRef): TLLVMTypeRef; cdecl; external CLLVMLibrary;
+
+(**
+ * Create a token type in a context.
+ *)
+function LLVMTokenTypeInContext(C: TLLVMContextRef): TLLVMTypeRef; cdecl; external CLLVMLibrary;
+
+(**
+ * Create a metadata type in a context.
+ *)
+function LLVMMetadataTypeInContext(C: TLLVMContextRef): TLLVMTypeRef;cdecl; external CLLVMLibrary;
 
 function LLVMVoidType: TLLVMTypeRef; cdecl; external CLLVMLibrary;
 function LLVMLabelType: TLLVMTypeRef; cdecl; external CLLVMLibrary;
@@ -698,6 +1112,9 @@ function LLVMGetGC(Fn: TLLVMValueRef): PLLVMChar; cdecl; external CLLVMLibrary;
 procedure LLVMSetGC(Fn: TLLVMValueRef; const Name: PLLVMChar); cdecl; external CLLVMLibrary;
 
 procedure LLVMAddAttributeAtIndex(F: TLLVMValueRef; Idx: TLLVMAttributeIndex; A: TLLVMAttributeRef); cdecl; external CLLVMLibrary;
+// Added by Max 19/08/2019 16:12:23
+procedure LLVMAddAttributeKindAtIndex(F: TLLVMValueRef; Idx: TLLVMAttributeIndex; kind: TLLVMAttrKind); cdecl; external CLLVMLibrary;
+//
 function LLVMGetAttributeCountAtIndex(F: TLLVMValueRef; Idx: TLLVMAttributeIndex): Cardinal; cdecl; external CLLVMLibrary;
 procedure LLVMGetAttributesAtIndex(F: TLLVMValueRef; Idx: TLLVMAttributeIndex; out Attrs: PLLVMAttributeRef); cdecl; external CLLVMLibrary;
 function LLVMGetEnumAttributeAtIndex(F: TLLVMValueRef; Idx: TLLVMAttributeIndex; KindID: Cardinal): TLLVMAttributeRef; cdecl; external CLLVMLibrary;
