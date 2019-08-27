@@ -19,65 +19,65 @@ type
   TLLVMAttrKind = (
     // IR-Level Attributes
     LLVMNone, ///< No attributes have been set
-    LLVMAlignment,
-    LLVMAllocSize,
-    LLVMAlwaysInline,
-    LLVMArgMemOnly,
-    LLVMBuiltin,
-    LLVMByVal,
-    LLVMCold,
-    LLVMConvergent,
-    LLVMDereferenceable,
-    LLVMDereferenceableOrNull,
-    LLVMInAlloca,
-    LLVMInReg,
-    LLVMInaccessibleMemOnly,
-    LLVMInaccessibleMemOrArgMemOnly,
-    LLVMInlineHint,
-    LLVMJumpTable,
-    LLVMMinSize,
-    LLVMNaked,
-    LLVMNest,
-    LLVMNoAlias,
-    LLVMNoBuiltin,
-    LLVMNoCapture,
-    LLVMNoCfCheck,
-    LLVMNoDuplicate,
-    LLVMNoImplicitFloat,
-    LLVMNoInline,
-    LLVMNoRecurse,
-    LLVMNoRedZone,
-    LLVMNoReturn,
-    LLVMNoUnwind,
-    LLVMNonLazyBind,
-    LLVMNonNull,
-    LLVMOptForFuzzing,
-    LLVMOptimizeForSize,
-    LLVMOptimizeNone,
-    LLVMReadNone,
-    LLVMReadOnly,
-    LLVMReturned,
-    LLVMReturnsTwice,
-    LLVMAttrSExt,
-    LLVMSafeStack,
-    LLVMSanitizeAddress,
-    LLVMSanitizeHWAddress,
-    LLVMSanitizeMemory,
-    LLVMSanitizeThread,
-    LLVMShadowCallStack,
-    LLVMSpeculatable,
-    LLVMSpeculativeLoadHardening,
-    LLVMStackAlignment,
-    LLVMStackProtect,
-    LLVMStackProtectReq,
-    LLVMStackProtectStrong,
-    LLVMStrictFP,
-    LLVMStructRet,
-    LLVMSwiftError,
-    LLVMSwiftSelf,
-    LLVMUWTable,
-    LLVMWriteOnly,
-    LLVMAttrZExt,
+    LLVMAlignment,                                  //align
+    LLVMAllocSize,                                  //allocsize
+    LLVMAlwaysInline,                               //alwaysinline
+    LLVMArgMemOnly,                                 //argmemonly
+    LLVMBuiltin,                                    //builtin
+    LLVMByVal,                                      //byval
+    LLVMCold,                                       //cold 
+    LLVMConvergent,                                 //convergent
+    LLVMDereferenceable,                            //dereferenceable
+    LLVMDereferenceableOrNull,                      //dereferenceable_or_null
+    LLVMInAlloca,                                   //inalloca
+    LLVMInReg,                                      //inreg
+    LLVMInaccessibleMemOnly,                        //inaccessiblememonly
+    LLVMInaccessibleMemOrArgMemOnly,                //inaccessiblemem_or_argmemonly
+    LLVMInlineHint,                                 //inlinehint
+    LLVMJumpTable,                                  //jumptable
+    LLVMMinSize,                                    //minsize
+    LLVMNaked,                                      //naked
+    LLVMNest,                                       //nest 
+    LLVMNoAlias,                                    //noalias
+    LLVMNoBuiltin,                                  //nobuiltin
+    LLVMNoCapture,                                  //nocapture
+    LLVMNoCfCheck,                                  //nocf_check
+    LLVMNoDuplicate,                                //noduplicate
+    LLVMNoImplicitFloat,                            //noimplicitfloat
+    LLVMNoInline,                                   //noinline
+    LLVMNoRecurse,                                  //norecurse
+    LLVMNoRedZone,                                  //noredzone
+    LLVMNoReturn,                                   //noreturn
+    LLVMNoUnwind,                                   //nounwind
+    LLVMNonLazyBind,                                //nonlazybind
+    LLVMNonNull,                                    //nonnull
+    LLVMOptForFuzzing,                              //optforfuzzing
+    LLVMOptimizeForSize,                            //optsize
+    LLVMOptimizeNone,                               //optnone
+    LLVMReadNone,                                   //readnone
+    LLVMReadOnly,                                   //readonly
+    LLVMReturned,                                   //returned
+    LLVMReturnsTwice,                               //returns_twice
+    LLVMAttrSExt,                                   //signext
+    LLVMSafeStack,                                  //safestack
+    LLVMSanitizeAddress,                            //sanitize_address
+    LLVMSanitizeHWAddress,                          //sanitize_hwaddress
+    LLVMSanitizeMemory,                             //sanitize_memory
+    LLVMSanitizeThread,                             //sanitize_thread
+    LLVMShadowCallStack,                            //shadowcallstack
+    LLVMSpeculatable,                               //speculatable
+    LLVMSpeculativeLoadHardening,                   //speculative_load_hardening
+    LLVMStackAlignment,                             //alignstack
+    LLVMStackProtect,                               //ssp A
+    LLVMStackProtectReq,                            //sspreq
+    LLVMStackProtectStrong,                         //sspstrong
+    LLVMStrictFP,                                   //strictfp
+    LLVMStructRet,                                  //sret 
+    LLVMSwiftError,                                 //swifterror
+    LLVMSwiftSelf,                                  //swiftself
+    LLVMUWTable,                                    //uwtable
+    LLVMWriteOnly,                                  //writeonly
+    LLVMAttrZExt,                                   //zeroext
     LLVMEndAttrKinds); ///< Sentinal value useful for loops
 
 
@@ -1091,18 +1091,175 @@ procedure LLVMSetThreadLocalMode(GlobalVar: TLLVMValueRef; Mode: TLLVMThreadLoca
 function LLVMIsExternallyInitialized(GlobalVar: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
 procedure LLVMSetExternallyInitialized(GlobalVar: TLLVMValueRef; IsExtInit: LongBool); cdecl; external CLLVMLibrary;
 
+(**
+ * @}
+ */
+
+/**
+ * @defgroup LLVMCoreValueConstantGlobalAlias Global Aliases
+ *
+ * This group contains function that operate on global alias values.
+ *
+ * @see llvm::GlobalAlias
+ *
+ * @{
+ *)
 function LLVMAddAlias(M: TLLVMModuleRef; Ty: TLLVMTypeRef; Aliasee: TLLVMValueRef; const Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain a GlobalAlias value from a Module by its name.
+ *
+ * The returned value corresponds to a llvm::GlobalAlias value.
+ *
+ * @see llvm::Module::getNamedAlias()
+ *)
+function  LLVMGetNamedGlobalAlias(M: TLLVMModuleRef;const Name: PLLVMChar; NameLen: TLLVMSizeT): TLLVMValueRef;cdecl; external CLLVMLibrary;
+
+(**
+ * Obtain an iterator to the first GlobalAlias in a Module.
+ *
+ * @see llvm::Module::alias_begin()
+ *)
+function LLVMGetFirstGlobalAlias(M: TLLVMModuleRef): TLLVMValueRef;cdecl; external CLLVMLibrary;
+
+(**
+ * Obtain an iterator to the last GlobalAlias in a Module.
+ *
+ * @see llvm::Module::alias_end()
+ *)
+function LLVMGetLastGlobalAlias(M: TLLVMModuleRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
+
+(**
+ * Advance a GlobalAlias iterator to the next GlobalAlias.
+ *
+ * Returns NULL if the iterator was already at the end and there are no more
+ * global aliases.
+ *)
+function LLVMGetNextGlobalAlias(GA: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
+
+(**
+ * Decrement a GlobalAlias iterator to the previous GlobalAlias.
+ *
+ * Returns NULL if the iterator was already at the beginning and there are
+ * no previous global aliases.
+ *)
+function  LLVMGetPreviousGlobalAlias(GA: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
+
+(**
+ * Retrieve the target value of an alias.
+ *)
+function LLVMAliasGetAliasee(Alias: TLLVMValueRef): TLLVMValueRef;  cdecl; external CLLVMLibrary;
+
+(**
+ * Set the target value of an alias.
+ *)
+procedure LLVMAliasSetAliasee(Alias: TLLVMValueRef; Aliasee: TLLVMValueRef);cdecl; external CLLVMLibrary;
+
+(**
+ * @}
+ *)
+
+(**
+ * @defgroup LLVMCCoreValueFunction Function values
+ *
+ * Functions in this group operate on LLVMValueRef instances that
+ * correspond to llvm::Function instances.
+ *
+ * @see llvm::Function
+ *
+ * @{
+ *)
+
+(**
+ * Remove a function from its containing module and deletes it.
+ *
+ * @see llvm::Function::eraseFromParent()
+ *)
 procedure LLVMDeleteFunction(Fn: TLLVMValueRef); cdecl; external CLLVMLibrary;
 
+(**
+ * Check whether the given function has a personality function.
+ *
+ * @see llvm::Function::hasPersonalityFn()
+ *)
 function LLVMHasPersonalityFn(Fn: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the personality function attached to the function.
+ *
+ * @see llvm::Function::getPersonalityFn()
+ *)
 function LLVMGetPersonalityFn(Fn: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Set the personality function attached to the function.
+ *
+ * @see llvm::Function::setPersonalityFn()
+ *)
 procedure LLVMSetPersonalityFn(Fn: TLLVMValueRef; PersonalityFn: TLLVMValueRef); cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the intrinsic ID number which matches the given function name.
+ *
+ * @see llvm::Function::lookupIntrinsicID()
+ *)
+function  LLVMLookupIntrinsicID(const Name: PLLVMChar; NameLen: TLLVMSizeT): Cardinal;cdecl; external CLLVMLibrary;
+
+(**
+ * Obtain the ID number from a function instance.
+ *
+ * @see llvm::Function::getIntrinsicID()
+ *)
 function LLVMGetIntrinsicID(Fn: TLLVMValueRef): Cardinal; cdecl; external CLLVMLibrary;
 
+(**
+ * Create or insert the declaration of an intrinsic.  For overloaded intrinsics,
+ * parameter types must be provided to uniquely identify an overload.
+ *
+ * @see llvm::Intrinsic::getDeclaration()
+ *)
+function LLVMGetIntrinsicDeclaration(_Mod : TLLVMModuleRef; ID: Cardinal; ParamTypes: PLLVMTypeRef; ParamCount: TLLVMSizeT): TLLVMValueRef; cdecl; external CLLVMLibrary;
+
+(**
+ * Retrieves the type of an intrinsic.  For overloaded intrinsics, parameter
+ * types must be provided to uniquely identify an overload.
+ *
+ * @see llvm::Intrinsic::getType()
+ *)
+function LLVMIntrinsicGetType(Ctx: TLLVMContextRef; ID: Cardinal; ParamTypes: PLLVMTypeRef; ParamCount: TLLVMSizeT): TLLVMTypeRef;  cdecl; external CLLVMLibrary;
+
+(**
+ * Retrieves the name of an intrinsic.
+ *
+ * @see llvm::Intrinsic::getName()
+ *)
+function LLVMIntrinsicGetName(ID: Cardinal; var NameLength: TLLVMSizeT):PLLVMChar; cdecl; external CLLVMLibrary;
+
+(**
+ * Copies the name of an overloaded intrinsic identified by a given list of
+ * parameter types.
+ *
+ * Unlike LLVMIntrinsicGetName, the caller is responsible for freeing the
+ * returned string.
+ *
+ * @see llvm::Intrinsic::getName()
+ *)
+function LLVMIntrinsicCopyOverloadedName(ID : Cardinal; ParamTypes: PLLVMTypeRef; ParamCount: TLLVMSizeT;var NameLength: TLLVMSizeT):PLLVMChar; cdecl; external CLLVMLibrary;
+
+(**
+ * Obtain if the intrinsic identified by the given ID is overloaded.
+ *
+ * @see llvm::Intrinsic::isOverloaded()
+ *)
+function LLVMIntrinsicIsOverloaded(ID: Cardinal): TLLVMBool; cdecl; external CLLVMLibrary;
+
+(**
+ * Obtain the calling function of a function.
+ *
+ * The returned value corresponds to the LLVMCallConv enumeration.
+ *
+ * @see llvm::Function::getCallingConv()
+ *)
 function LLVMGetFunctionCallConv(Fn: TLLVMValueRef): Cardinal; cdecl; external CLLVMLibrary;
 
 procedure LLVMSetFunctionCallConv(Fn: TLLVMValueRef; CC: Cardinal); cdecl; external CLLVMLibrary;
@@ -1113,6 +1270,12 @@ procedure LLVMSetGC(Fn: TLLVMValueRef; const Name: PLLVMChar); cdecl; external C
 
 procedure LLVMAddAttributeAtIndex(F: TLLVMValueRef; Idx: TLLVMAttributeIndex; A: TLLVMAttributeRef); cdecl; external CLLVMLibrary;
 // Added by Max 19/08/2019 16:12:23
+{Altrimenti senza modificare codice llvm originale
+  es.
+  KinID :  cardinal             := LLVMGetEnumAttributeKindForName( 'nounwind');
+  var vattr : LLVMAttributeRef  := LLVMCreateEnumAttribute(C, KindID, 0);
+  LLVMAddAttributeAtIndex(F, LLVMAttributeFunctionIndex, KinID) ;
+ }
 procedure LLVMAddAttributeKindAtIndex(F: TLLVMValueRef; Idx: TLLVMAttributeIndex; kind: TLLVMAttrKind); cdecl; external CLLVMLibrary;
 //
 function LLVMGetAttributeCountAtIndex(F: TLLVMValueRef; Idx: TLLVMAttributeIndex): Cardinal; cdecl; external CLLVMLibrary;
@@ -1185,6 +1348,29 @@ function LLVMGetNextBasicBlock(BB: TLLVMBasicBlockRef): TLLVMBasicBlockRef; cdec
 function LLVMGetPreviousBasicBlock(BB: TLLVMBasicBlockRef): TLLVMBasicBlockRef; cdecl; external CLLVMLibrary;
 
 function LLVMGetEntryBasicBlock(Fn: TLLVMValueRef): TLLVMBasicBlockRef; cdecl; external CLLVMLibrary;
+
+(**
+ * Insert the given basic block after the insertion point of the given builder.
+ *
+ * The insertion point must be valid.
+ *
+ * @see llvm::Function::BasicBlockListType::insertAfter()
+ *)
+procedure LLVMInsertExistingBasicBlockAfterInsertBlock(Builder: TLLVMBuilderRef; BB: TLLVMBasicBlockRef); cdecl; external CLLVMLibrary;
+
+(**
+ * Append the given basic block to the basic block list of the given function.
+ *
+ * @see llvm::Function::BasicBlockListType::push_back()
+ *)
+procedure LLVMAppendExistingBasicBlock(Fn: TLLVMValueRef; BB: TLLVMBasicBlockRef); cdecl; external CLLVMLibrary;
+
+(**
+ * Create a new basic block without inserting it into a function.
+ *
+ * @see llvm::BasicBlock::Create()
+ *)
+function LLVMCreateBasicBlockInContext(C: TLLVMContextRef; const Name: PLLVMChar): TLLVMBasicBlockRef;  cdecl; external CLLVMLibrary;
 
 function LLVMAppendBasicBlockInContext(C: TLLVMContextRef; Fn: TLLVMValueRef; const Name: PLLVMChar): TLLVMBasicBlockRef; cdecl; external CLLVMLibrary;
 
