@@ -1510,6 +1510,53 @@ function LLVMGetClause(LandingPad: TLLVMValueRef; Idx: Cardinal): TLLVMValueRef;
 procedure LLVMAddClause(LandingPad: TLLVMValueRef; ClauseVal: TLLVMValueRef); cdecl; external CLLVMLibrary;
 function LLVMIsCleanup(LandingPad: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
 procedure LLVMSetCleanup(LandingPad: TLLVMValueRef; Val: LongBool); cdecl; external CLLVMLibrary;
+
+{/* Add a destination to the catchswitch instruction */}
+procedure LLVMAddHandler(CatchSwitch: TLLVMValueRef; Dest: TLLVMBasicBlockRef); cdecl; external CLLVMLibrary;
+
+{/* Get the number of handlers on the catchswitch instruction */}
+function LLVMGetNumHandlers(CatchSwitch: TLLVMValueRef): Cardinal; cdecl; external CLLVMLibrary;
+
+(**
+ * Obtain the basic blocks acting as handlers for a catchswitch instruction.
+ *
+ * The Handlers parameter should point to a pre-allocated array of
+ * LLVMBasicBlockRefs at least LLVMGetNumHandlers() large. On return, the
+ * first LLVMGetNumHandlers() entries in the array will be populated
+ * with LLVMBasicBlockRef instances.
+ *
+ * @param CatchSwitch The catchswitch instruction to operate on.
+ * @param Handlers Memory address of an array to be filled with basic blocks.
+ *)
+procedure LLVMGetHandlers(CatchSwitch: TLLVMValueRef; Handlers: PLLVMBasicBlockRef);cdecl; external CLLVMLibrary;
+
+{/* Funclets */}
+
+{/* Get the number of funcletpad arguments. */}
+function LLVMGetArgOperand(Funclet: TLLVMValueRef; i: Cardinal): TLLVMValueRef;cdecl; external CLLVMLibrary;
+
+{/* Set a funcletpad argument at the given index. */}
+procedure  LLVMSetArgOperand(Funclet: TLLVMValueRef; i: Cardinal; value: TLLVMValueRef);cdecl; external CLLVMLibrary;
+
+(**
+ * Get the parent catchswitch instruction of a catchpad instruction.
+ *
+ * This only works on llvm::CatchPadInst instructions.
+ *
+ * @see llvm::CatchPadInst::getCatchSwitch()
+ *)
+function LLVMGetParentCatchSwitch(CatchPad: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
+
+(**
+ * Set the parent catchswitch instruction of a catchpad instruction.
+ *
+ * This only works on llvm::CatchPadInst instructions.
+ *
+ * @see llvm::CatchPadInst::setCatchSwitch()
+ *)
+procedure LLVMSetParentCatchSwitch(CatchPad: TLLVMValueRef; CatchSwitch: TLLVMValueRef);cdecl; external CLLVMLibrary;
+
+{/* Arithmetic */}
 function LLVMBuildAdd(Arg0: TLLVMBuilderRef; LHS: TLLVMValueRef; RHS: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildNSWAdd(Arg0: TLLVMBuilderRef; LHS: TLLVMValueRef; RHS: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildNUWAdd(Arg0: TLLVMBuilderRef; LHS: TLLVMValueRef; RHS: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
@@ -1542,22 +1589,59 @@ function LLVMBuildNSWNeg(B: TLLVMBuilderRef; V: TLLVMValueRef; Name: PLLVMChar):
 function LLVMBuildNUWNeg(B: TLLVMBuilderRef; V: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildFNeg(Arg0: TLLVMBuilderRef; V: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildNot(Arg0: TLLVMBuilderRef; V: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
+
+{/* Memory */}
 function LLVMBuildMalloc(Arg0: TLLVMBuilderRef; Ty: TLLVMTypeRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildArrayMalloc(Arg0: TLLVMBuilderRef; Ty: TLLVMTypeRef; Val: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
+
+(**
+ * Creates and inserts a memset to the specified pointer and the
+ * specified value.
+ *
+ * @see llvm::IRRBuilder::CreateMemSet()
+ *)
+function  LLVMBuildMemSet(B: TLLVMBuilderRef; Ptr: TLLVMValueRef; Val: TLLVMValueRef; Len: TLLVMValueRef; Align: Cardinal): TLLVMValueRef;cdecl; external CLLVMLibrary;
+(**
+ * Creates and inserts a memcpy between the specified pointers.
+ *
+ * @see llvm::IRRBuilder::CreateMemCpy()
+ *)
+function LLVMBuildMemCpy(B  : TLLVMBuilderRef;
+                         Dst:  TLLVMValueRef; DstAlign: Cardinal;
+                         Src:  TLLVMValueRef; SrcAlign: Cardinal;
+                         Size: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
+(**
+ * Creates and inserts a memmove between the specified pointers.
+ *
+ * @see llvm::IRRBuilder::CreateMemMove()
+ *)
+function LLVMBuildMemMove(B: TLLVMBuilderRef; Dst: TLLVMValueRef; DstAlign: Cardinal; Src: TLLVMValueRef; SrcAlign: Cardinal; Size: TLLVMValueRef):TLLVMValueRef; cdecl; external CLLVMLibrary;
+
 function LLVMBuildAlloca(Arg0: TLLVMBuilderRef; Ty: TLLVMTypeRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildArrayAlloca(Arg0: TLLVMBuilderRef; Ty: TLLVMTypeRef; Val: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildFree(Arg0: TLLVMBuilderRef; PointerVal: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
+// LLVMBuildLoad is deprecated in favor of LLVMBuildLoad2, in preparation for
+// opaque pointer types.
 function LLVMBuildLoad(Arg0: TLLVMBuilderRef; PointerVal: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function LLVMBuildLoad2(Arg0: TLLVMBuilderRef; Ty: TLLVMTypeRef; PointerVal: TLLVMValueRef; const Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
+
 function LLVMBuildStore(Arg0: TLLVMBuilderRef; Val: TLLVMValueRef; Ptr: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildGEP(B: TLLVMBuilderRef; Pointer: TLLVMValueRef; Indices: PLLVMValueRef; NumIndices: Cardinal; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildInBoundsGEP(B: TLLVMBuilderRef; Pointer: TLLVMValueRef; Indices: PLLVMValueRef; NumIndices: Cardinal; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildStructGEP(B: TLLVMBuilderRef; Pointer: TLLVMValueRef; Idx: Cardinal; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
+
+function  LLVMBuildGEP2(B: TLLVMBuilderRef; Ty: TLLVMTypeRef; Pointer: TLLVMValueRef; Indices: PLLVMValueRef;  NumIndices: Cardinal; const Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function  LLVMBuildInBoundsGEP2(B: TLLVMBuilderRef; Ty: TLLVMTypeRef; _Pointer: TLLVMValueRef; Indices: PLLVMValueRef; NumIndices: Cardinal; const Name: PLLVMChar): TLLVMValueRef;  cdecl; external CLLVMLibrary;
+function  LLVMBuildStructGEP2(B: TLLVMBuilderRef; Ty: TLLVMTypeRef; _Pointer: TLLVMValueRef; Idx: Cardinal; const Name: PLLVMChar): TLLVMValueRef;cdecl; external CLLVMLibrary;
+
 function LLVMBuildGlobalString(B: TLLVMBuilderRef; Str: PLLVMChar; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildGlobalStringPtr(B: TLLVMBuilderRef; Str: PLLVMChar; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMGetVolatile(MemoryAccessInst: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
 procedure LLVMSetVolatile(MemoryAccessInst: TLLVMValueRef; IsVolatile: LongBool); cdecl; external CLLVMLibrary;
 function LLVMGetOrdering(MemoryAccessInst: TLLVMValueRef): TLLVMAtomicOrdering; cdecl; external CLLVMLibrary;
 procedure LLVMSetOrdering(MemoryAccessInst: TLLVMValueRef; Ordering: TLLVMAtomicOrdering); cdecl; external CLLVMLibrary;
+
+{/* Casts */}
 function LLVMBuildTrunc(Arg0: TLLVMBuilderRef; Val: TLLVMValueRef; DestTy: TLLVMTypeRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildZExt(Arg0: TLLVMBuilderRef; Val: TLLVMValueRef; DestTy: TLLVMTypeRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildSExt(Arg0: TLLVMBuilderRef; Val: TLLVMValueRef; DestTy: TLLVMTypeRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
@@ -1578,6 +1662,8 @@ function LLVMBuildCast(B: TLLVMBuilderRef; Op: TLLVMOpcode; Val: TLLVMValueRef; 
 function LLVMBuildPointerCast(Arg0: TLLVMBuilderRef; Val: TLLVMValueRef; DestTy: TLLVMTypeRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildIntCast(Arg0: TLLVMBuilderRef; Val: TLLVMValueRef; DestTy: TLLVMTypeRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildFPCast(Arg0: TLLVMBuilderRef; Val: TLLVMValueRef; DestTy: TLLVMTypeRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
+
+{/* Comparisons */}
 function LLVMBuildICmp(Arg0: TLLVMBuilderRef; Op: TLLVMIntPredicate; LHS: TLLVMValueRef; RHS: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildFCmp(Arg0: TLLVMBuilderRef; Op: TLLVMRealPredicate; LHS: TLLVMValueRef; RHS: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildPhi(Arg0: TLLVMBuilderRef; Ty: TLLVMTypeRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
