@@ -3,7 +3,7 @@ unit LLVM.Imports;
 interface
 
 const
-  CLLVMLibrary = 'LLVM-C.dll';
+  CLLVMLibrary = 'LLVM_C.dll';
 
 type
   TLLVMChar = AnsiChar;

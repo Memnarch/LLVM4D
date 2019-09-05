@@ -62,6 +62,9 @@ procedure LLVMAddLoopRotatePass(PM: TLLVMPassManagerRef); cdecl; external CLLVML
 {* See llvm::createLoopRerollPass function. }
 procedure LLVMAddLoopRerollPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
 
+(** See llvm::createLoopInstSimplifyPass function - Modified by Pigreco *)
+procedure LLVMAddLoopInstSimplifyPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
+
 {* See llvm::createLoopUnrollPass function. }
 procedure LLVMAddLoopUnrollPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
 

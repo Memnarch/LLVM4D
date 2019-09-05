@@ -460,7 +460,8 @@ type
   TLLVMDiagnosticHandler = procedure(DiagnosticInfo: TLLVMDiagnosticInfoRef; UserContext: Pointer); cdecl;
   TLLVMYieldCallback = procedure(Context: TLLVMContextRef; UserContext: Pointer); cdecl;
 
-function LLVMContextCreate: TLLVMContextRef; cdecl; external CLLVMLibrary;
+
+function LLVMContextCreate: TLLVMContextRef cdecl; external CLLVMLibrary;
 
 function LLVMGetGlobalContext: TLLVMContextRef; cdecl; external CLLVMLibrary;
 
@@ -761,6 +762,13 @@ function LLVMGetDebugLocColumn(Val: TLLVMValueRef):Cardinal; cdecl; external CLL
 
 function LLVMAddFunction(M: TLLVMModuleRef; const Name: PLLVMChar; FunctionTy: TLLVMTypeRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain a Function value from a Module by its name.
+ *
+ * The returned value corresponds to a llvm::Function value.
+ *
+ * @see llvm::Module::getFunction()
+ *)
 function LLVMGetNamedFunction(M: TLLVMModuleRef; const Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
 function LLVMGetFirstFunction(M: TLLVMModuleRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
@@ -784,6 +792,17 @@ procedure LLVMDumpType(Val: TLLVMTypeRef); cdecl; external CLLVMLibrary;
 
 function LLVMPrintTypeToString(Val: TLLVMTypeRef): PLLVMChar; cdecl; external CLLVMLibrary;
 
+(**
+ * @defgroup LLVMCCoreTypeInt Integer Types
+ *
+ * Functions in this section operate on integer types.
+ *
+ * @{
+ *)
+
+(**
+ * Obtain an integer type from a context with specified bit width.
+ *)
 function LLVMInt1TypeInContext(C: TLLVMContextRef): TLLVMTypeRef; cdecl; external CLLVMLibrary;
 function LLVMInt8TypeInContext(C: TLLVMContextRef): TLLVMTypeRef; cdecl; external CLLVMLibrary;
 function LLVMInt16TypeInContext(C: TLLVMContextRef): TLLVMTypeRef; cdecl; external CLLVMLibrary;
@@ -792,6 +811,10 @@ function LLVMInt64TypeInContext(C: TLLVMContextRef): TLLVMTypeRef; cdecl; extern
 function LLVMInt128TypeInContext(C: TLLVMContextRef): TLLVMTypeRef; cdecl; external  CLLVMLibrary;
 function LLVMIntTypeInContext(C: TLLVMContextRef; NumBits: Cardinal): TLLVMTypeRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain an integer type from the global context with a specified bit
+ * width.
+ *)
 function LLVMInt1Type: TLLVMTypeRef; cdecl; external CLLVMLibrary;
 function LLVMInt8Type: TLLVMTypeRef; cdecl; external CLLVMLibrary;
 function LLVMInt16Type: TLLVMTypeRef; cdecl; external CLLVMLibrary;
@@ -895,20 +918,78 @@ function LLVMVoidType: TLLVMTypeRef; cdecl; external CLLVMLibrary;
 function LLVMLabelType: TLLVMTypeRef; cdecl; external CLLVMLibrary;
 function LLVMX86MMXType: TLLVMTypeRef; cdecl; external CLLVMLibrary;
 
-//functions working on all valuetypes
+(**
+ * @defgroup LLVMCCoreValueGeneral General APIs
+ *
+ * Functions in this section work on all LLVMValueRef instances,
+ * regardless of their sub-type. They correspond to functions available
+ * on llvm::Value.
+ *
+ * @{
+ *)
 
+(**
+ * Obtain the type of a value.
+ *
+ * @see llvm::Value::getType()
+ *)
 function LLVMTypeOf(Val: TLLVMValueRef): TLLVMTypeRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the enumerated type of a Value instance.
+ *
+ * @see llvm::Value::getValueID()
+ *)
 function LLVMGetValueKind(Val: TLLVMValueRef): TLLVMValueKind; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the string name of a value.
+ *
+ * @see llvm::Value::getName()
+ *)
 function LLVMGetValueName(Val: TLLVMValueRef): PLLVMChar; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the string name of a value.
+ *
+ * @see llvm::Value::getName()
+ *)
+function LLVMGetValueName2(Val: TLLVMValueRef; var Len: TLLVMSizeT):PLLVMChar; cdecl; external CLLVMLibrary;
+
+(**
+ * Set the string name of a value.
+ *
+ * @see llvm::Value::setName()
+ *)
 procedure LLVMSetValueName(Val: TLLVMValueRef; const Name: PLLVMChar); cdecl; external CLLVMLibrary;
 
+(**
+ * Set the string name of a value.
+ *
+ * @see llvm::Value::setName()
+ *)
+procedure LLVMSetValueName2(Valore: TLLVMValueRef; const Name: PLLVMChar; NameLen: TLLVMSizeT); cdecl; external CLLVMLibrary;
+
+(*
+ * Dump a representation of a value to stderr.
+ *
+ * @see llvm::Value::dump()
+ *)
 procedure LLVMDumpValue(Val: TLLVMValueRef); cdecl; external CLLVMLibrary;
 
+(**
+ * Return a string representation of the value. Use
+ * LLVMDisposeMessage to free the string.
+ *
+ * @see llvm::Value::print()
+ *)
 function LLVMPrintValueToString(Val: TLLVMValueRef): PLLVMChar; cdecl; external CLLVMLibrary;
 
+(**
+ * Replace all uses of a value with another one.
+ *
+ * @see llvm::Value::replaceAllUsesWith()
+ *)
 procedure LLVMReplaceAllUsesWith(OldVal: TLLVMValueRef; NewVal: TLLVMValueRef); cdecl; external CLLVMLibrary;
 
 function LLVMIsConstant(Val: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
@@ -918,36 +999,177 @@ function LLVMIsUndef(Val: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary
 function LLVMIsAMDNode(Val: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMIsAMDString(Val: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(**
+ * @defgroup LLVMCCoreValueUses Usage
+ *
+ * This module defines functions that allow you to inspect the uses of a
+ * LLVMValueRef.
+ *
+ * It is possible to obtain an LLVMUseRef for any LLVMValueRef instance.
+ * Each LLVMUseRef (which corresponds to a llvm::Use instance) holds a
+ * llvm::User and llvm::Value.
+ *
+ * @{
+ *)
+
+(**
+ * Obtain the first use of a value.
+ *
+ * Uses are obtained in an iterator fashion. First, call this function
+ * to obtain a reference to the first use. Then, call LLVMGetNextUse()
+ * on that instance and all subsequently obtained instances until
+ * LLVMGetNextUse() returns NULL.
+ *
+ * @see llvm::Value::use_begin()
+ *)
 function LLVMGetFirstUse(Val: TLLVMValueRef): TLLVMUseRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the next use of a value.
+ *
+ * This effectively advances the iterator. It returns NULL if you are on
+ * the final use and no more are available.
+ *)
 function LLVMGetNextUse(U: TLLVMUseRef): TLLVMUseRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the user value for a user.
+ *
+ * The returned value corresponds to a llvm::User type.
+ *
+ * @see llvm::Use::getUser()
+ *)
 function LLVMGetUser(U: TLLVMUseRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the value this use corresponds to.
+ *
+ * @see llvm::Use::get().
+ *)
 function LLVMGetUsedValue(U: TLLVMUseRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
-//functions for Users
+(**
+ * @}
+ *)
 
+(**
+ * @defgroup LLVMCCoreValueUser User value
+ *
+ * Function in this group pertain to LLVMValueRef instances that descent
+ * from llvm::User. This includes constants, instructions, and
+ * operators.
+ *
+ * @{
+ *)
+
+(**
+ * Obtain an operand at a specific index in a llvm::User value.
+ *
+ * @see llvm::User::getOperand()
+ *)
 function LLVMGetOperand(Val: TLLVMValueRef; Index: Cardinal): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the use of an operand at a specific index in a llvm::User value.
+ *
+ * @see llvm::User::getOperandUse()
+ *)
 function LLVMGetOperandUse(Val: TLLVMValueRef; Index: Cardinal): TLLVMUseRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Set an operand at a specific index in a llvm::User value.
+ *
+ * @see llvm::User::setOperand()
+ *)
 procedure LLVMSetOperand(User: TLLVMValueRef; Index: Cardinal; Val: TLLVMValueRef); cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the number of operands in a llvm::User value.
+ *
+ * @see llvm::User::getNumOperands()
+ *)
 function LLVMGetNumOperands(Val: TLLVMValueRef): Integer; cdecl; external CLLVMLibrary;
 
-//constants
+(**
+ * @}
+ *)
 
+(**
+ * @defgroup LLVMCCoreValueConstant Constants
+ *
+ * This section contains APIs for interacting with LLVMValueRef that
+ * correspond to llvm::Constant instances.
+ *
+ * These functions will work for any LLVMValueRef in the llvm::Constant
+ * class hierarchy.
+ *
+ * @{
+ *)
+
+(**
+ * Obtain a constant value referring to the null instance of a type.
+ *
+ * @see llvm::Constant::getNullValue()
+ *)
 function LLVMConstNull(Ty: TLLVMTypeRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain a constant value referring to the instance of a type
+ * consisting of all ones.
+ *
+ * This is only valid for integer types.
+ *
+ * @see llvm::Constant::getAllOnesValue()
+ *)
 function LLVMConstAllOnes(Ty: TLLVMTypeRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain a constant value referring to an undefined value of a type.
+ *
+ * @see llvm::UndefValue::get()
+ *)
 function LLVMGetUndef(Ty: TLLVMTypeRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Determine whether a value instance is null.
+ *
+ * @see llvm::Constant::isNullValue()
+ *)
 function LLVMIsNull(Val: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain a constant that is a constant pointer pointing to NULL for a
+ * specified type.
+ *)
 function LLVMConstPointerNull(Ty: TLLVMTypeRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(**
+ * @defgroup LLVMCCoreValueConstantScalar Scalar constants
+ *
+ * Functions in this group model LLVMValueRef instances that correspond
+ * to constants referring to scalar types.
+ *
+ * For integer types, the LLVMTypeRef parameter should correspond to a
+ * llvm::IntegerType instance and the returned LLVMValueRef will
+ * correspond to a llvm::ConstantInt.
+ *
+ * For floating point types, the LLVMTypeRef returned corresponds to a
+ * llvm::ConstantFP.
+ *
+ * @{
+ *)
+
+(**
+ * Obtain a constant value for an integer type.
+ *
+ * The returned value corresponds to a llvm::ConstantInt.
+ *
+ * @see llvm::ConstantInt::get()
+ *
+ * @param IntTy Integer type to obtain value of.
+ * @param N The value the returned instance should refer to.
+ * @param SignExtend Whether to sign extend the produced value.
+ *)
 function LLVMConstInt(IntTy: TLLVMTypeRef; N: UInt64; SignExtend: LongBool): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
 function LLVMConstIntOfArbitraryPrecision(IntTy: TLLVMTypeRef; NumWords: Cardinal; Words: PUInt64): TLLVMValueRef; cdecl; external CLLVMLibrary;
@@ -1372,8 +1594,19 @@ procedure LLVMAppendExistingBasicBlock(Fn: TLLVMValueRef; BB: TLLVMBasicBlockRef
  *)
 function LLVMCreateBasicBlockInContext(C: TLLVMContextRef; const Name: PLLVMChar): TLLVMBasicBlockRef;  cdecl; external CLLVMLibrary;
 
+(**
+ * Append a basic block to the end of a function.
+ *
+ * @see llvm::BasicBlock::Create()
+ *)
 function LLVMAppendBasicBlockInContext(C: TLLVMContextRef; Fn: TLLVMValueRef; const Name: PLLVMChar): TLLVMBasicBlockRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Append a basic block to the end of a function using the global
+ * context.
+ *
+ * @see llvm::BasicBlock::Create()
+ *)
 function LLVMAppendBasicBlock(Fn: TLLVMValueRef; const Name: PLLVMChar): TLLVMBasicBlockRef; cdecl; external CLLVMLibrary;
 
 function LLVMInsertBasicBlockInContext(C: TLLVMContextRef; BB: TLLVMBasicBlockRef; const Name: PLLVMChar): TLLVMBasicBlockRef; cdecl; external CLLVMLibrary;
@@ -1388,8 +1621,19 @@ procedure LLVMMoveBasicBlockBefore(BB: TLLVMBasicBlockRef; MovePos: TLLVMBasicBl
 
 procedure LLVMMoveBasicBlockAfter(BB: TLLVMBasicBlockRef; MovePos: TLLVMBasicBlockRef); cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the first instruction in a basic block.
+ *
+ * The returned LLVMValueRef corresponds to a llvm::Instruction
+ * instance.
+ *)
 function LLVMGetFirstInstruction(BB: TLLVMBasicBlockRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the last instruction in a basic block.
+ *
+ * The returned LLVMValueRef corresponds to an LLVM:Instruction.
+ *)
 function LLVMGetLastInstruction(BB: TLLVMBasicBlockRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
 function LLVMHasMetadata(Val: TLLVMValueRef): Integer; cdecl; external CLLVMLibrary;
@@ -1397,6 +1641,15 @@ function LLVMHasMetadata(Val: TLLVMValueRef): Integer; cdecl; external CLLVMLibr
 function LLVMGetMetadata(Val: TLLVMValueRef; KindID: Cardinal): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
 procedure LLVMSetMetadata(Val: TLLVMValueRef; KindID: Cardinal; Node: TLLVMValueRef); cdecl; external CLLVMLibrary;
+
+(**
+ * Returns the metadata associated with an instruction value, but filters out
+ * all the debug locations.
+ *
+ * @see llvm::Instruction::getAllMetadataOtherThanDebugLoc()
+ *
+ *)
+function LLVMInstructionGetAllMetadataOtherThanDebugLoc(Instr: TLLVMValueRef; var NumEntries: TLLVMSizeT):PLLVMValueMetadataEntry;cdecl; external CLLVMLibrary;
 
 function LLVMGetInstructionParent(Inst: TLLVMValueRef): TLLVMBasicBlockRef; cdecl; external CLLVMLibrary;
 
@@ -1416,10 +1669,56 @@ function LLVMGetFCmpPredicate(Inst: TLLVMValueRef): TLLVMRealPredicate; cdecl; e
 
 function LLVMInstructionClone(Inst: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Determine whether an instruction is a terminator. This routine is named to
+ * be compatible with historical functions that did this by querying the
+ * underlying C++ type.
+ *
+ * @see llvm::Instruction::isTerminator()
+ *)
+function  LLVMIsATerminatorInst(Inst: TLLVMValueRef):TLLVMValueRef; cdecl; external CLLVMLibrary;
+
+(**
+ * @defgroup LLVMCCoreValueInstructionCall Call Sites and Invocations
+ *
+ * Functions in this group apply to instructions that refer to call
+ * sites and invocations. These correspond to C++ types in the
+ * llvm::CallInst class tree.
+ *
+ * @{
+ *)
+
+(**
+ * Obtain the argument count for a call instruction.
+ *
+ * This expects an LLVMValueRef that corresponds to a llvm::CallInst,
+ * llvm::InvokeInst, or llvm:FuncletPadInst.
+ *
+ * @see llvm::CallInst::getNumArgOperands()
+ * @see llvm::InvokeInst::getNumArgOperands()
+ * @see llvm::FuncletPadInst::getNumArgOperands()
+ *)
 function LLVMGetNumArgOperands(Instr: TLLVMValueRef): Cardinal; cdecl; external CLLVMLibrary;
 
+(**
+ * Set the calling convention for a call instruction.
+ *
+ * This expects an LLVMValueRef that corresponds to a llvm::CallInst or
+ * llvm::InvokeInst.
+ *
+ * @see llvm::CallInst::setCallingConv()
+ * @see llvm::InvokeInst::setCallingConv()
+ *)
 procedure LLVMSetInstructionCallConv(Instr: TLLVMValueRef; CC: Cardinal); cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the calling convention for a call instruction.
+ *
+ * This is the opposite of LLVMSetInstructionCallConv(). Reads its
+ * usage.
+ *
+ * @see LLVMSetInstructionCallConv()
+ *)
 function LLVMGetInstructionCallConv(Instr: TLLVMValueRef): Cardinal; cdecl; external CLLVMLibrary;
 
 procedure LLVMSetInstrParamAlignment(Instr: TLLVMValueRef; index: Cardinal; Align: Cardinal); cdecl; external CLLVMLibrary;
@@ -1432,6 +1731,22 @@ function LLVMGetCallSiteStringAttribute(C: TLLVMValueRef; Idx: TLLVMAttributeInd
 procedure LLVMRemoveCallSiteEnumAttribute(C: TLLVMValueRef; Idx: TLLVMAttributeIndex; KindID: Cardinal); cdecl; external CLLVMLibrary;
 procedure LLVMRemoveCallSiteStringAttribute(C: TLLVMValueRef; Idx: TLLVMAttributeIndex; const K: PLLVMChar; KLen: Cardinal); cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the function type called by this instruction.
+ *
+ * @see llvm::CallBase::getFunctionType()
+ *)
+function LLVMGetCalledFunctionType(C: TLLVMValueRef): TLLVMTypeRef;cdecl; external CLLVMLibrary;
+
+(**
+ * Obtain the pointer to the function invoked by this instruction.
+ *
+ * This expects an LLVMValueRef that corresponds to a llvm::CallInst or
+ * llvm::InvokeInst.
+ *
+ * @see llvm::CallInst::getCalledValue()
+ * @see llvm::InvokeInst::getCalledValue()
+ *)
 function LLVMGetCalledValue(Instr: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
 function LLVMIsTailCall(CallInst: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
@@ -1445,6 +1760,40 @@ function LLVMGetUnwindDest(InvokeInst: TLLVMValueRef): TLLVMBasicBlockRef; cdecl
 procedure LLVMSetNormalDest(InvokeInst: TLLVMValueRef; B: TLLVMBasicBlockRef); cdecl; external CLLVMLibrary;
 
 procedure LLVMSetUnwindDest(InvokeInst: TLLVMValueRef; B: TLLVMBasicBlockRef); cdecl; external CLLVMLibrary;
+
+(**
+ * @}
+ *)
+
+(**
+ * @defgroup LLVMCCoreValueInstructionTerminator Terminators
+ *
+ * Functions in this group only apply to instructions for which
+ * LLVMIsATerminatorInst returns true.
+ *
+ * @{
+ *)
+
+(**
+ * Return the number of successors that this terminator has.
+ *
+ * @see llvm::Instruction::getNumSuccessors
+ * )
+
+
+ (**
+ * Return a pointer to the next non-debug instruction in the same basic block as 'this', or nullptr if no such instruction exists.
+ *
+ * @see llvm::Instruction::getNextNonDebugInstruction // Add by Pigreco
+ *)
+function LLVMgetNextNonDebugInstruction(Istruz: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
+
+(**
+* Return a pointer to the next non-debug instruction in the same basic block as 'this', or nullptr if no such instruction exists.
+*
+* @see llvm::Instruction::PrevNonDebugInstruction // Add by Pigreco
+*)
+function LLVMgetPrevNonDebugInstruction(Istruz: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
 function LLVMGetNumSuccessors(Term: TLLVMValueRef): Cardinal; cdecl; external CLLVMLibrary;
 
@@ -1489,9 +1838,29 @@ procedure LLVMClearInsertionPosition(Builder: TLLVMBuilderRef); cdecl; external 
 procedure LLVMInsertIntoBuilder(Builder: TLLVMBuilderRef; Instr: TLLVMValueRef); cdecl; external CLLVMLibrary;
 procedure LLVMInsertIntoBuilderWithName(Builder: TLLVMBuilderRef; Instr: TLLVMValueRef; Name: PLLVMChar); cdecl; external CLLVMLibrary;
 procedure LLVMDisposeBuilder(Builder: TLLVMBuilderRef); cdecl; external CLLVMLibrary;
+
+{/* Metadata */}
+
+(**
+ * Get location information used by debugging information.
+ *
+ * @see llvm::IRBuilder::getCurrentDebugLocation()
+ *)
+function LLVMGetCurrentDebugLocation2(Builder: TLLVMBuilderRef ):TLLVMMetadataRef;cdecl; external CLLVMLibrary;
+
+(**
+ * Set location information used by debugging information.
+ *
+ * To clear the location metadata of the given instruction, pass NULL to \p Loc.
+ *
+ * @see llvm::IRBuilder::SetCurrentDebugLocation()
+ *)
+procedure LLVMSetCurrentDebugLocation2(Builder: TLLVMBuilderRef; Loc: TLLVMMetadataRef); cdecl; external CLLVMLibrary;
+
 procedure LLVMSetCurrentDebugLocation(Builder: TLLVMBuilderRef; L: TLLVMValueRef); cdecl; external CLLVMLibrary;
 function LLVMGetCurrentDebugLocation(Builder: TLLVMBuilderRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 procedure LLVMSetInstDebugLocation(Builder: TLLVMBuilderRef; Inst: TLLVMValueRef); cdecl; external CLLVMLibrary;
+
 function LLVMBuildRetVoid(Arg0: TLLVMBuilderRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildRet(Arg0: TLLVMBuilderRef; V: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildAggregateRet(Arg0: TLLVMBuilderRef; RetVals: PLLVMValueRef; N: Cardinal): TLLVMValueRef; cdecl; external CLLVMLibrary;
@@ -1698,14 +2067,69 @@ function LLVMGetBufferStart(MemBuf: TLLVMMemoryBufferRef): PLLVMChar; cdecl; ext
 function LLVMGetBufferSize(MemBuf: TLLVMMemoryBufferRef): TLLVMSizeT; cdecl; external CLLVMLibrary;
 procedure LLVMDisposeMemoryBuffer(MemBuf: TLLVMMemoryBufferRef); cdecl; external CLLVMLibrary;
 function LLVMGetGlobalPassRegistry: TLLVMPassRegistryRef; cdecl; external CLLVMLibrary;
+
+(**
+ * @}
+ *)
+
+(**
+ * @defgroup LLVMCCorePassManagers Pass Managers
+ *
+ * @{
+ *)
+
+(** Constructs a new whole-module pass pipeline. This type of pipeline is
+    suitable for link-time optimization and whole-module transformations.
+    @see llvm::PassManager::PassManager *)
 function LLVMCreatePassManager: TLLVMPassManagerRef; cdecl; external CLLVMLibrary;
+
+(** Constructs a new function-by-function pass pipeline over the module
+    provider. It does not take ownership of the module provider. This type of
+    pipeline is suitable for code generation and JIT compilation tasks.
+    @see llvm::FunctionPassManager::FunctionPassManager *)
 function LLVMCreateFunctionPassManagerForModule(M: TLLVMModuleRef): TLLVMPassManagerRef; cdecl; external CLLVMLibrary;
+
+{/** Deprecated: Use LLVMCreateFunctionPassManagerForModule instead. */}
 function LLVMCreateFunctionPassManager(MP: TLLVMModuleProviderRef): TLLVMPassManagerRef; cdecl; external CLLVMLibrary;
+
+(** Initializes, executes on the provided module, and finalizes all of the
+    passes scheduled in the pass manager. Returns 1 if any of the passes
+    modified the module, 0 otherwise.
+    @see llvm::PassManager::run(Module&) *)
 function LLVMRunPassManager(PM: TLLVMPassManagerRef; M: TLLVMModuleRef): TLLVMBool; cdecl; external CLLVMLibrary;
+
+(** Initializes all of the function passes scheduled in the function pass
+    manager. Returns 1 if any of the passes modified the module, 0 otherwise.
+    @see llvm::FunctionPassManager::doInitialization *)
 function LLVMInitializeFunctionPassManager(FPM: TLLVMPassManagerRef): TLLVMBool; cdecl; external CLLVMLibrary;
+
+(** Executes all of the function passes scheduled in the function pass manager
+    on the provided function. Returns 1 if any of the passes modified the
+    function, false otherwise.
+    @see llvm::FunctionPassManager::run(Function&) *)
 function LLVMRunFunctionPassManager(FPM: TLLVMPassManagerRef; F: TLLVMValueRef): TLLVMBool; cdecl; external CLLVMLibrary;
+
+(** Finalizes all of the function passes scheduled in the function pass
+    manager. Returns 1 if any of the passes modified the module, 0 otherwise.
+    @see llvm::FunctionPassManager::doFinalization *)
 function LLVMFinalizeFunctionPassManager(FPM: TLLVMPassManagerRef): TLLVMBool; cdecl; external CLLVMLibrary;
+
+(** Frees the memory of a pass pipeline. For function pipelines, does not free
+    the module provider.
+    @see llvm::PassManagerBase::~PassManagerBase. *)
 procedure LLVMDisposePassManager(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
+
+(** Deprecated: Multi-threading can only be enabled/disabled with the compile
+    time define LLVM_ENABLE_THREADS.  This function always returns
+    LLVMIsMultithreaded(). *)
+function LLVMStartMultithreaded: TLLVMBool;cdecl; external CLLVMLibrary;
+
+(** Deprecated: Multi-threading can only be enabled/disabled with the compile
+    time define LLVM_ENABLE_THREADS. *)
+procedure LLVMStopMultithreaded; cdecl; external CLLVMLibrary;
+
+(** Check whether LLVM is executing in thread-safe mode or not.
+    @see llvm::llvm_is_multithreaded *)
 function LLVMIsMultithreaded: LongBool; cdecl; external CLLVMLibrary;
 
 implementation

@@ -20,6 +20,7 @@ type
   TLLVMContextRef = type TLLVMRef;
 
   TLLVMModuleRef = type TLLVMRef;
+  PLLVMModuleRef = ^TLLVMModuleRef;
 
   TLLVMTypeRef = type TLLVMRef;
   PLLVMTypeRef = ^TLLVMTypeRef;
@@ -45,6 +46,7 @@ type
   * This models std::pair<unsigned, MDNode *>
   *)
   TLLVMValueMetadataEntry = type TLLVMRef;
+  PLLVMValueMetadataEntry = ^TLLVMValueMetadataEntry;
 
   TLLVMBuilderRef = type TLLVMRef;
 
