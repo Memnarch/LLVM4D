@@ -1,9 +1,10 @@
 unit LLVM.Imports;
 
 interface
+   uses System.SysUtils;
 
 const
-  CLLVMLibrary = 'LLVM_C.dll';
+  CLLVMLibrary = 'LLVM-C.dll';
 
 type
   TLLVMChar = AnsiChar;
@@ -29,7 +30,26 @@ end;
 
 function TLLVMRef.IsValid: Boolean;
 begin
-  Result := Assigned(Value);
+
+   Result := Assigned(Value);
+
+   if Result then
+   begin
+       try
+          CompareMem(Value,Value,SizeOf(Value))
+       except
+          Result := False;
+       end;
+   end;
+
+   if Result then
+   begin
+       try
+          Move(Value,Value,SizeOf(Value))
+       except
+          Result := False;
+       end;
+   end;
 end;
 
 end.

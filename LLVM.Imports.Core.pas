@@ -18,67 +18,72 @@ type
 
   TLLVMAttrKind = (
     // IR-Level Attributes
-    LLVMNone, ///< No attributes have been set
-    LLVMAlignment,                                  //align
-    LLVMAllocSize,                                  //allocsize
-    LLVMAlwaysInline,                               //alwaysinline
-    LLVMArgMemOnly,                                 //argmemonly
-    LLVMBuiltin,                                    //builtin
-    LLVMByVal,                                      //byval
-    LLVMCold,                                       //cold 
-    LLVMConvergent,                                 //convergent
-    LLVMDereferenceable,                            //dereferenceable
-    LLVMDereferenceableOrNull,                      //dereferenceable_or_null
-    LLVMInAlloca,                                   //inalloca
-    LLVMInReg,                                      //inreg
-    LLVMInaccessibleMemOnly,                        //inaccessiblememonly
-    LLVMInaccessibleMemOrArgMemOnly,                //inaccessiblemem_or_argmemonly
-    LLVMInlineHint,                                 //inlinehint
-    LLVMJumpTable,                                  //jumptable
-    LLVMMinSize,                                    //minsize
-    LLVMNaked,                                      //naked
-    LLVMNest,                                       //nest 
-    LLVMNoAlias,                                    //noalias
-    LLVMNoBuiltin,                                  //nobuiltin
-    LLVMNoCapture,                                  //nocapture
-    LLVMNoCfCheck,                                  //nocf_check
-    LLVMNoDuplicate,                                //noduplicate
-    LLVMNoImplicitFloat,                            //noimplicitfloat
-    LLVMNoInline,                                   //noinline
-    LLVMNoRecurse,                                  //norecurse
-    LLVMNoRedZone,                                  //noredzone
-    LLVMNoReturn,                                   //noreturn
-    LLVMNoUnwind,                                   //nounwind
-    LLVMNonLazyBind,                                //nonlazybind
-    LLVMNonNull,                                    //nonnull
-    LLVMOptForFuzzing,                              //optforfuzzing
-    LLVMOptimizeForSize,                            //optsize
-    LLVMOptimizeNone,                               //optnone
-    LLVMReadNone,                                   //readnone
-    LLVMReadOnly,                                   //readonly
-    LLVMReturned,                                   //returned
-    LLVMReturnsTwice,                               //returns_twice
-    LLVMAttrSExt,                                   //signext
-    LLVMSafeStack,                                  //safestack
-    LLVMSanitizeAddress,                            //sanitize_address
-    LLVMSanitizeHWAddress,                          //sanitize_hwaddress
-    LLVMSanitizeMemory,                             //sanitize_memory
-    LLVMSanitizeThread,                             //sanitize_thread
-    LLVMShadowCallStack,                            //shadowcallstack
-    LLVMSpeculatable,                               //speculatable
-    LLVMSpeculativeLoadHardening,                   //speculative_load_hardening
-    LLVMStackAlignment,                             //alignstack
-    LLVMStackProtect,                               //ssp A
-    LLVMStackProtectReq,                            //sspreq
-    LLVMStackProtectStrong,                         //sspstrong
-    LLVMStrictFP,                                   //strictfp
-    LLVMStructRet,                                  //sret 
-    LLVMSwiftError,                                 //swifterror
-    LLVMSwiftSelf,                                  //swiftself
-    LLVMUWTable,                                    //uwtable
-    LLVMWriteOnly,                                  //writeonly
-    LLVMAttrZExt,                                   //zeroext
-    LLVMEndAttrKinds); ///< Sentinal value useful for loops
+    LLVMNone,                            ///< No attributes have been set
+    LLVMAlignment,
+    LLVMAllocSize,
+    LLVMAlwaysInline,
+    LLVMArgMemOnly,
+    LLVMBuiltin,
+    LLVMByVal,
+    LLVMCold,
+    LLVMConvergent,
+    LLVMDereferenceable,
+    LLVMDereferenceableOrNull,
+    LLVMImmArg,
+    LLVMInAlloca,
+    LLVMInReg,
+    LLVMInaccessibleMemOnly,
+    LLVMInaccessibleMemOrArgMemOnly,
+    LLVMInlineHint,
+    LLVMJumpTable,
+    LLVMMinSize,
+    LLVMNaked,
+    LLVMNest,
+    LLVMNoAlias,
+    LLVMNoBuiltin,
+    LLVMNoCapture,
+    LLVMNoCfCheck,
+    LLVMNoDuplicate,
+    LLVMNoFree,
+    LLVMNoImplicitFloat,
+    LLVMNoInline,
+    LLVMNoRecurse,
+    LLVMNoRedZone,
+    LLVMNoReturn,
+    LLVMNoSync,
+    LLVMNoUnwind,
+    LLVMNonLazyBind,
+    LLVMNonNull,
+    LLVMOptForFuzzing,
+    LLVMOptimizeForSize,
+    LLVMOptimizeNone,
+    LLVMReadNone,
+    LLVMReadOnly,
+    LLVMReturned,
+    LLVMReturnsTwice,
+    LLVMSignedExt,
+    LLVMSafeStack,
+    LLVMSanitizeAddress,
+    LLVMSanitizeHWAddress,
+    LLVMSanitizeMemTag,
+    LLVMSanitizeMemory,
+    LLVMSanitizeThread,
+    LLVMShadowCallStack,
+    LLVMSpeculatable,
+    LLVMSpeculativeLoadHardening,
+    LLVMStackAlignment,
+    LLVMStackProtect,
+    LLVMStackProtectReq,
+    LLVMStackProtectStrong,
+    LLVMStrictFP,
+    LLVMStructRet,
+    LLVMSwiftError,
+    LLVMSwiftSelf,
+    LLVMUWTable,
+    LLVMWillReturn,
+    LLVMWriteOnly,
+    LLVMZeroExt,
+    LLVMEndAttrKinds);                   ///< Sentinal value useful for loops
 
 
   TLLVMOpcode = (
@@ -919,6 +924,118 @@ function LLVMLabelType: TLLVMTypeRef; cdecl; external CLLVMLibrary;
 function LLVMX86MMXType: TLLVMTypeRef; cdecl; external CLLVMLibrary;
 
 (**
+ * @}
+ */
+
+/**
+ * @}
+ */
+
+/**
+ * @defgroup LLVMCCoreValues Values
+ *
+ * The bulk of LLVM's object model consists of values, which comprise a very
+ * rich type hierarchy.
+ *
+ * LLVMValueRef essentially represents llvm::Value. There is a rich
+ * hierarchy of classes within this type. Depending on the instance
+ * obtained, not all APIs are available.
+ *
+ * Callers can determine the type of an LLVMValueRef by calling the
+ * LLVMIsA* family of functions (e.g. LLVMIsAArgument()). These
+ * functions are defined by a macro, so it isn't obvious which are
+ * available by looking at the Doxygen source code. Instead, look at the
+ * source definition of LLVM_FOR_EACH_VALUE_SUBCLASS and note the list
+ * of value names given. These value names also correspond to classes in
+ * the llvm::Value hierarchy.
+ *
+ * @{
+ *)
+
+ {/*--.. Conversion functions ................................................--*/}
+
+Function LLVMIsAArgument              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsABasicBlock            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAInlineAsm             (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAUser                  (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAConstant              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsABlockAddress          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAConstantAggregateZero (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAConstantArray         (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAConstantDataSequential(Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAConstantDataArray     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAConstantDataVector    (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAConstantExpr          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAConstantFP            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAConstantInt           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAConstantPointerNull   (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAConstantStruct        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAConstantTokenNone     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAConstantVector        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAGlobalValue           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAGlobalAlias           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAGlobalIFunc           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAGlobalObject          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAFunction              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAGlobalVariable        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAUndefValue            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAInstruction           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsABinaryOperator        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsACallInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAIntrinsicInst         (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsADbgInfoIntrinsic      (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsADbgVariableIntrinsic  (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsADbgDeclareInst        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsADbgLabelInst          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAMemIntrinsic          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAMemCpyInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAMemMoveInst           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAMemSetInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsACmpInst               (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAFCmpInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAICmpInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAExtractElementInst    (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAGetElementPtrInst     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAInsertElementInst     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAInsertValueInst       (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsALandingPadInst        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAPHINode               (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsASelectInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAShuffleVectorInst     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAStoreInst             (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsABranchInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAIndirectBrInst        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAInvokeInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAReturnInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsASwitchInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAUnreachableInst       (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAResumeInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsACleanupReturnInst     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsACatchReturnInst       (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAFuncletPadInst        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsACatchPadInst          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsACleanupPadInst        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAUnaryInstruction      (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAAllocaInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsACastInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAAddrSpaceCastInst     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsABitCastInst           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAFPExtInst             (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAFPToSIInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAFPToUIInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAFPTruncInst           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAIntToPtrInst          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAPtrToIntInst          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsASExtInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsASIToFPInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsATruncInst             (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAUIToFPInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAZExtInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAExtractValueInst      (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsALoadInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+Function LLVMIsAVAArgInst             (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+
+(**
  * @defgroup LLVMCCoreValueGeneral General APIs
  *
  * Functions in this section work on all LLVMValueRef instances,
@@ -1545,30 +1662,117 @@ function LLVMGetMDNodeNumOperands(V: TLLVMValueRef): Cardinal; cdecl; external C
 
 procedure LLVMGetMDNodeOperands(V: TLLVMValueRef; Dest: PLLVMValueRef); cdecl; external CLLVMLibrary;
 
+(**
+ * @}
+ */
+
+/**
+ * @defgroup LLVMCCoreValueBasicBlock Basic Block
+ *
+ * A basic block represents a single entry single exit section of code.
+ * Basic blocks contain a list of instructions which form the body of
+ * the block.
+ *
+ * Basic blocks belong to functions. They have the type of label.
+ *
+ * Basic blocks are themselves values. However, the C API models them as
+ * LLVMBasicBlockRef.
+ *
+ * @see llvm::BasicBlock
+ *
+ * @{
+ *)
+
+(**
+ * Convert a basic block instance to a value type.
+ *)
 function LLVMBasicBlockAsValue(BB: TLLVMBasicBlockRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Determine whether an LLVMValueRef is itself a basic block.
+ *)
 function LLVMValueIsBasicBlock(Val: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
 
+(**
+ * Convert an LLVMValueRef to an LLVMBasicBlockRef instance.
+ *)
 function LLVMValueAsBasicBlock(Val: TLLVMValueRef): TLLVMBasicBlockRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the string name of a basic block.
+ *)
 function LLVMGetBasicBlockName(BB: TLLVMBasicBlockRef): PLLVMChar; cdecl; external CLLVMLibrary;
 
+
+(**
+ * Obtain the function to which a basic block belongs.
+ *
+ * @see llvm::BasicBlock::getParent()
+ *)
 function LLVMGetBasicBlockParent(BB: TLLVMBasicBlockRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the terminator instruction for a basic block.
+ *
+ * If the basic block does not have a terminator (it is not well-formed
+ * if it doesn't), then NULL is returned.
+ *
+ * The returned LLVMValueRef corresponds to an llvm::Instruction.
+ *
+ * @see llvm::BasicBlock::getTerminator()
+ *)
 function LLVMGetBasicBlockTerminator(BB: TLLVMBasicBlockRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the number of basic blocks in a function.
+ *
+ * @param Fn Function value to operate on.
+ *)
 function LLVMCountBasicBlocks(Fn: TLLVMValueRef): Cardinal; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain all of the basic blocks in a function.
+ *
+ * This operates on a function value. The BasicBlocks parameter is a
+ * pointer to a pre-allocated array of LLVMBasicBlockRef of at least
+ * LLVMCountBasicBlocks() in length. This array is populated with
+ * LLVMBasicBlockRef instances.
+ *)
 procedure LLVMGetBasicBlocks(Fn: TLLVMValueRef; BasicBlocks: PLLVMBasicBlockRef); cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the first basic block in a function.
+ *
+ * The returned basic block can be used as an iterator. You will likely
+ * eventually call into LLVMGetNextBasicBlock() with it.
+ *
+ * @see llvm::Function::begin()
+ *)
 function LLVMGetFirstBasicBlock(Fn: TLLVMValueRef): TLLVMBasicBlockRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the last basic block in a function.
+ *
+ * @see llvm::Function::end()
+ *)
 function LLVMGetLastBasicBlock(Fn: TLLVMValueRef): TLLVMBasicBlockRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Advance a basic block iterator.
+ *)
 function LLVMGetNextBasicBlock(BB: TLLVMBasicBlockRef): TLLVMBasicBlockRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Go backwards in a basic block iterator.
+ *)
 function LLVMGetPreviousBasicBlock(BB: TLLVMBasicBlockRef): TLLVMBasicBlockRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the basic block that corresponds to the entry point of a
+ * function.
+ *
+ * @see llvm::Function::getEntryBlock()
+ *)
 function LLVMGetEntryBasicBlock(Fn: TLLVMValueRef): TLLVMBasicBlockRef; cdecl; external CLLVMLibrary;
 
 (**
@@ -1651,22 +1855,86 @@ procedure LLVMSetMetadata(Val: TLLVMValueRef; KindID: Cardinal; Node: TLLVMValue
  *)
 function LLVMInstructionGetAllMetadataOtherThanDebugLoc(Instr: TLLVMValueRef; var NumEntries: TLLVMSizeT):PLLVMValueMetadataEntry;cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the basic block to which an instruction belongs.
+ *
+ * @see llvm::Instruction::getParent()
+ *)
 function LLVMGetInstructionParent(Inst: TLLVMValueRef): TLLVMBasicBlockRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the instruction that occurs after the one specified.
+ *
+ * The next instruction will be from the same basic block.
+ *
+ * If this is the last instruction in a basic block, NULL will be
+ * returned.
+ *)
 function LLVMGetNextInstruction(Inst: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the instruction that occurred before this one.
+ *
+ * If the instruction is the first instruction in a basic block, NULL
+ * will be returned.
+ *)
 function LLVMGetPreviousInstruction(Inst: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Remove and delete an instruction.
+ *
+ * The instruction specified is removed from its containing building
+ * block but is kept alive.
+ *
+ * @see llvm::Instruction::removeFromParent()
+ *)
 procedure LLVMInstructionRemoveFromParent(Inst: TLLVMValueRef); cdecl; external CLLVMLibrary;
 
+(**
+ * Remove and delete an instruction.
+ *
+ * The instruction specified is removed from its containing building
+ * block and then deleted.
+ *
+ * @see llvm::Instruction::eraseFromParent()
+ *)
 procedure LLVMInstructionEraseFromParent(Inst: TLLVMValueRef); cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the code opcode for an individual instruction.
+ *
+ * @see llvm::Instruction::getOpCode()
+ *)
 function LLVMGetInstructionOpcode(Inst: TLLVMValueRef): TLLVMOpcode; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the predicate of an instruction.
+ *
+ * This is only valid for instructions that correspond to llvm::ICmpInst
+ * or llvm::ConstantExpr whose opcode is llvm::Instruction::ICmp.
+ *
+ * @see llvm::ICmpInst::getPredicate()
+ *)
 function LLVMGetICmpPredicate(Inst: TLLVMValueRef): TLLVMIntPredicate; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the float predicate of an instruction.
+ *
+ * This is only valid for instructions that correspond to llvm::FCmpInst
+ * or llvm::ConstantExpr whose opcode is llvm::Instruction::FCmp.
+ *
+ * @see llvm::FCmpInst::getPredicate()
+ *)
 function LLVMGetFCmpPredicate(Inst: TLLVMValueRef): TLLVMRealPredicate; cdecl; external CLLVMLibrary;
 
+(**
+ * Create a copy of 'this' instruction that is identical in all ways
+ * except the following:
+ *   * The instruction has no parent
+ *   * The instruction has no name
+ *
+ * @see llvm::Instruction::clone()
+ *)
 function LLVMInstructionClone(Inst: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
 (**
@@ -1771,14 +2039,8 @@ procedure LLVMSetUnwindDest(InvokeInst: TLLVMValueRef; B: TLLVMBasicBlockRef); c
  * Functions in this group only apply to instructions for which
  * LLVMIsATerminatorInst returns true.
  *
- * @{
- *)
-
-(**
- * Return the number of successors that this terminator has.
  *
- * @see llvm::Instruction::getNumSuccessors
- * )
+ *)
 
 
  (**
@@ -1786,41 +2048,144 @@ procedure LLVMSetUnwindDest(InvokeInst: TLLVMValueRef; B: TLLVMBasicBlockRef); c
  *
  * @see llvm::Instruction::getNextNonDebugInstruction // Add by Pigreco
  *)
-function LLVMgetNextNonDebugInstruction(Istruz: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
+//function LLVMgetNextNonDebugInstruction(Istruz: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
 (**
 * Return a pointer to the next non-debug instruction in the same basic block as 'this', or nullptr if no such instruction exists.
 *
 * @see llvm::Instruction::PrevNonDebugInstruction // Add by Pigreco
 *)
-function LLVMgetPrevNonDebugInstruction(Istruz: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
+//function LLVMgetPrevNonDebugInstruction(Istruz: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(*
+ * Return the number of successors that this terminator has.
+ *
+ * @see llvm::Instruction::getNumSuccessors
+ *)
 function LLVMGetNumSuccessors(Term: TLLVMValueRef): Cardinal; cdecl; external CLLVMLibrary;
 
+(**
+ * Return the specified successor.
+ *
+ * @see llvm::Instruction::getSuccessor
+ *)
 function LLVMGetSuccessor(Term: TLLVMValueRef; i: Cardinal): TLLVMBasicBlockRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Update the specified successor to point at the provided block.
+ *
+ * @see llvm::Instruction::setSuccessor
+ *)
 procedure LLVMSetSuccessor(Term: TLLVMValueRef; i: Cardinal; block: TLLVMBasicBlockRef); cdecl; external CLLVMLibrary;
 
+(**
+ * Return if a branch is conditional.
+ *
+ * This only works on llvm::BranchInst instructions.
+ *
+ * @see llvm::BranchInst::isConditional
+ *)
 function LLVMIsConditional(Branch: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
 
+(**
+ * Return the condition of a branch instruction.
+ *
+ * This only works on llvm::BranchInst instructions.
+ *
+ * @see llvm::BranchInst::getCondition
+ *)
 function LLVMGetCondition(Branch: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Set the condition of a branch instruction.
+ *
+ * This only works on llvm::BranchInst instructions.
+ *
+ * @see llvm::BranchInst::setCondition
+ *)
 procedure LLVMSetCondition(Branch: TLLVMValueRef; Cond: TLLVMValueRef); cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the default destination basic block of a switch instruction.
+ *
+ * This only works on llvm::SwitchInst instructions.
+ *
+ * @see llvm::SwitchInst::getDefaultDest()
+ *)
 function LLVMGetSwitchDefaultDest(SwitchInstr: TLLVMValueRef): TLLVMBasicBlockRef; cdecl; external CLLVMLibrary;
 
+(**
+ * @}
+ *)
+
+(**
+ * @defgroup LLVMCCoreValueInstructionAlloca Allocas
+ *
+ * Functions in this group only apply to instructions that map to
+ * llvm::AllocaInst instances.
+ *
+ * @{
+ *)
+
+(**
+ * Obtain the type that is being allocated by the alloca instruction.
+ *)
 function LLVMGetAllocatedType(Alloca: TLLVMValueRef): TLLVMTypeRef; cdecl; external CLLVMLibrary;
 
+(**
+ * @}
+ *)
+
+(**
+ * @defgroup LLVMCCoreValueInstructionGetElementPointer GEPs
+ *
+ * Functions in this group only apply to instructions that map to
+ * llvm::GetElementPtrInst instances.
+ *
+ * @{
+ *)
+
+(**
+ * Check whether the given GEP instruction is inbounds.
+ *)
 function LLVMIsInBounds(GEP: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
 
+(**
+ * Set the given GEP instruction to be inbounds or not.
+ *)
 procedure LLVMSetIsInBounds(GEP: TLLVMValueRef; InBounds: LongBool); cdecl; external CLLVMLibrary;
 
+(**
+ * @}
+ *)
+
+(**
+ * @defgroup LLVMCCoreValueInstructionPHINode PHI Nodes
+ *
+ * Functions in this group only apply to instructions that map to
+ * llvm::PHINode instances.
+ *
+ * @{
+ *)
+
+(**
+ * Add an incoming value to the end of a PHI list.
+ *)
 procedure LLVMAddIncoming(PhiNode: TLLVMValueRef; IncomingValues: PLLVMValueRef; IncomingBlocks: PLLVMBasicBlockRef; Count: Cardinal); cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain the number of incoming basic blocks to a PHI node.
+ *)
 function LLVMCountIncoming(PhiNode: TLLVMValueRef): Cardinal; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain an incoming value to a PHI node as an LLVMValueRef.
+ *)
 function LLVMGetIncomingValue(PhiNode: TLLVMValueRef; Index: Cardinal): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
+(**
+ * Obtain an incoming value to a PHI node as an LLVMBasicBlockRef.
+ *)
 function LLVMGetIncomingBlock(PhiNode: TLLVMValueRef; Index: Cardinal): TLLVMBasicBlockRef; cdecl; external CLLVMLibrary;
 
 function LLVMGetNumIndices(Inst: TLLVMValueRef): Cardinal; cdecl; external CLLVMLibrary;
@@ -1858,7 +2223,7 @@ function LLVMGetCurrentDebugLocation2(Builder: TLLVMBuilderRef ):TLLVMMetadataRe
 procedure LLVMSetCurrentDebugLocation2(Builder: TLLVMBuilderRef; Loc: TLLVMMetadataRef); cdecl; external CLLVMLibrary;
 
 procedure LLVMSetCurrentDebugLocation(Builder: TLLVMBuilderRef; L: TLLVMValueRef); cdecl; external CLLVMLibrary;
-function LLVMGetCurrentDebugLocation(Builder: TLLVMBuilderRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function  LLVMGetCurrentDebugLocation(Builder: TLLVMBuilderRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 procedure LLVMSetInstDebugLocation(Builder: TLLVMBuilderRef; Inst: TLLVMValueRef); cdecl; external CLLVMLibrary;
 
 function LLVMBuildRetVoid(Arg0: TLLVMBuilderRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
@@ -1986,22 +2351,22 @@ function LLVMBuildMemCpy(B  : TLLVMBuilderRef;
  *)
 function LLVMBuildMemMove(B: TLLVMBuilderRef; Dst: TLLVMValueRef; DstAlign: Cardinal; Src: TLLVMValueRef; SrcAlign: Cardinal; Size: TLLVMValueRef):TLLVMValueRef; cdecl; external CLLVMLibrary;
 
-function LLVMBuildAlloca(Arg0: TLLVMBuilderRef; Ty: TLLVMTypeRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function LLVMBuildAlloca     (Arg0: TLLVMBuilderRef; Ty: TLLVMTypeRef;                     Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildArrayAlloca(Arg0: TLLVMBuilderRef; Ty: TLLVMTypeRef; Val: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildFree(Arg0: TLLVMBuilderRef; PointerVal: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
-// LLVMBuildLoad is deprecated in favor of LLVMBuildLoad2, in preparation for
-// opaque pointer types.
+// LLVMBuildLoad is deprecated in favor of LLVMBuildLoad2, in preparation for opaque pointer types.
 function LLVMBuildLoad(Arg0: TLLVMBuilderRef; PointerVal: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildLoad2(Arg0: TLLVMBuilderRef; Ty: TLLVMTypeRef; PointerVal: TLLVMValueRef; const Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
 function LLVMBuildStore(Arg0: TLLVMBuilderRef; Val: TLLVMValueRef; Ptr: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
-function LLVMBuildGEP(B: TLLVMBuilderRef; Pointer: TLLVMValueRef; Indices: PLLVMValueRef; NumIndices: Cardinal; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
-function LLVMBuildInBoundsGEP(B: TLLVMBuilderRef; Pointer: TLLVMValueRef; Indices: PLLVMValueRef; NumIndices: Cardinal; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
-function LLVMBuildStructGEP(B: TLLVMBuilderRef; Pointer: TLLVMValueRef; Idx: Cardinal; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
-function  LLVMBuildGEP2(B: TLLVMBuilderRef; Ty: TLLVMTypeRef; Pointer: TLLVMValueRef; Indices: PLLVMValueRef;  NumIndices: Cardinal; const Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
-function  LLVMBuildInBoundsGEP2(B: TLLVMBuilderRef; Ty: TLLVMTypeRef; _Pointer: TLLVMValueRef; Indices: PLLVMValueRef; NumIndices: Cardinal; const Name: PLLVMChar): TLLVMValueRef;  cdecl; external CLLVMLibrary;
-function  LLVMBuildStructGEP2(B: TLLVMBuilderRef; Ty: TLLVMTypeRef; _Pointer: TLLVMValueRef; Idx: Cardinal; const Name: PLLVMChar): TLLVMValueRef;cdecl; external CLLVMLibrary;
+function LLVMBuildGEP          (B: TLLVMBuilderRef; Pointer: TLLVMValueRef; Indices: PLLVMValueRef; NumIndices: Cardinal; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function LLVMBuildInBoundsGEP  (B: TLLVMBuilderRef; Pointer: TLLVMValueRef; Indices: PLLVMValueRef; NumIndices: Cardinal; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function LLVMBuildStructGEP    (B: TLLVMBuilderRef; Pointer: TLLVMValueRef; Idx: Cardinal;                                Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
+
+function  LLVMBuildGEP2        (B: TLLVMBuilderRef; Ty: TLLVMTypeRef; Pointer: TLLVMValueRef; Indices: PLLVMValueRef;  NumIndices: Cardinal; const Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function  LLVMBuildInBoundsGEP2(B: TLLVMBuilderRef; Ty: TLLVMTypeRef; Pointer: TLLVMValueRef; Indices: PLLVMValueRef;  NumIndices: Cardinal; const Name: PLLVMChar): TLLVMValueRef;  cdecl; external CLLVMLibrary;
+function  LLVMBuildStructGEP2  (B: TLLVMBuilderRef; Ty: TLLVMTypeRef; Pointer: TLLVMValueRef; Idx: Cardinal;                                 const Name: PLLVMChar): TLLVMValueRef;cdecl; external CLLVMLibrary;
 
 function LLVMBuildGlobalString(B: TLLVMBuilderRef; Str: PLLVMChar; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildGlobalStringPtr(B: TLLVMBuilderRef; Str: PLLVMChar; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
@@ -2132,6 +2497,163 @@ procedure LLVMStopMultithreaded; cdecl; external CLLVMLibrary;
     @see llvm::llvm_is_multithreaded *)
 function LLVMIsMultithreaded: LongBool; cdecl; external CLLVMLibrary;
 
+// Added by Max 13/09/2019 17:22:45
+(** Return the function this instruction belongs to.
+ *
+ * Note: it is undefined behavior to call this on an instruction not
+ * currently inserted into a function.  see : const Function *llvm::getFunction()
+ *)
+function LLVMGetInstructionFunc(Inst: TLLVMValueRef):TLLVMValueRef;
+function LLVMGetUsesVal(val : TLLVMValueRef): TArray<TLLVMValueRef> ;
+function LLVMGetNextNonDebugInstruction(I: TLLVMValueRef): TLLVMValueRef;
+function LLVMGetPrevNonDebugInstruction(I: TLLVMValueRef): TLLVMValueRef;
+function LLVMDumpValueToStr(v:TLLVMValueRef) : AnsiString;
+function LLVMGetgetFirstInsertionPt(block: TLLVMBasicBlockRef): TLLVMValueRef;
+function LLVMGetFunctionInstructions(F: TLLVMValueRef): TArray<TLLVMValueRef>;
+procedure LLVMPositionBuilderAfter(Builder: TLLVMBuilderRef; Instr: TLLVMValueRef);
+
 implementation
+    uses System.SysUtils;
+
+function LLVMGetInstructionFunc(Inst: TLLVMValueRef):TLLVMValueRef;
+begin
+    Result.Value := nil;
+
+    var bb : TLLVMBasicBlockRef := LLVMGetInstructionParent(Inst);
+
+    Result := LLVMGetBasicBlockParent(bb) ;
+end;
+
+function LLVMGetUsesVal(val : TLLVMValueRef): TArray<TLLVMValueRef> ;
+begin
+    Result := [];
+
+     var U : TLLVMUseRef := LLVMGetFirstUse(val);
+     while U.IsValid do
+     begin
+         Result := Result + [ LLVMGetUser(U) ] ;
+
+         U  := LLVMGetNextUse(U);
+     end;
+end;
+
+function LLVMGetNextNonDebugInstruction(I: TLLVMValueRef): TLLVMValueRef;
+var
+  rI : TLLVMValueRef;
+begin
+     Result := default(TLLVMValueRef);
+
+     rI := LLVMGetNextInstruction(I);
+
+     while rI.IsValid do
+     begin
+         if LLVMIsADbgInfoIntrinsic(rI).IsValid = False then
+           Exit(rI);
+
+         rI := LLVMGetNextInstruction(I);
+     end;
+end;
+
+function LLVMGetPrevNonDebugInstruction(I: TLLVMValueRef): TLLVMValueRef;
+var
+  rI : TLLVMValueRef;
+begin
+     Result := default(TLLVMValueRef);
+
+     rI := LLVMGetPreviousInstruction(I);
+
+     while rI.IsValid do
+     begin
+         if LLVMIsADbgInfoIntrinsic(rI).IsValid = False then
+           Exit(rI);
+
+         rI := LLVMGetPreviousInstruction(I);
+     end;
+end;
+
+function LLVMDumpValueToStr(v:TLLVMValueRef) : AnsiString;
+var
+  pDump : PAnsiChar;
+begin
+    pDump := LLVMPrintValueToString(v);
+    try
+      Result := AnsiString(pDump) ;
+    finally
+      LLVMDisposeMessage(pDump);
+    end;
+end;
+
+function LLVMGetgetFirstInsertionPt(block: TLLVMBasicBlockRef): TLLVMValueRef;
+var
+  I,IPhi : TLLVMValueRef;
+
+  // Return true if the instruction is a variety of EH-block.
+  function  isEHPad(Inst: TLLVMValueRef): Boolean;
+  begin
+      case LLVMGetInstructionOpcode(Inst) of
+         LLVMCatchSwitch,
+         LLVMCatchPad,
+         LLVMCleanupPad,
+         LLVMLandingPad : Result := True;
+        else
+           Result := False;
+      end;
+  end;
+
+begin
+    Result := default(TLLVMValueRef);
+
+    I := LLVMGetFirstInstruction(block) ;
+
+    while I.IsValid do
+    begin
+        IPhi := LLVMIsAPHINode(I);
+
+        if (not IPhi.IsValid) and (not isEHPad(I)) then
+          Exit(I);
+
+        I := LLVMGetNextInstruction(I)
+    end;
+end;
+
+function LLVMGetFunctionInstructions(F: TLLVMValueRef): TArray<TLLVMValueRef>;
+
+  //aName : TArray<AnsiString>;
+begin
+     Result := [];
+
+     var BB : TLLVMBasicBlockRef := LLVMGetEntryBasicBlock(F);
+
+     while BB.IsValid do
+     begin
+         var I : TLLVMValueRef := LLVMGetFirstInstruction(BB);
+
+         while I.IsValid do
+         begin
+            Result := Result + [ I ];
+            //aName := aName + [ AnsiString(LLVMDumpValueToStr(I)) ];
+
+            I := LLVMGetNextInstruction(I) ;
+         end;
+
+         BB := LLVMGetNextBasicBlock(BB)
+     end;
+end;
+
+procedure LLVMPositionBuilderAfter(Builder: TLLVMBuilderRef; Instr: TLLVMValueRef);
+begin
+    if not LLVMIsAInstruction(Instr).IsValid then
+      raise Exception.Create('it is not a valid instruction');
+
+    if LLVMIsATerminatorInst(Instr).IsValid then
+    begin
+        var bb : TLLVMBasicBlockRef := LLVMGetInstructionParent(Instr) ;
+        LLVMPositionBuilderAtEnd(Builder,bb);
+    end;
+
+    var ISucc : TLLVMValueRef := LLVMGetNextInstruction(Instr);
+    LLVMPositionBuilderBefore(Builder,ISucc);
+
+end;
 
 end.
