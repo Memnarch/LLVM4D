@@ -19,70 +19,70 @@ type
   TLLVMAttrKind = (
     // IR-Level Attributes
     LLVMNone,                            ///< No attributes have been set
-    LLVMAlignment,
-    LLVMAllocSize,
-    LLVMAlwaysInline,
-    LLVMArgMemOnly,
-    LLVMBuiltin,
-    LLVMByVal,
-    LLVMCold,
-    LLVMConvergent,
-    LLVMDereferenceable,
-    LLVMDereferenceableOrNull,
-    LLVMImmArg,
-    LLVMInAlloca,
-    LLVMInReg,
-    LLVMInaccessibleMemOnly,
-    LLVMInaccessibleMemOrArgMemOnly,
-    LLVMInlineHint,
-    LLVMJumpTable,
-    LLVMMinSize,
-    LLVMNaked,
-    LLVMNest,
-    LLVMNoAlias,
-    LLVMNoBuiltin,
-    LLVMNoCapture,
-    LLVMNoCfCheck,
-    LLVMNoDuplicate,
-    LLVMNoFree,
-    LLVMNoImplicitFloat,
-    LLVMNoInline,
-    LLVMNoRecurse,
-    LLVMNoRedZone,
-    LLVMNoReturn,
-    LLVMNoSync,
-    LLVMNoUnwind,
-    LLVMNonLazyBind,
-    LLVMNonNull,
-    LLVMOptForFuzzing,
-    LLVMOptimizeForSize,
-    LLVMOptimizeNone,
-    LLVMReadNone,
-    LLVMReadOnly,
-    LLVMReturned,
-    LLVMReturnsTwice,
-    LLVMSignedExt,
-    LLVMSafeStack,
-    LLVMSanitizeAddress,
-    LLVMSanitizeHWAddress,
-    LLVMSanitizeMemTag,
-    LLVMSanitizeMemory,
-    LLVMSanitizeThread,
-    LLVMShadowCallStack,
-    LLVMSpeculatable,
-    LLVMSpeculativeLoadHardening,
-    LLVMStackAlignment,
-    LLVMStackProtect,
-    LLVMStackProtectReq,
-    LLVMStackProtectStrong,
-    LLVMStrictFP,
-    LLVMStructRet,
-    LLVMSwiftError,
-    LLVMSwiftSelf,
-    LLVMUWTable,
-    LLVMWillReturn,
-    LLVMWriteOnly,
-    LLVMZeroExt,
+    LLVMAlignment,                       //'align',
+    LLVMAllocSize,                       //'allocsize',
+    LLVMAlwaysInline,                    //'alwaysinline',
+    LLVMArgMemOnly,                      //'argmemonly',
+    LLVMBuiltin,                         //'builtin',
+    LLVMByVal,                           //'byval',
+    LLVMCold,                            //'cold',
+    LLVMConvergent,                      //'convergent',
+    LLVMDereferenceable,                 //'dereferenceable',
+    LLVMDereferenceableOrNull,           //'dereferenceable_or_null',
+    LLVMImmArg,                          //'immarg',
+    LLVMInAlloca,                        //'inalloca',
+    LLVMInReg,                           //'inreg',
+    LLVMInaccessibleMemOnly,             //'inaccessiblememonly',
+    LLVMInaccessibleMemOrArgMemOnly,     //'inaccessiblemem_or_argmemonly',
+    LLVMInlineHint,                      //'inlinehint',
+    LLVMJumpTable,                       //'jumptable',
+    LLVMMinSize,                         //'minsize',
+    LLVMNaked,                           //'naked',
+    LLVMNest,                            //'nest',
+    LLVMNoAlias,                         //'noalias',
+    LLVMNoBuiltin,                       //'nobuiltin',
+    LLVMNoCapture,                       //'nocapture',
+    LLVMNoCfCheck,                       //'nocf_check',
+    LLVMNoDuplicate,                     //'noduplicate',
+    LLVMNoFree,                          //'nofree',
+    LLVMNoImplicitFloat,                 //'noimplicitfloat',
+    LLVMNoInline,                        //'noinline',
+    LLVMNoRecurse,                       //'norecurse',
+    LLVMNoRedZone,                       //'noredzone',
+    LLVMNoReturn,                        //'noreturn',
+    LLVMNoSync,                          //'nosync',
+    LLVMNoUnwind,                        //'nounwind',
+    LLVMNonLazyBind,                     //'nonlazybind',
+    LLVMNonNull,                         //'nonnull',
+    LLVMOptForFuzzing,                   //'optforfuzzing',
+    LLVMOptimizeForSize,                 //'optsize',
+    LLVMOptimizeNone,                    //'optnone',
+    LLVMReadNone,                        //'readnone',
+    LLVMReadOnly,                        //'readonly',
+    LLVMReturned,                        //'returned',
+    LLVMReturnsTwice,                    //'returns_twice',
+    LLVMSignedExt,                       //'signext',
+    LLVMSafeStack,                       //'safestack',
+    LLVMSanitizeAddress,                 //'sanitize_address',
+    LLVMSanitizeHWAddress,               //'sanitize_hwaddress',
+    LLVMSanitizeMemTag,                  //'sanitize_memtag',
+    LLVMSanitizeMemory,                  //'sanitize_memory',
+    LLVMSanitizeThread,                  //'sanitize_thread',
+    LLVMShadowCallStack,                 //'shadowcallstack',
+    LLVMSpeculatable,                    //'speculatable',
+    LLVMSpeculativeLoadHardening,        //'speculative_load_hardening',
+    LLVMStackAlignment,                  //'alignstack',
+    LLVMStackProtect,                    //'ssp',
+    LLVMStackProtectReq,                 //'sspreq',
+    LLVMStackProtectStrong,              //'sspstrong',
+    LLVMStrictFP,                        //'strictfp',
+    LLVMStructRet,                       //'sret',
+    LLVMSwiftError,                      //'swifterror',
+    LLVMSwiftSelf,                       //'swiftself',
+    LLVMUWTable,                         //'uwtable',
+    LLVMWillReturn,                      //'willreturn',
+    LLVMWriteOnly,                       //'writeonly',
+    LLVMZeroExt,                         //'zeroext',
     LLVMEndAttrKinds);                   ///< Sentinal value useful for loops
 
 
@@ -1608,15 +1608,6 @@ function LLVMGetGC(Fn: TLLVMValueRef): PLLVMChar; cdecl; external CLLVMLibrary;
 procedure LLVMSetGC(Fn: TLLVMValueRef; const Name: PLLVMChar); cdecl; external CLLVMLibrary;
 
 procedure LLVMAddAttributeAtIndex(F: TLLVMValueRef; Idx: TLLVMAttributeIndex; A: TLLVMAttributeRef); cdecl; external CLLVMLibrary;
-// Added by Max 19/08/2019 16:12:23
-{Altrimenti senza modificare codice llvm originale
-  es.
-  KinID :  cardinal             := LLVMGetEnumAttributeKindForName( 'nounwind');
-  var vattr : LLVMAttributeRef  := LLVMCreateEnumAttribute(C, KindID, 0);
-  LLVMAddAttributeAtIndex(F, LLVMAttributeFunctionIndex, KinID) ;
- }
-procedure LLVMAddAttributeKindAtIndex(F: TLLVMValueRef; Idx: TLLVMAttributeIndex; kind: TLLVMAttrKind); cdecl; external CLLVMLibrary;
-//
 function LLVMGetAttributeCountAtIndex(F: TLLVMValueRef; Idx: TLLVMAttributeIndex): Cardinal; cdecl; external CLLVMLibrary;
 procedure LLVMGetAttributesAtIndex(F: TLLVMValueRef; Idx: TLLVMAttributeIndex; out Attrs: PLLVMAttributeRef); cdecl; external CLLVMLibrary;
 function LLVMGetEnumAttributeAtIndex(F: TLLVMValueRef; Idx: TLLVMAttributeIndex; KindID: Cardinal): TLLVMAttributeRef; cdecl; external CLLVMLibrary;
@@ -2041,21 +2032,6 @@ procedure LLVMSetUnwindDest(InvokeInst: TLLVMValueRef; B: TLLVMBasicBlockRef); c
  *
  *
  *)
-
-
- (**
- * Return a pointer to the next non-debug instruction in the same basic block as 'this', or nullptr if no such instruction exists.
- *
- * @see llvm::Instruction::getNextNonDebugInstruction // Add by Pigreco
- *)
-//function LLVMgetNextNonDebugInstruction(Istruz: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
-
-(**
-* Return a pointer to the next non-debug instruction in the same basic block as 'this', or nullptr if no such instruction exists.
-*
-* @see llvm::Instruction::PrevNonDebugInstruction // Add by Pigreco
-*)
-//function LLVMgetPrevNonDebugInstruction(Istruz: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 
 (*
  * Return the number of successors that this terminator has.
@@ -2504,6 +2480,7 @@ function LLVMIsMultithreaded: LongBool; cdecl; external CLLVMLibrary;
  * currently inserted into a function.  see : const Function *llvm::getFunction()
  *)
 function LLVMGetInstructionFunc(Inst: TLLVMValueRef):TLLVMValueRef;
+function LLVMGetCallFromFunc(F: TLLVMValueRef ; nameCall : AnsiString): TLLVMValueRef;
 function LLVMGetUsesVal(val : TLLVMValueRef): TArray<TLLVMValueRef> ;
 function LLVMGetNextNonDebugInstruction(I: TLLVMValueRef): TLLVMValueRef;
 function LLVMGetPrevNonDebugInstruction(I: TLLVMValueRef): TLLVMValueRef;
@@ -2511,6 +2488,8 @@ function LLVMDumpValueToStr(v:TLLVMValueRef) : AnsiString;
 function LLVMGetgetFirstInsertionPt(block: TLLVMBasicBlockRef): TLLVMValueRef;
 function LLVMGetFunctionInstructions(F: TLLVMValueRef): TArray<TLLVMValueRef>;
 procedure LLVMPositionBuilderAfter(Builder: TLLVMBuilderRef; Instr: TLLVMValueRef);
+procedure LLVMAddAttr(F: TLLVMValueRef; sAttr: AnsiString);
+procedure LLVMRemoveAttr(F: TLLVMValueRef; sAttr: AnsiString);
 
 implementation
     uses System.SysUtils;
@@ -2617,8 +2596,6 @@ begin
 end;
 
 function LLVMGetFunctionInstructions(F: TLLVMValueRef): TArray<TLLVMValueRef>;
-
-  //aName : TArray<AnsiString>;
 begin
      Result := [];
 
@@ -2631,13 +2608,39 @@ begin
          while I.IsValid do
          begin
             Result := Result + [ I ];
-            //aName := aName + [ AnsiString(LLVMDumpValueToStr(I)) ];
 
             I := LLVMGetNextInstruction(I) ;
          end;
 
          BB := LLVMGetNextBasicBlock(BB)
      end;
+end;
+
+function LLVMGetCallFromFunc(F: TLLVMValueRef ; nameCall : AnsiString): TLLVMValueRef;
+var
+  CallI: TLLVMValueRef;
+  lstI : TArray<TLLVMValueRef> ;
+  i    : Integer;
+begin
+    Result.Value := nil;
+
+    lstI :=  LLVMGetFunctionInstructions(F);
+
+    for i :=0 to High(lstI) do
+    begin
+        CallI := LLVMIsACallInst(lstI[i]);
+
+        if (CallI.IsValid) then
+        begin
+            var s : AnsiString := LLVMGetValueName(LLVMGetCalledValue(CallI));
+            if s  = nameCall then
+            begin
+                Result :=  LLVMIsACallInst(lstI[i]);
+                Break;
+            end;
+        end;
+    end;
+
 end;
 
 procedure LLVMPositionBuilderAfter(Builder: TLLVMBuilderRef; Instr: TLLVMValueRef);
@@ -2654,6 +2657,29 @@ begin
     var ISucc : TLLVMValueRef := LLVMGetNextInstruction(Instr);
     LLVMPositionBuilderBefore(Builder,ISucc);
 
+end;
+
+procedure LLVMAddAttr(F: TLLVMValueRef; sAttr: AnsiString);
+var
+  KindID : cardinal;
+  vattr : TLLVMAttributeRef;
+begin
+    sAttr := LowerCase( string(sAttr));
+    KindID := LLVMGetEnumAttributeKindForName( PAnsiChar(sAttr),Length(sAttr));
+    vattr := LLVMCreateEnumAttribute( LLVMGetGlobalContext, KindID, 0);
+    LLVMAddAttributeAtIndex(F, LLVMAttributeFunctionIndex, vattr) ;
+
+
+end;
+
+procedure LLVMRemoveAttr(F: TLLVMValueRef; sAttr: AnsiString);
+var
+  KindID : cardinal;
+  vattr : TLLVMAttributeRef;
+begin
+    sAttr := LowerCase( string(sAttr));
+    KindID := LLVMGetEnumAttributeKindForName( PAnsiChar(sAttr),Length(sAttr));
+    LLVMRemoveEnumAttributeAtIndex(F,LLVMAttributeFunctionIndex,KindID);
 end;
 
 end.

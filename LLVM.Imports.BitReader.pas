@@ -24,7 +24,7 @@ function LLVMGetBitcodeModuleInContext(ContextRef: TLLVMContextRef; MemBuf: TLLV
 function LLVMGetBitcodeModuleInContext2(ContextRef: TLLVMContextRef; MemBuf: TLLVMMemoryBufferRef; out OutM: TLLVMModuleRef): TLLVMBool; cdecl; external CLLVMLibrary name 'LLVMGetBitcodeModuleInContext2';
 
 //yada yada deprecated
-function LLVMGetBitcodeModule(MemBuf: TLLVMMemoryBufferRef; out OutM: TLLVMModuleRef; var OutMessage: PLLVMChar): TLLVMBool; cdecl; external CLLVMLibrary name 'LLVMGetBitcodeModule2';
+function LLVMGetBitcodeModule (MemBuf: TLLVMMemoryBufferRef; out OutM: TLLVMModuleRef; var OutMessage: PLLVMChar): TLLVMBool; cdecl; external CLLVMLibrary name 'LLVMGetBitcodeModule2';
 
 function LLVMGetBitcodeModule2(MemBuf: TLLVMMemoryBufferRef; out OutM: TLLVMModuleRef): TLLVMBool; cdecl; external CLLVMLibrary name 'LLVMGetBitcodeModule2';
 
