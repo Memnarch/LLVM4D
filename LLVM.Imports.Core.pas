@@ -2327,7 +2327,7 @@ function LLVMBuildMemCpy(B  : TLLVMBuilderRef;
  *)
 function LLVMBuildMemMove(B: TLLVMBuilderRef; Dst: TLLVMValueRef; DstAlign: Cardinal; Src: TLLVMValueRef; SrcAlign: Cardinal; Size: TLLVMValueRef):TLLVMValueRef; cdecl; external CLLVMLibrary;
 
-function LLVMBuildAlloca     (Arg0: TLLVMBuilderRef; Ty: TLLVMTypeRef;                     Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function LLVMBuildAlloca(Arg0: TLLVMBuilderRef; Ty: TLLVMTypeRef;                     Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildArrayAlloca(Arg0: TLLVMBuilderRef; Ty: TLLVMTypeRef; Val: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildFree(Arg0: TLLVMBuilderRef; PointerVal: TLLVMValueRef): TLLVMValueRef; cdecl; external CLLVMLibrary;
 // LLVMBuildLoad is deprecated in favor of LLVMBuildLoad2, in preparation for opaque pointer types.
@@ -2644,17 +2644,20 @@ begin
 end;
 
 procedure LLVMPositionBuilderAfter(Builder: TLLVMBuilderRef; Instr: TLLVMValueRef);
+var
+  bb    : TLLVMBasicBlockRef ;
+  ISucc : TLLVMValueRef;
 begin
     if not LLVMIsAInstruction(Instr).IsValid then
       raise Exception.Create('it is not a valid instruction');
 
     if LLVMIsATerminatorInst(Instr).IsValid then
     begin
-        var bb : TLLVMBasicBlockRef := LLVMGetInstructionParent(Instr) ;
+        bb := LLVMGetInstructionParent(Instr) ;
         LLVMPositionBuilderAtEnd(Builder,bb);
     end;
 
-    var ISucc : TLLVMValueRef := LLVMGetNextInstruction(Instr);
+    ISucc := LLVMGetNextInstruction(Instr);
     LLVMPositionBuilderBefore(Builder,ISucc);
 
 end;
