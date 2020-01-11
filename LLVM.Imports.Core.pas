@@ -954,86 +954,86 @@ function LLVMX86MMXType: TLLVMTypeRef; cdecl; external CLLVMLibrary;
 
  {/*--.. Conversion functions ................................................--*/}
 
-Function LLVMIsAArgument              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsABasicBlock            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAInlineAsm             (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAUser                  (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAConstant              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsABlockAddress          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAConstantAggregateZero (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAConstantArray         (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAConstantDataSequential(Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAConstantDataArray     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAConstantDataVector    (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAConstantExpr          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAConstantFP            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAConstantInt           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAConstantPointerNull   (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAConstantStruct        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAConstantTokenNone     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAConstantVector        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAGlobalValue           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAGlobalAlias           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAGlobalIFunc           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAGlobalObject          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAFunction              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAGlobalVariable        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAUndefValue            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAInstruction           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsABinaryOperator        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsACallInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAIntrinsicInst         (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsADbgInfoIntrinsic      (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsADbgVariableIntrinsic  (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsADbgDeclareInst        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsADbgLabelInst          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAMemIntrinsic          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAMemCpyInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAMemMoveInst           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAMemSetInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsACmpInst               (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAFCmpInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAICmpInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAExtractElementInst    (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAGetElementPtrInst     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAInsertElementInst     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAInsertValueInst       (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsALandingPadInst        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAPHINode               (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsASelectInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAShuffleVectorInst     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAStoreInst             (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsABranchInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAIndirectBrInst        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAInvokeInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAReturnInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsASwitchInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAUnreachableInst       (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAResumeInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsACleanupReturnInst     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsACatchReturnInst       (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAFuncletPadInst        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsACatchPadInst          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsACleanupPadInst        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAUnaryInstruction      (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAAllocaInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsACastInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAAddrSpaceCastInst     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsABitCastInst           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAFPExtInst             (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAFPToSIInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAFPToUIInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAFPTruncInst           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAIntToPtrInst          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAPtrToIntInst          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsASExtInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsASIToFPInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsATruncInst             (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAUIToFPInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAZExtInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAExtractValueInst      (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsALoadInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-Function LLVMIsAVAArgInst             (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAArgument              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsABasicBlock            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAInlineAsm             (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAUser                  (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAConstant              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsABlockAddress          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAConstantAggregateZero (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAConstantArray         (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAConstantDataSequential(Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAConstantDataArray     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAConstantDataVector    (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAConstantExpr          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAConstantFP            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAConstantInt           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAConstantPointerNull   (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAConstantStruct        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAConstantTokenNone     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAConstantVector        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAGlobalValue           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAGlobalAlias           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAGlobalIFunc           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAGlobalObject          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAfunction              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAGlobalVariable        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAUndefValue            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAInstruction           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsABinaryOperator        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsACallInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAIntrinsicInst         (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsADbgInfoIntrinsic      (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsADbgVariableIntrinsic  (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsADbgDeclareInst        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsADbgLabelInst          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAMemIntrinsic          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAMemCpyInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAMemMoveInst           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAMemSetInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsACmpInst               (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAFCmpInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAICmpInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAExtractElementInst    (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAGetElementPtrInst     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAInsertElementInst     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAInsertValueInst       (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsALandingPadInst        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAPHINode               (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsASelectInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAShuffleVectorInst     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAStoreInst             (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsABranchInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAIndirectBrInst        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAInvokeInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAReturnInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsASwitchInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAUnreachableInst       (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAResumeInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsACleanupReturnInst     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsACatchReturnInst       (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAFuncletPadInst        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsACatchPadInst          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsACleanupPadInst        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAUnaryInstruction      (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAAllocaInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsACastInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAAddrSpaceCastInst     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsABitCastInst           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAFPExtInst             (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAFPToSIInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAFPToUIInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAFPTruncInst           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAIntToPtrInst          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAPtrToIntInst          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsASExtInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsASIToFPInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsATruncInst             (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAUIToFPInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAZExtInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAExtractValueInst      (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsALoadInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAVAArgInst             (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
 
 (**
  * @defgroup LLVMCCoreValueGeneral General APIs
@@ -1172,7 +1172,7 @@ function LLVMGetUsedValue(U: TLLVMUseRef): TLLVMValueRef; cdecl; external CLLVML
 (**
  * @defgroup LLVMCCoreValueUser User value
  *
- * Function in this group pertain to LLVMValueRef instances that descent
+ * function in this group pertain to LLVMValueRef instances that descent
  * from llvm::User. This includes constants, instructions, and
  * operators.
  *
@@ -1499,10 +1499,10 @@ procedure LLVMAliasSetAliasee(Alias: TLLVMValueRef; Aliasee: TLLVMValueRef);cdec
  *)
 
 (**
- * @defgroup LLVMCCoreValueFunction Function values
+ * @defgroup LLVMCCoreValuefunction function values
  *
  * Functions in this group operate on LLVMValueRef instances that
- * correspond to llvm::Function instances.
+ * correspond to llvm::function instances.
  *
  * @see llvm::Function
  *
@@ -1717,7 +1717,7 @@ function LLVMGetBasicBlockTerminator(BB: TLLVMBasicBlockRef): TLLVMValueRef; cde
 (**
  * Obtain the number of basic blocks in a function.
  *
- * @param Fn Function value to operate on.
+ * @param Fn function value to operate on.
  *)
 function LLVMCountBasicBlocks(Fn: TLLVMValueRef): Cardinal; cdecl; external CLLVMLibrary;
 
@@ -2477,7 +2477,7 @@ function LLVMIsMultithreaded: LongBool; cdecl; external CLLVMLibrary;
 (** Return the function this instruction belongs to.
  *
  * Note: it is undefined behavior to call this on an instruction not
- * currently inserted into a function.  see : const Function *llvm::getFunction()
+ * currently inserted into a function.  see : const function *llvm::getFunction()
  *)
 function LLVMGetInstructionFunc(Inst: TLLVMValueRef):TLLVMValueRef;
 function LLVMGetCallFromFunc(F: TLLVMValueRef ; nameCall : AnsiString): TLLVMValueRef;
