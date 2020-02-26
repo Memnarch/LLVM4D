@@ -1,4 +1,4 @@
-/*===-- llvm-c/BitWriter.h - BitWriter Library C Interface ------*- C++ -*-===*\
+/*===-- Utils.h - Transformation Utils Library C Interface ------*- C++ -*-===*\
 |*                                                                            *|
 |* Part of the LLVM Project, under the Apache License v2.0 with LLVM          *|
 |* Exceptions.                                                                *|
@@ -7,8 +7,8 @@
 |*                                                                            *|
 |*===----------------------------------------------------------------------===*|
 |*                                                                            *|
-|* This header declares the C interface to libLLVMBitWriter.a, which          *|
-|* implements output of the LLVM bitcode format.                              *|
+|* This header declares the C interface to libLLVMTransformUtils.a, which     *|
+|* implements various transformation utilities of the LLVM IR.                *|
 |*                                                                            *|
 |* Many exotic languages can interoperate with C code but have a harder time  *|
 |* with C++ due to name mangling. So in addition to C, this interface enables *|
@@ -16,8 +16,8 @@
 |*                                                                            *|
 \*===----------------------------------------------------------------------===*/
 
-#ifndef LLVM_C_BITWRITER_H
-#define LLVM_C_BITWRITER_H
+#ifndef LLVM_C_TRANSFORMS_UTILS_H
+#define LLVM_C_TRANSFORMS_UTILS_H
 
 #include "llvm-c/Types.h"
 
@@ -26,27 +26,20 @@ extern "C" {
 #endif
 
 /**
- * @defgroup LLVMCBitWriter Bit Writer
- * @ingroup LLVMC
+ * @defgroup LLVMCTransformsUtils Transformation Utilities
+ * @ingroup LLVMCTransforms
  *
  * @{
  */
 
-/*===-- Operations on modules ---------------------------------------------===*/
+/** See llvm::createLowerSwitchPass function. */
+void LLVMAddLowerSwitchPass(LLVMPassManagerRef PM);
 
-/** Writes a module to the specified path. Returns 0 on success. */
-int LLVMWriteBitcodeToFile(LLVMModuleRef M, const char *Path);
+/** See llvm::createPromoteMemoryToRegisterPass function. */
+void LLVMAddPromoteMemoryToRegisterPass(LLVMPassManagerRef PM);
 
-/** Writes a module to an open file descriptor. Returns 0 on success. */
-int LLVMWriteBitcodeToFD(LLVMModuleRef M, int FD, int ShouldClose,
-                         int Unbuffered);
-
-/** Deprecated for LLVMWriteBitcodeToFD. Writes a module to an open file
-    descriptor. Returns 0 on success. Closes the Handle. */
-int LLVMWriteBitcodeToFileHandle(LLVMModuleRef M, int Handle);
-
-/** Writes a module to a new memory buffer and returns it. */
-LLVMMemoryBufferRef LLVMWriteBitcodeToMemoryBuffer(LLVMModuleRef M);
+/** See llvm::createAddDiscriminatorsPass function. */
+void LLVMAddAddDiscriminatorsPass(LLVMPassManagerRef PM);
 
 /**
  * @}
@@ -54,6 +47,7 @@ LLVMMemoryBufferRef LLVMWriteBitcodeToMemoryBuffer(LLVMModuleRef M);
 
 #ifdef __cplusplus
 }
-#endif
+#endif /* defined(__cplusplus) */
 
 #endif
+

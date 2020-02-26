@@ -62,23 +62,26 @@ procedure LLVMAddLoopRotatePass(PM: TLLVMPassManagerRef); cdecl; external CLLVML
 {* See llvm::createLoopRerollPass function. }
 procedure LLVMAddLoopRerollPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
 
+(** See llvm::createLoopInstSimplifyPass function - Modified by Pigreco *)
+procedure LLVMAddLoopInstSimplifyPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
+
 {* See llvm::createLoopUnrollPass function. }
 procedure LLVMAddLoopUnrollPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
 
+{ See llvm::createLoopUnrollAndJamPass function. }
+procedure LLVMAddLoopUnrollAndJamPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
+
 {* See llvm::createLoopUnswitchPass function. }
 procedure LLVMAddLoopUnswitchPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
+
+{ See llvm::createLowerAtomicPass function. }
+procedure LLVMAddLowerAtomicPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
 
 {* See llvm::createMemCpyOptPass function. }
 procedure LLVMAddMemCpyOptPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
 
 {* See llvm::createPartiallyInlineLibCallsPass function. }
 procedure LLVMAddPartiallyInlineLibCallsPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
-
-{* See llvm::createLowerSwitchPass function. }
-procedure LLVMAddLowerSwitchPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
-
-{* See llvm::createPromoteMemoryToRegisterPass function. }
-procedure LLVMAddPromoteMemoryToRegisterPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
 
 {* See llvm::createReassociatePass function. }
 procedure LLVMAddReassociatePass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
@@ -130,6 +133,9 @@ procedure LLVMAddScopedNoAliasAAPass(PM: TLLVMPassManagerRef); cdecl; external C
 
 {* See llvm::createBasicAliasAnalysisPass function }
 procedure LLVMAddBasicAliasAnalysisPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
+
+{ See llvm::createUnifyFunctionExitNodesPass function }
+procedure LLVMAddUnifyFunctionExitNodesPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
 
 implementation
 

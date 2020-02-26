@@ -20,6 +20,7 @@ type
   TLLVMContextRef = type TLLVMRef;
 
   TLLVMModuleRef = type TLLVMRef;
+  PLLVMModuleRef = ^TLLVMModuleRef;
 
   TLLVMTypeRef = type TLLVMRef;
   PLLVMTypeRef = ^TLLVMTypeRef;
@@ -31,6 +32,21 @@ type
   PLLVMBasicBlockRef = ^TLLVMBasicBlockRef;
 
   TLLVMMetadataRef = type TLLVMRef;
+
+  (**
+  * Represents an LLVM Named Metadata Node.
+  *
+  * This models llvm::NamedMDNode.
+  *)
+  TLLVMNamedMDNodeRef = type TLLVMRef;
+
+  (**
+  * Represents an entry in a Global Object's metadata attachments.
+  *
+  * This models std::pair<unsigned, MDNode *>
+  *)
+  TLLVMValueMetadataEntry = type TLLVMRef;
+  PLLVMValueMetadataEntry = ^TLLVMValueMetadataEntry;
 
   TLLVMBuilderRef = type TLLVMRef;
 
@@ -48,6 +64,27 @@ type
   PLLVMAttributeRef = ^TLLVMAttributeRef;
 
   TLLVMDiagnosticInfoRef = type TLLVMRef;
+
+  (**
+  * @see llvm::Comdat
+  *)
+  TLLVMComdatRef = type TLLVMRef;
+
+  (**
+  * @see llvm::Module::ModuleFlagEntry
+  *)
+  TLLVMModuleFlagEntry = type TLLVMRef;
+  PLLVMModuleFlagEntry = ^TLLVMModuleFlagEntry;
+
+  (**
+  * @see llvm::JITEventListener
+  *)
+  TLLVMJITEventListenerRef = type TLLVMRef;
+
+  (**
+  * @see llvm::object::Binary
+  *)
+  TLLVMBinaryRef = type TLLVMRef;
 
 implementation
 

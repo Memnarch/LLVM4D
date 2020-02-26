@@ -14,6 +14,7 @@ procedure LLVMInitializeScalarOpts(R: TLLVMPassRegistryRef); cdecl; external CLL
 procedure LLVMInitializeObjCARCOpts(R: TLLVMPassRegistryRef); cdecl; external CLLVMLibrary;
 procedure LLVMInitializeVectorization(R: TLLVMPassRegistryRef); cdecl; external CLLVMLibrary;
 procedure LLVMInitializeInstCombine(R: TLLVMPassRegistryRef); cdecl; external CLLVMLibrary;
+procedure LLVMInitializeAggressiveInstCombiner(R: TLLVMPassRegistryRef); cdecl; external CLLVMLibrary;
 procedure LLVMInitializeIPO(R: TLLVMPassRegistryRef); cdecl; external CLLVMLibrary;
 procedure LLVMInitializeInstrumentation(R: TLLVMPassRegistryRef); cdecl; external CLLVMLibrary;
 procedure LLVMInitializeAnalysis(R: TLLVMPassRegistryRef); cdecl; external CLLVMLibrary;
