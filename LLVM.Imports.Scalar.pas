@@ -11,6 +11,9 @@ uses
 {* See llvm::createAggressiveDCEPass function. }
 procedure LLVMAddAggressiveDCEPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
 
+//** See llvm::createDeadCodeEliminationPass function. */
+procedure LLVMAddDCEPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
+
 {* See llvm::createBitTrackingDCEPass function. }
 procedure LLVMAddBitTrackingDCEPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
 
@@ -124,6 +127,9 @@ procedure LLVMAddEarlyCSEMemSSAPass(PM: TLLVMPassManagerRef); cdecl; external CL
 
 {* See llvm::createLowerExpectIntrinsicPass function }
 procedure LLVMAddLowerExpectIntrinsicPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
+
+//** See llvm::createLowerConstantIntrinsicsPass function */
+procedure LLVMAddLowerConstantIntrinsicsPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
 
 {* See llvm::createTypeBasedAliasAnalysisPass function }
 procedure LLVMAddTypeBasedAliasAnalysisPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
