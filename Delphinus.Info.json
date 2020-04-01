@@ -1,0 +1,18 @@
+{
+	"id": "{8B65AD0D-CEBD-4F30-9AD8-B9A22CCBE3E6}",
+	"picture": "Logo.png",
+	"licenses":
+	[
+		{
+			"type": "MPL-2.0",
+			"file": "License.txt"
+		},
+		{
+			"type": "NCSA",
+			"file": "License_LLVM.txt"
+		}
+	],
+	"platforms": "Win64",
+	"package_compiler_min": 23,
+	"compiler_min": 23
+}
