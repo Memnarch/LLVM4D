@@ -153,6 +153,7 @@ type
     LLVMShuffleVector  = 52,
     LLVMExtractValue   = 53,
     LLVMInsertValue    = 54,
+    LLVMFreeze         = 68,
 
     //* Atomic operators */
     LLVMFence          = 55,
@@ -366,16 +367,18 @@ type
 
   TLLVMAtomicRMWBinOp = (
     LLVMAtomicRMWBinOpXchg, //**< Set the new value and return the one old */
-    LLVMAtomicRMWBinOpAdd, //**< Add a value and return the old one */
-    LLVMAtomicRMWBinOpSub, //**< Subtract a value and return the old one */
-    LLVMAtomicRMWBinOpAnd, //**< And a value and return the old one */
+    LLVMAtomicRMWBinOpAdd,  //**< Add a value and return the old one */
+    LLVMAtomicRMWBinOpSub,  //**< Subtract a value and return the old one */
+    LLVMAtomicRMWBinOpAnd,  //**< And a value and return the old one */
     LLVMAtomicRMWBinOpNand, //**< Not-And a value and return the old one */
-    LLVMAtomicRMWBinOpOr, //**< OR a value and return the old one */
-    LLVMAtomicRMWBinOpXor, //**< Xor a value and return the old one */
-    LLVMAtomicRMWBinOpMax, //**< Sets the value if it's greater than the original using a signed comparison and return the old one */
-    LLVMAtomicRMWBinOpMin, //**< Sets the value if it's Smaller than the original using a signed comparison and return the old one */
+    LLVMAtomicRMWBinOpOr,   //**< OR a value and return the old one */
+    LLVMAtomicRMWBinOpXor,  //**< Xor a value and return the old one */
+    LLVMAtomicRMWBinOpMax,  //**< Sets the value if it's greater than the original using a signed comparison and return the old one */
+    LLVMAtomicRMWBinOpMin,  //**< Sets the value if it's Smaller than the original using a signed comparison and return the old one */
     LLVMAtomicRMWBinOpUMax, //**< Sets the value if it's greater than the original using an unsigned comparison and return the old one */
-    LLVMAtomicRMWBinOpUMin //**< Sets the value if it's greater than the original using an unsigned comparison  and return the old one */
+    LLVMAtomicRMWBinOpUMin, //**< Sets the value if it's greater than the original using an unsigned comparison  and return the old one */
+    LLVMAtomicRMWBinOpFAdd, //**< Add a floating point value and return the old one */
+    LLVMAtomicRMWBinOpFSub  //**< Subtract a floating point value and return the old one */
   );
 
   TLLVMDiagnosticSeverity = (
@@ -980,6 +983,7 @@ function LLVMIsAfunction              (Val: TLLVMValueRef ): TLLVMValueRef ; cde
 function LLVMIsAGlobalVariable        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
 function LLVMIsAUndefValue            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
 function LLVMIsAInstruction           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAUnaryOperator         (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
 function LLVMIsABinaryOperator        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
 function LLVMIsACallInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
 function LLVMIsAIntrinsicInst         (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
@@ -1012,6 +1016,8 @@ function LLVMIsAUnreachableInst       (Val: TLLVMValueRef ): TLLVMValueRef ; cde
 function LLVMIsAResumeInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
 function LLVMIsACleanupReturnInst     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
 function LLVMIsACatchReturnInst       (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsACatchSwitchInst       (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsACallBrInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
 function LLVMIsAFuncletPadInst        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
 function LLVMIsACatchPadInst          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
 function LLVMIsACleanupPadInst        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
@@ -1034,6 +1040,10 @@ function LLVMIsAZExtInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cde
 function LLVMIsAExtractValueInst      (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
 function LLVMIsALoadInst              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
 function LLVMIsAVAArgInst             (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAFreezeInst            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAAtomicCmpXchgInst     (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAAtomicRMWInst         (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAFenceInst             (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
 
 (**
  * @defgroup LLVMCCoreValueGeneral General APIs
@@ -2348,8 +2358,12 @@ function LLVMBuildGlobalString(B: TLLVMBuilderRef; Str: PLLVMChar; Name: PLLVMCh
 function LLVMBuildGlobalStringPtr(B: TLLVMBuilderRef; Str: PLLVMChar; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMGetVolatile(MemoryAccessInst: TLLVMValueRef): LongBool; cdecl; external CLLVMLibrary;
 procedure LLVMSetVolatile(MemoryAccessInst: TLLVMValueRef; IsVolatile: LongBool); cdecl; external CLLVMLibrary;
+function LLVMGetWeak(CmpXchgInst: TLLVMValueRef): TLLVMBool; cdecl; external CLLVMLibrary;
+procedure LLVMSetWeak(CmpXchgInst: TLLVMValueRef; IsWeak: TLLVMBool); cdecl; external CLLVMLibrary;
 function LLVMGetOrdering(MemoryAccessInst: TLLVMValueRef): TLLVMAtomicOrdering; cdecl; external CLLVMLibrary;
 procedure LLVMSetOrdering(MemoryAccessInst: TLLVMValueRef; Ordering: TLLVMAtomicOrdering); cdecl; external CLLVMLibrary;
+function LLVMGetAtomicRMWBinOp(AtomicRMWInst: TLLVMValueRef): TLLVMAtomicRMWBinOp; cdecl; external CLLVMLibrary;
+procedure LLVMSetAtomicRMWBinOp(AtomicRMWInst: TLLVMValueRef; BinOp: TLLVMAtomicRMWBinOp); cdecl; external CLLVMLibrary;
 
 {/* Casts */}
 function LLVMBuildTrunc(Arg0: TLLVMBuilderRef; Val: TLLVMValueRef; DestTy: TLLVMTypeRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
@@ -2385,6 +2399,7 @@ function LLVMBuildInsertElement(Arg0: TLLVMBuilderRef; VecVal: TLLVMValueRef; El
 function LLVMBuildShuffleVector(Arg0: TLLVMBuilderRef; V1: TLLVMValueRef; V2: TLLVMValueRef; Mask: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildExtractValue(Arg0: TLLVMBuilderRef; AggVal: TLLVMValueRef; Index: Cardinal; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildInsertValue(Arg0: TLLVMBuilderRef; AggVal: TLLVMValueRef; EltVal: TLLVMValueRef; Index: Cardinal; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
+function LLVMBuildFreeze(Arg0: TLLVMBuilderRef; Val: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildIsNull(Arg0: TLLVMBuilderRef; Val: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildIsNotNull(Arg0: TLLVMBuilderRef; Val: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
 function LLVMBuildPtrDiff(Arg0: TLLVMBuilderRef; LHS: TLLVMValueRef; RHS: TLLVMValueRef; Name: PLLVMChar): TLLVMValueRef; cdecl; external CLLVMLibrary;
