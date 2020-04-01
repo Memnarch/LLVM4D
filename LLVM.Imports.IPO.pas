@@ -17,6 +17,9 @@ procedure LLVMAddArgumentPromotionPass(PM: TLLVMPassManagerRef); cdecl; external
 {* See llvm::createConstantMergePass function. }
 procedure LLVMAddConstantMergePass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
 
+//** See llvm::createMergeFunctionsPass function. */
+procedure LLVMAddMergeFunctionsPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
+
 { See llvm::createCalledValuePropagationPass function. }
 procedure LLVMAddCalledValuePropagationPass(PM: TLLVMPassManagerRef); cdecl; external CLLVMLibrary;
 
