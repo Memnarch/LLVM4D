@@ -1,5 +1,9 @@
 unit LLVM.Imports.Disassembler;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 
 //based on Disassembler.h

@@ -1,5 +1,9 @@
 unit LLVM.Imports.InstCombine;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 //based on InstCombine.h
 

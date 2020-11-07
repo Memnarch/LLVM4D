@@ -1,5 +1,9 @@
 unit LLVM.Imports.InitFunctions;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 
 //based on Initialization.h

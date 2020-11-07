@@ -1,10 +1,22 @@
 unit LLVM.Imports;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
+{$IFDEF FPC}
+   uses SysUtils;
+{$ELSE}
    uses System.SysUtils;
+{$ENDIF}
 
 const
+{$IFDEF FPC}
+  CLLVMLibrary = 'LLVM-10.so';
+{$ELSE}  
   CLLVMLibrary = 'LLVM-C-10-0-0.dll';
+{$ENDIF}
 
 type
   TLLVMChar = AnsiChar;

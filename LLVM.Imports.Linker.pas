@@ -1,5 +1,9 @@
 unit LLVM.Imports.Linker;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 
 //based on Linker.h

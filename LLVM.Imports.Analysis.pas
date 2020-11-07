@@ -1,5 +1,9 @@
 unit LLVM.Imports.Analysis;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 
 //based on Analysis.h

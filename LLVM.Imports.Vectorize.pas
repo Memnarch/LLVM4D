@@ -1,5 +1,9 @@
 unit LLVM.Imports.Vectorize;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 
 uses

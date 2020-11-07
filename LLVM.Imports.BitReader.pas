@@ -1,5 +1,9 @@
 unit LLVM.Imports.BitReader;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 
 //based on BitReader.h

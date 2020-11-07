@@ -1,5 +1,9 @@
 unit LLVM.Imports.PassManagerBuilder;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 
 //based on PassManagerBuilder.h

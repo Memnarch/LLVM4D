@@ -1,5 +1,9 @@
 unit LLVM.Imports.Utils;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 Interface
  //based on Utils.h
 
