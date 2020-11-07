@@ -1,5 +1,9 @@
 unit LLVM.Imports.Types;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 
 //based on Types.h

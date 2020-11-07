@@ -1,5 +1,9 @@
 unit LLVM.Imports.ErrorHandling;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 
 //based on ErrorHandling.h

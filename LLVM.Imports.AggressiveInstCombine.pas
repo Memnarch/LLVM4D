@@ -1,5 +1,9 @@
 unit LLVM.Imports.AggressiveInstCombine;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 //based on AggressiveInstCombine.h
 

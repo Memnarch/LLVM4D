@@ -1,5 +1,9 @@
 unit LLVM.Imports.Support;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 
 //based on Support.h

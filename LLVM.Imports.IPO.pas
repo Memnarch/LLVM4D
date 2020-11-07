@@ -1,5 +1,9 @@
 unit LLVM.Imports.IPO;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 
 //based on IPO.h

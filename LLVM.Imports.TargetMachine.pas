@@ -1,5 +1,9 @@
 unit LLVM.Imports.TargetMachine;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 
 //based on TargetMachine.h

@@ -1,5 +1,9 @@
 unit LLVM.Imports.ExecutionEngine;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 
 //based on ExecutionEngine.h

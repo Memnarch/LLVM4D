@@ -1,5 +1,9 @@
 unit LLVM.Imports.Core;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 
 //based on Core.h

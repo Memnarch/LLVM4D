@@ -1,5 +1,9 @@
 unit LLVM.Imports.BitWriter;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 
 //based on BitWriter.h

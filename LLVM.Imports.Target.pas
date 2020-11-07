@@ -1,5 +1,9 @@
 unit LLVM.Imports.Target;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 
 //based on Target.h
@@ -138,8 +142,13 @@ function LLVMOffsetOfElement(TD: TLLVMTargetDataRef; StructTy: TLLVMTypeRef; Ele
 implementation
 
 uses
+{$IFDEF FPC}
+  Interfaces, LCLIntf, LCLType, LCLProc,
+  DynLibs, SysUtils;
+{$ELSE}
   Windows,
   SysUtils;
+{$ENDIF}
 
 const
   CTargetInfoProc = 'LLVMInitialize%sTargetInfo';
@@ -154,15 +163,27 @@ type
 
 function TryDynCallProc(const AName: string): Boolean;
 var
+{$IFDEF FPC}
+  LLib: TLibHandle;
+{$ELSE}
   LLib: THandle;
+{$ENDIF} 
   LDynProc: TInitProc;
 begin
   if AName = '' then
     Exit(False);
+{$IFDEF FPC}
+  LLib := LoadLibrary(CLLVMLibrary);
+{$ELSE}
   LLib := GetModuleHandle(CLLVMLibrary);
+{$ENDIF} 
   if LLib <> 0 then
   begin
+{$IFDEF FPC}
+    LDynProc := TInitProc(GetProcedureAddress(LLib, PWideChar(AName)));
+{$ELSE}
     @LDynProc := GetProcAddress(LLib, PWideChar(AName));
+{$ENDIF} 
     if Assigned(LDynProc) then
     begin
       LDynProc();

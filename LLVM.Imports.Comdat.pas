@@ -1,5 +1,9 @@
 unit LLVM.Imports.Comdat;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 //based on Comdat.h
 
 {$MINENUMSIZE 4}

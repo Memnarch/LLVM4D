@@ -1,5 +1,9 @@
 unit LLVM.Imports.ObjectFile;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 
 //based on Object.h

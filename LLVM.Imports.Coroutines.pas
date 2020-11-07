@@ -1,5 +1,9 @@
 unit LLVM.Imports.Coroutines;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 //based on Coroutines.h
 
 interface

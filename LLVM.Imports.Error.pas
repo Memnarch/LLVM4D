@@ -1,5 +1,9 @@
 unit LLVM.Imports.Error;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 //based on Error.h
 
 interface

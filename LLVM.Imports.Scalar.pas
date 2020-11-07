@@ -1,5 +1,9 @@
 unit LLVM.Imports.Scalar;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 
 //based on Scalar.h

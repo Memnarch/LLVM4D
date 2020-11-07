@@ -1,5 +1,9 @@
 unit LLVM.Imports.OrcBindings;
 
+{$IFDEF FPC}
+  {$MODE Delphi}
+{$ENDIF} 
+
 interface
 
 //based on OrcBindings.h
