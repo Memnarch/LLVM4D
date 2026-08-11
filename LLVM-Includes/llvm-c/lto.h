@@ -46,7 +46,7 @@ typedef bool lto_bool_t;
  * @{
  */
 
-#define LTO_API_VERSION 26
+#define LTO_API_VERSION 30
 
 /**
  * \since prior to LTO_API_VERSION=3
@@ -287,6 +287,21 @@ extern lto_symbol_attributes
 lto_module_get_symbol_attribute(lto_module_t mod, unsigned int index);
 
 /**
+ * Returns the number of asm undefined symbols in the object module.
+ *
+ * \since prior to LTO_API_VERSION=30
+ */
+extern unsigned int lto_module_get_num_asm_undef_symbols(lto_module_t mod);
+
+/**
+ * Returns the name of the ith asm undefined symbol in the object module.
+ *
+ * \since prior to LTO_API_VERSION=30
+ */
+extern const char *lto_module_get_asm_undef_symbol_name(lto_module_t mod,
+                                                        unsigned int index);
+
+/**
  * Returns the module's linker options.
  *
  * The linker options may consist of multiple flags. It is the linker's
@@ -297,6 +312,31 @@ lto_module_get_symbol_attribute(lto_module_t mod, unsigned int index);
 extern const char*
 lto_module_get_linkeropts(lto_module_t mod);
 
+/**
+ * If targeting mach-o on darwin, this function gets the CPU type and subtype
+ * that will end up being encoded in the mach-o header. These are the values
+ * that can be found in mach/machine.h.
+ *
+ * \p out_cputype and \p out_cpusubtype must be non-NULL.
+ *
+ * Returns true on error (check lto_get_error_message() for details).
+ *
+ * \since LTO_API_VERSION=27
+ */
+extern lto_bool_t lto_module_get_macho_cputype(lto_module_t mod,
+                                               unsigned int *out_cputype,
+                                               unsigned int *out_cpusubtype);
+
+/**
+ * This function can be used by the linker to check if a given module has
+ * any constructor or destructor functions.
+ *
+ * Returns true if the module has either the @llvm.global_ctors or the
+ * @llvm.global_dtors symbol. Otherwise returns false.
+ *
+ * \since LTO_API_VERSION=29
+ */
+extern lto_bool_t lto_module_has_ctor_dtor(lto_module_t mod);
 /**
  * Diagnostic severity.
  *
@@ -512,7 +552,23 @@ extern unsigned int
 lto_api_version(void);
 
 /**
- * Sets options to help debug codegen bugs.
+ * Parses options immediately, making them available as early as possible. For
+ * example during executing codegen::InitTargetOptionsFromCodeGenFlags. Since
+ * parsing shud only happen once, only one of lto_codegen_debug_options or
+ * lto_set_debug_options should be called.
+ *
+ * This function takes one or more options separated by spaces.
+ * Warning: passing file paths through this function may confuse the argument
+ * parser if the paths contain spaces.
+ *
+ * \since LTO_API_VERSION=28
+ */
+extern void lto_set_debug_options(const char *const *options, int number);
+
+/**
+ * Sets options to help debug codegen bugs. Since parsing shud only happen once,
+ * only one of lto_codegen_debug_options or lto_set_debug_options
+ * should be called.
  *
  * This function takes one or more options separated by spaces.
  * Warning: passing file paths through this function may confuse the argument
