@@ -4,7 +4,7 @@ interface
    uses System.SysUtils;
 
 const
-  CLLVMLibrary = 'LLVM-C-10-0-0.dll';
+  CLLVMLibrary = 'LLVM-C-22-1-8.dll';
 
 type
   TLLVMChar = AnsiChar;
