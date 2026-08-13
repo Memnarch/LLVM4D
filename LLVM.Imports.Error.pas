@@ -31,6 +31,14 @@ function LLVMGetErrorTypeId(Err: TLLVMErrorRef): TLLVMErrorTypeId; cdecl; extern
  *)
 procedure LLVMConsumeError(Err: TLLVMErrorRef); cdecl; external CLLVMLibrary;
 
+(**
+ * Report a fatal error if Err is a failure value.
+ *
+ * This function can be used to wrap calls to fallible functions ONLY when it is
+ * known that the Error will always be a success value.
+ *)
+procedure LLVMCantFail(Err: TLLVMErrorRef); cdecl; external CLLVMLibrary;
+
 (*
  * Returns the given string's error message. This operation consumes the error,
  * and the given LLVMErrorRef value is not usable once this call returns.
@@ -48,6 +56,12 @@ procedure LLVMDisposeErrorMessage(ErrMsg: PLLVMChar); cdecl; external CLLVMLibra
  * Returns the type id for llvm StringError.
  *)
 function  LLVMGetStringErrorTypeId: TLLVMErrorTypeId;  cdecl; external CLLVMLibrary;
+
+(*
+ * Create a StringError.
+ *)
+function LLVMCreateStringError(const ErrMsg: PAnsiChar): TLLVMErrorRef; cdecl; external CLLVMLibrary;
+
 
 implementation
 

@@ -10,6 +10,8 @@ uses
 
 function LLVMParseIRInContext(ContextRef: TLLVMContextRef; MemBuf: TLLVMMemoryBufferRef; out OutM: TLLVMModuleRef; out OutMessage: PLLVMChar): TLLVMBool; cdecl; external CLLVMLibrary;
 
+function LLVMParseIRInContext2(ContextRef: TLLVMContextRef; MemBuf: TLLVMMemoryBufferRef; out OutM: TLLVMModuleRef; out OutMessage: PLLVMChar): TLLVMBool; cdecl; external CLLVMLibrary;
+
 implementation
 
 end.

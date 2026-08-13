@@ -10,6 +10,7 @@ uses
   LLVM.Imports.Types;
 
 type
+  TLLVMTargetMachineOptionsRef = type TLLVMRef;
   TLLVMTargetMachineRef = type TLLVMRef;
 
   TLLVMTargetRef = type TLLVMRef;
@@ -47,6 +48,12 @@ type
     LLVMObjectFile
   );
 
+  TLLVMGlobalISelAbortMode = (
+    LLVMGlobalISelAbortEnable,
+    LLVMGlobalISelAbortDisable,
+    LLVMGlobalISelAbortDisableWithDiag
+  );
+
 function LLVMGetFirstTarget: TLLVMTargetRef; cdecl; external CLLVMLibrary;
 function LLVMGetNextTarget(T: TLLVMTargetRef): TLLVMTargetRef; cdecl; external CLLVMLibrary;
 
@@ -66,6 +73,25 @@ function LLVMTargetHasTargetMachine(T: TLLVMTargetRef): LongBool; cdecl; externa
 function LLVMTargetHasAsmBackend(T: TLLVMTargetRef): LongBool; cdecl; external CLLVMLibrary;
 
 (*===-- Target Machine ----------------------------------------------------===*)
+
+function LLVMCreateTargetMachineOptions: TLLVMTargetMachineOptionsRef; cdecl; external CLLVMLibrary;
+
+procedure LLVMDisposeTargetMachineOptions(Options: TLLVMTargetMachineOptionsRef); cdecl; external CLLVMLibrary;
+
+procedure LLVMTargetMachineOptionsSetCPU(Options: TLLVMTargetMachineOptionsRef; const CPU: PLLVMChar); cdecl; external CLLVMLibrary;
+
+procedure LLVMTargetMachineOptionsSetFeatures(Options: TLLVMTargetMachineOptionsRef; const Features: PLLVMChar); cdecl; external CLLVMLibrary;
+
+procedure LLVMTargetMachineOptionsSetABI(Options: TLLVMTargetMachineOptionsRef; const ABI: PLLVMChar); cdecl; external CLLVMLibrary;
+
+procedure LLVMTargetMachineOptionsSetCodeGenOptLevel(Options: TLLVMTargetMachineOptionsRef; Level: TLLVMCodeGenOptLevel); cdecl; external CLLVMLibrary;
+
+procedure LLVMTargetMachineOptionsSetRelocMode(Options: TLLVMTargetMachineOptionsRef; Reloc: TLLVMRelocMode); cdecl; external CLLVMLibrary;
+
+procedure LLVMTargetMachineOptionsSetCodeModel(Options: TLLVMTargetMachineOptionsRef; CodeModel: TLLVMCodeModel); cdecl; external CLLVMLibrary;
+
+function LLVMCreateTargetMachineWithOptions(T: TLLVMTargetRef; const Triple: PLLVMChar; Options: TLLVMTargetMachineOptionsRef): TLLVMTargetMachineRef; cdecl; external CLLVMLibrary;
+
 function LLVMCreateTargetMachine(T: TLLVMTargetRef; const Triple: PLLVMChar; const CPU: PLLVMChar; const Features: PLLVMChar; Level: TLLVMCodeGenOptLevel; Reloc: TLLVMRelocMode; CodeModel: TLLVMCodeModel): TLLVMTargetMachineRef; cdecl; external CLLVMLibrary;
 
 procedure LLVMDisposeTargetMachine(T: TLLVMTargetMachineRef); cdecl; external CLLVMLibrary;
@@ -81,6 +107,14 @@ function LLVMGetTargetMachineFeatureString(T: TLLVMTargetMachineRef): PLLVMChar;
 function LLVMCreateTargetDataLayout(T: TLLVMTargetMachineRef): TLLVMTargetDataRef; cdecl; external CLLVMLibrary;
 
 procedure LLVMSetTargetMachineAsmVerbosity(T: TLLVMTargetMachineRef; VerboseAsm: LongBool); cdecl; external CLLVMLibrary;
+
+procedure LLVMSetTargetMachineFastISel(T: TLLVMTargetMachineRef; Enable: TLLVMBool); cdecl; external CLLVMLibrary;
+
+procedure LLVMSetTargetMachineGlobalISel(T: TLLVMTargetMachineRef; Enable: TLLVMBool); cdecl; external CLLVMLibrary;
+
+procedure LLVMSetTargetMachineGlobalISelAbort(T: TLLVMTargetMachineRef; Mode: TLLVMGlobalISelAbortMode); cdecl; external CLLVMLibrary;
+
+procedure LLVMSetTargetMachineMachineOutliner(T: TLLVMTargetMachineRef; Enable: TLLVMBool); cdecl; external CLLVMLibrary;
 
 function LLVMTargetMachineEmitToFile(T: TLLVMTargetMachineRef; M: TLLVMModuleRef; Filename: PLLVMChar; codegen: TLLVMCodeGenFileType; out ErrorMessage: PLLVMChar): TLLVMBool; cdecl; external CLLVMLibrary;
 

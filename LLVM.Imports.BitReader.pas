@@ -9,9 +9,9 @@ uses
   LLVM.Imports.Types;
 
 //LLVMParseBitcode is deprecated, therefore we implement only LLVMParseBitcode2, but as LLVMParseBitcode
-function LLVMParseBitcode(MemBuf: TLLVMMemoryBufferRef; out OutModule: TLLVMModuleRef; var OutMessage: PLLVMChar): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMParseBitcode(MemBuf: TLLVMMemoryBufferRef; out OutModule: TLLVMModuleRef; var OutMessage: PLLVMChar): TLLVMBool; cdecl; external CLLVMLibrary; deprecated 'Use of the global context is deprecated, use LLVMParseBitcodeInContext2 instead';
 //* Builds a module from the bitcode in the specified memory buffer, returning a  reference to the module via the OutModule parameter. Returns 0 on success. */
-function LLVMParseBitcode2(MemBuf: TLLVMMemoryBufferRef; out OutModule: TLLVMModuleRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMParseBitcode2(MemBuf: TLLVMMemoryBufferRef; out OutModule: TLLVMModuleRef): TLLVMBool; cdecl; external CLLVMLibrary; deprecated 'Use of the global context is deprecated, use LLVMParseBitcodeInContext2 instead';
 
 //LLVMParseBitcodeInContext is deprecated, therefore we implement only LLVMParseBitcodeInContext2, but as LLVMParseBitcodeInContext
 function LLVMParseBitcodeInContext(ContextRef: TLLVMContextRef; MemBuf: TLLVMMemoryBufferRef; out OutModule: TLLVMModuleRef;OutMessage: PLLVMChar): TLLVMBool; cdecl; external CLLVMLibrary;
@@ -24,9 +24,9 @@ function LLVMGetBitcodeModuleInContext(ContextRef: TLLVMContextRef; MemBuf: TLLV
 function LLVMGetBitcodeModuleInContext2(ContextRef: TLLVMContextRef; MemBuf: TLLVMMemoryBufferRef; out OutM: TLLVMModuleRef): TLLVMBool; cdecl; external CLLVMLibrary;
 
 //yada yada deprecated
-function LLVMGetBitcodeModule (MemBuf: TLLVMMemoryBufferRef; out OutM: TLLVMModuleRef; var OutMessage: PLLVMChar): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMGetBitcodeModule (MemBuf: TLLVMMemoryBufferRef; out OutM: TLLVMModuleRef; var OutMessage: PLLVMChar): TLLVMBool; cdecl; external CLLVMLibrary; deprecated 'Use of the global context is deprecated, use LLVMGetBitcodeModuleInContext2 instead';
 
-function LLVMGetBitcodeModule2(MemBuf: TLLVMMemoryBufferRef; out OutM: TLLVMModuleRef): TLLVMBool; cdecl; external CLLVMLibrary;
+function LLVMGetBitcodeModule2(MemBuf: TLLVMMemoryBufferRef; out OutM: TLLVMModuleRef): TLLVMBool; cdecl; external CLLVMLibrary; deprecated 'Use of the global context is deprecated, use LLVMGetBitcodeModuleInContext2 instead';
 
 
 implementation

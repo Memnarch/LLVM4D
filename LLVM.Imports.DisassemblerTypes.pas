@@ -21,13 +21,13 @@ type
  * information for each operand, the bytes for the specific operand in the
  * instruction are specified by the Offset parameter and its byte widith is the
  * size parameter.  For instructions sets with fixed widths and one symbolic
- * operand per instruction, the Offset parameter will be zero and Size parameter
+ * operand per instruction, the Offset parameter will be zero and OpSize parameter
  * will be the instruction width.  The information is returned in TagBuf and is
  * Triple specific with its specific information defined by the value of
  * TagType for that Triple.  If symbolic information is returned the function
  * returns 1, otherwise it returns 0.
  *)
-  TLLVMOpInfoCallback = function(DisInfo: Pointer; PC: UInt64; Offset: UInt64; Size: UInt64; TagType: Integer; TagBuf: Pointer): LongBool; cdecl;
+  TLLVMOpInfoCallback = function(DisInfo: Pointer; PC: UInt64; Offset: UInt64; OpSize: UInt64; TagType: Integer; TagBuf: Pointer): LongBool; cdecl;
 
   (**
  * The initial support in LLVM MC for the most general form of a relocatable

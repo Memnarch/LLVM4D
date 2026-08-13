@@ -109,9 +109,9 @@ function LLVMPointerSize(TD: TLLVMTargetDataRef): Cardinal; cdecl; external CLLV
 
 function LLVMPointerSizeForAS(TD: TLLVMTargetDataRef; AdressSpace: Cardinal): Cardinal; cdecl; external CLLVMLibrary;
 
-function LLVMIntPtrType(TD: TLLVMTargetDataRef): TLLVMTypeRef; cdecl; external CLLVMLibrary;
+function LLVMIntPtrType(TD: TLLVMTargetDataRef): TLLVMTypeRef; cdecl; external CLLVMLibrary; deprecated 'Use of the global context is deprecated, use LLVMIntPtrTypeInContext instead';
 
-function LLVMIntPtrTypeForAS(TD: TLLVMTargetDataRef; AddressSpace: Cardinal): TLLVMTypeRef; cdecl; external CLLVMLibrary;
+function LLVMIntPtrTypeForAS(TD: TLLVMTargetDataRef; AddressSpace: Cardinal): TLLVMTypeRef; cdecl; external CLLVMLibrary; deprecated 'Use of the global context is deprecated, use LLVMIntPtrTypeForASInContext instead';
 
 function LLVMIntPtrTypeInContext(C: TLLVMContextRef; TD: TLLVMTargetDataRef): TLLVMTypeRef; cdecl; external CLLVMLibrary;
 

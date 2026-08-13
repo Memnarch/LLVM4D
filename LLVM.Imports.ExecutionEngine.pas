@@ -87,6 +87,8 @@ function LLVMGetGlobalValueAddress(EE: TLLVMExecutionEngineRef; const Name: PLLV
 
 function LLVMGetFunctionAddress(EE: TLLVMExecutionEngineRef; const Name: PLLVMChar): UInt64; cdecl; external CLLVMLibrary;
 
+function LLVMExecutionEngineGetErrMsg(EE: TLLVMExecutionEngineRef; out OutError: PLLVMChar): TLLVMBool; cdecl; external CLLVMLibrary;
+
 type
   TLLVMMemoryManagerAllocateCodeSectionCallback = function(Opaque: Pointer; Size: NativeUInt; Alignment: Cardinal; SectionID: Cardinal; const SectionName: PLLVMChar): Pointer; cdecl;
   TLLVMMemoryManagerAllocateDataSectionCallback = function(Opaque: Pointer; SIze: NativeUInt; Alignment: Cardinal; SectionID: Cardinal; const SectionName: PLLVMChar; IsReadOnly: TLLVMBool): Pointer; cdecl;

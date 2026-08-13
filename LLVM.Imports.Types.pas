@@ -60,6 +60,9 @@ type
 
   TLLVMUseRef = type TLLVMRef;
 
+  TLLVMOperandBundleRef = type TLLVMRef;
+  PLLVMOperandBundleRef = ^TLLVMOperandBundleRef;
+
   TLLVMAttributeRef = type TLLVMRef;
   PLLVMAttributeRef = ^TLLVMAttributeRef;
 
@@ -85,6 +88,8 @@ type
   * @see llvm::object::Binary
   *)
   TLLVMBinaryRef = type TLLVMRef;
+
+  TLLVMDbgRecordRef = type TLLVMTypeRef;
 
 implementation
 

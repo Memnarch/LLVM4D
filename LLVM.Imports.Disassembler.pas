@@ -56,6 +56,8 @@ const
   LLVMDisassembler_Option_SetInstrComments  = 8;
   {The option to print latency information alongside instructions}
   LLVMDisassembler_Option_PrintLatency      = 16;
+  {The option to print in color}
+  LLVMDisassembler_Option_Color = 32;
 
 procedure LLVMDisasmDispose(DC: TLLVMDisasmContextRef); cdecl; external CLLVMLibrary;
 

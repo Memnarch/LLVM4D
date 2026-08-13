@@ -29,7 +29,9 @@ TLLVMBinaryType = (
   LLVMBinaryTypeMachO32B,               (* MachO 32-bit, big endian. *)
   LLVMBinaryTypeMachO64L,               (* MachO 64-bit, little endian. *)
   LLVMBinaryTypeMachO64B,               (* MachO 64-bit, big endian. *)
-  LLVMBinaryTypeWasm                    (* Web Assembly. *)
+  LLVMBinaryTypeWasm,                    (* Web Assembly. *)
+  LLVMBinaryTypeOffload,                (* Offloading fatbinary. *)
+  LLVMBinaryTypeDXcontainer            (* DirectX Binary Container. *)
 ) ;
 
 (*
