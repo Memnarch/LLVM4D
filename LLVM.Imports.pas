@@ -10,6 +10,7 @@ type
   TLLVMChar = AnsiChar;
   PLLVMChar = PAnsiChar;
   TLLVMSizeT = NativeUInt;
+  PUInt64 = ^UInt64;
 
   TLLVMRef = packed record
   public

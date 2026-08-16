@@ -32,6 +32,7 @@ type
   PLLVMBasicBlockRef = ^TLLVMBasicBlockRef;
 
   TLLVMMetadataRef = type TLLVMRef;
+  PLLVMMetadataRef = ^TLLVMMetadataRef;
 
   (**
   * Represents an LLVM Named Metadata Node.
