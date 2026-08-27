@@ -1216,7 +1216,7 @@ function LLVMIsAGlobalValue           (Val: TLLVMValueRef ): TLLVMValueRef ; cde
 function LLVMIsAGlobalAlias           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
 function LLVMIsAGlobalIFunc           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
 function LLVMIsAGlobalObject          (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
-function LLVMIsAfunction              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
+function LLVMIsAFunction              (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
 function LLVMIsAGlobalVariable        (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
 function LLVMIsAUndefValue            (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
 function LLVMIsAInstruction           (Val: TLLVMValueRef ): TLLVMValueRef ; cdecl; external CLLVMLibrary;
