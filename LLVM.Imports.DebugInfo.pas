@@ -6,6 +6,8 @@ uses
   LLVM.Imports,
   LLVM.Imports.Types;
 
+{$MinEnumSize 4}
+
 (**
  * @defgroup LLVMCCoreDebugInfo Debug Information
  * @ingroup LLVMCCore
